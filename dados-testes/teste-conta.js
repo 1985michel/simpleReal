@@ -10,7 +10,6 @@ const contas = [
     { nome: 'Banco Inter', logo: 'logo-inter.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', hora: '23:23:23', valor: 'R$ 1.000,00' }, { data: '01/01/2021', hora: '10:10:10', valor: 'R$ 2.000,00' }, { data: '01/01/2021', hora: '10:10:09', valor: 'R$ 3.000,00' }] }
 ]
 
-
 //id progressivo
 let contaId = 0;
 let moneyTimeId = 0;
@@ -35,7 +34,8 @@ function testGetContas() {
 
         //atribuindo os logos para exibição
         //novaConta.logo = atribuindoLogos(novaConta.nome);
-        novaConta.opcoesDeExibicao = [];//esse array vai armazenar possíveis futuras opções necessárias para exibicao.
+        novaConta.opcoesDeExibicao = {};//assim eu posso adicionar quantos atributos eu quiser aqui!!! 
+        //e ele acessar diretamente com a notação de ponto.
 
         //setando saldo dinamicamente
         novaConta.saldo = novaConta.moneyTimeFlow[novaConta.moneyTimeFlow.length - 1].saldo;

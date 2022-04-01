@@ -49,13 +49,10 @@
 
                                     <v-col cols="12" sm="12" md="10" class="my-4">
 
-
-
-
                                         <v-card class="mx-auto" max-width="344" v-for="c in contas">
                                             <v-toolbar>
                                                 <v-avatar size="36">
-                                                    <img alt="user" :src="c.logo">
+                                                    <img alt="user" :src="c.opcoesDeExibicao.logo">
                                                 </v-avatar>
                                                 <v-spacer></v-spacer>
                                                 <v-toolbar-title>{{ c.nome }}</v-toolbar-title>
@@ -87,7 +84,7 @@
                                             </v-card-actions>
 
                                             <v-expand-transition>
-                                                <div v-show="true">
+                                                <div v-show="c.opcoesDeExibicao.showHistory">
                                                     <v-divider></v-divider>
 
                                                     <v-card-text>
@@ -158,6 +155,7 @@
 
     <!-- funções ferramentais -->
     <script src="../ferramentas/funcoes-de-ordenacao.js"></script>
+    <script src="../ferramentas/funcoes-de-conversao.js"></script>
 
     <!-- teste -->
     <script src="../dados-testes/teste-conta.js"></script>

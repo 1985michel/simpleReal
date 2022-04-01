@@ -12,7 +12,7 @@ const vm = new Vue({
             'center',
             'end',
         ],
-        contas: getContasTratadas()
+        contas: getContasTratadas(),
     },
     computed: {
 

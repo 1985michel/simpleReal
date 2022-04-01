@@ -16,8 +16,34 @@ function getContasTratadas() {
 function gerarVariaveisDeApresentacaoParaConta(preContas) {
 
     preContas.forEach(ct => {
-        ct.opcoesDeExibicao.push({ 'logo': this.getLogo(ct.nome) });
+        ct.opcoesDeExibicao.logo = this.getLogo(ct.nome);
         getShowBooleans(ct);
+    });
+
+    getCoresDoHistorico(preContas);
+
+}
+
+function getCoresDoHistorico(preContas) {
+
+    let valorAnterior = '';
+
+    preContas.forEach(ct => {
+
+        valorAnterior = ''
+
+        ct.moneyTimeFlow.forEach(mt => {
+            if (valorAnterior == '') {
+                valorAnterior = mt.saldo;
+            } else if (fromRealtoNumber(valorAnterior) > fromRealtoNumber(mt.saldo)) {
+                mt.cor = 'red';
+            } else if (fromRealtoNumber(valorAnterior) < fromRealtoNumber(mt.saldo)) {
+                mt.cor = 'green';
+            } else if (fromRealtoNumber(valorAnterior) == fromRealtoNumber(mt.saldo)) {
+                mt.cor = 'blue';
+            }
+        });
+
     });
 
 }
@@ -45,5 +71,6 @@ function getLogo(nomeConta) {
 }
 
 function getShowBooleans(conta) {
-    conta.opcoesDeExibicao.push({ 'showHistory': false });
+    conta.opcoesDeExibicao.showHistory = false;
+
 }
