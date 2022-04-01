@@ -5,6 +5,8 @@ class Momento {
 
         //fazer tratamentos funturos limitando possibilidades de edição
 
+        this.id = 0;
+
         this.data = data.slice(); //slice to clone value
         this.hora = hora.slice();
 

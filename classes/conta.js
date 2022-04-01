@@ -3,6 +3,8 @@
 class Conta {
     constructor(nome, carteira) {
 
+        this.id = 0;
+
         this.nome = nome;
         this.carteira = carteira;//A priore carteira será apenas uma string
         this.moneyTimeFlow = [];

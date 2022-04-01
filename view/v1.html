@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+
+    <!-- <script src="../classes/conta.js"></script>
+    <script src="vuecore.js"></script> -->
+
+
+    <link rel="stylesheet" href="">
+
+
+    <style>
+        .azul {
+            background-color: dodgerblue;
+        }
+
+        .vermelha {
+            background-color: red;
+        }
+
+        .verde {
+            background-color: green;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+
+
+            <v-main>
+
+                <v-container class="black lighten-5 mb-6">
+                    <v-row no-gutters style="height: 100px;">
+                        <v-col>
+                            <v-card outlined tile>
+                                <v-row justify="space-around">
+
+                                    <v-col cols="12" sm="12" md="10" class="my-4">
+
+
+
+
+                                        <v-card class="mx-auto" max-width="344" v-for="c in contas">
+                                            <v-toolbar>
+                                                <v-avatar size="36">
+                                                    <img alt="user" :src="c.logo">
+                                                </v-avatar>
+                                                <v-spacer></v-spacer>
+                                                <v-toolbar-title>{{ c.nome }}</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-app-bar-nav-icon></v-app-bar-nav-icon>
+                                            </v-toolbar>
+
+                                            <v-card-title>
+                                                <v-spacer></v-spacer>{{ c.saldo}}
+                                            </v-card-title>
+
+                                            <v-card-text>
+                                                Variação no mês: + 10% {{ c.close }}
+                                            </v-card-text>
+
+                                            <v-card-actions>
+                                                <v-btn color="dark-grey lighten-2" text>
+                                                    Histórico
+                                                </v-btn>
+
+                                                <v-spacer></v-spacer>
+
+                                                <v-btn icon
+                                                    @click="c.opcoesDeExibicao.showHistory = !c.opcoesDeExibicao.showHistory">
+                                                    <v-icon>{{ c.opcoesDeExibicao.showHistory ? 'mdi-chevron-up' :
+                                                        'mdi-chevron-down' }}
+                                                    </v-icon>
+                                                </v-btn>
+                                            </v-card-actions>
+
+                                            <v-expand-transition>
+                                                <div v-show="true">
+                                                    <v-divider></v-divider>
+
+                                                    <v-card-text>
+                                                        <v-timeline align-top dense>
+
+                                                            <v-timeline-item v-for="mt in c.moneyTimeFlow" :key="mt.id"
+                                                                :color="mt.cor" small>
+                                                                <div>
+                                                                    <div class="font-weight-normal">
+                                                                        <strong>{{ mt.saldo }}</strong>
+                                                                    </div>
+                                                                    <div> <span class="button">{{ mt.momento.data
+                                                                            }}</span> - <span class="caption">{{
+                                                                            mt.momento.hora }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </v-timeline-item>
+                                                        </v-timeline>
+                                                    </v-card-text>
+                                                </div>
+                                            </v-expand-transition>
+                                        </v-card>
+
+                                    </v-col>
+
+                                </v-row>
+                            </v-card>
+
+                        </v-col>
+                        <v-col>
+                            <v-card class="pa-2" outlined tile>
+                                {{ 2 }}
+                            </v-card>
+                        </v-col>
+                        <v-col>
+                            <v-card class="pa-2" outlined tile>
+                                {{ 3 }}
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+
+
+
+                <v-container>
+
+
+
+
+
+
+
+
+
+
+
+
+                </v-container>
+            </v-main>
+        </v-app>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <!-- funções ferramentais -->
+    <script src="../ferramentas/funcoes-de-ordenacao.js"></script>
+
+    <!-- teste -->
+    <script src="../dados-testes/teste-conta.js"></script>
+
+    <!-- classes -->
+
+    <script src="../classes/momento.js"></script>
+    <script src="../classes/moneytime.js"></script>
+    <script src="../classes/conta.js"></script>
+
+    <!-- tratamento pre Vue -->
+    <script src="contasPreVue.js"></script>
+
+    <script src="vuecore.js"></script>
+    <script>
+        /*         new Vue({
+                    el: '#app',
+                    vuetify: new Vuetify(),
+                    data: {
+                        alignments: [
+                            'start',
+                            'center',
+                            'end',
+                        ],
+                        contas: [
+                            { nome: 'Banco do Brasil', logo: 'logo-bb.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', valor: 'R$ 1.000,00' }, { data: '02/02/2021', valor: 'R$ 2.000,00' }, { data: '03/03/2021', valor: 'R$ 500,00' }], close: true },
+                            { nome: 'Nubank', logo: 'logo-nubank.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', valor: 'R$ 1.000,00' }, { data: '02/02/2021', valor: 'R$ 2.000,00' }, { data: '03/03/2021', valor: 'R$ 3.000,00' }] },
+                            { nome: 'Banco Inter', logo: 'logo-inter.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', valor: 'R$ 1.000,00' }, { data: '02/02/2021', valor: 'R$ 2.000,00' }, { data: '03/03/2021', valor: 'R$ 3.000,00' }] }
+                        ],
+                        apoio: ''
+                    },
+                    computed: {
+        
+                    },
+                    methods: {
+                        gerarVariaveisDeApresentacaoParaConta() {
+        
+        
+                        }, beforeMount() {
+                            this.gerarVariaveisDeApresentacaoParaConta();
+        
+                            this.contas.forEach(c => {
+                                c.close = false;
+                            });
+                        }
+                    }
+                }) */
+    </script>
+</body>
+
+</html>

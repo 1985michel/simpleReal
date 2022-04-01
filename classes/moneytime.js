@@ -2,6 +2,9 @@
 
 class MoneyTime {
     constructor(saldo, momento) {
+
+        this.id = 0;
+
         this.saldo = saldo; //saldo é um float
         this.momento = new Momento(momento.data, momento.hora);//para garantir clone interno evitando alterações imprevistas
 
