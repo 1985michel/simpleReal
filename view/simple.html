@@ -136,11 +136,22 @@
                                                                                     <div class="font-weight-normal">
                                                                                         <strong>{{ mt.saldo }}</strong>
                                                                                     </div>
-                                                                                    <div> <span class="button">{{
+                                                                                    <div>
+                                                                                        <span class="button">{{
                                                                                             mt.momento.data
                                                                                             }}</span> - <span
                                                                                             class="caption">{{
                                                                                             mt.momento.hora }}</span>
+
+                                                                                        <!-- <v-icon small class="mr-2"
+                                                                                            @click="editItem(mt.id)">
+                                                                                            mdi-pencil
+                                                                                        </v-icon>
+                                                                                        <v-icon small
+                                                                                            @click="deleteItem(mt.id)">
+                                                                                            mdi-delete
+                                                                                        </v-icon> -->
+
                                                                                     </div>
                                                                                 </div>
                                                                             </v-timeline-item>

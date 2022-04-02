@@ -9,7 +9,17 @@ class Conta {
         this.carteira = carteira;//A priore carteira será apenas uma string
         this.moneyTimeFlow = [];
 
+        this.saldo = '';//a conta não tem saldo quando é criada. Ele é setado dinamicamente.
+
         //ID
+    }
+
+    cLPrint() {
+        console.log(`id: ${this.id}`);
+        console.log(`nome: ${this.nome}`);
+        console.log(`saldo: ${this.saldo}`);
+        console.log(`MoneyTimeFlow: ${this.moneyTimeFlow.length}`);
+
     }
 
     getNome() {
@@ -21,7 +31,12 @@ class Conta {
     }
 
     addMoneyTime(moneyTime) {
-        this.moneyTimeFlow.push(moneyTime);
+
+        /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SÓ PARA O AMBIENTE DE TESTES INICIAIS */
+        if (moneyTime.id == 0 || moneyTime.id == '0') {
+            moneyTime.id = this.id * 10 + this.moneyTimeFlow.length
+        }
+        this.moneyTimeFlow.unshift(moneyTime);
     }
 
     setNome(nome) {
@@ -38,5 +53,19 @@ class Conta {
 
     deleteMoneyTime(moneyTime) {
         //TODO
+    }
+
+    ordenarRegistrosPorMomento() {
+        this.moneyTimeFlow.sort(sortFunctionMoneyTimesPorDataEHora);
+    }
+
+    setSaldoPelosRegistros() {
+        this.ordenarRegistrosPorMomento();
+
+        const ultimoRegistro = this.moneyTimeFlow[this.moneyTimeFlow.length - 1].saldo;
+        console.log(">>>>>>>> o ultimo registro foi de " + ultimoRegistro);
+
+        this.saldo = ultimoRegistro;
+
     }
 }

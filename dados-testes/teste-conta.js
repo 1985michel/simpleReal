@@ -5,7 +5,7 @@
 
 
 const contas = [
-    { nome: 'Banco do Brasil', logo: 'logo-bb.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', hora: '01:01:01', valor: 'R$ 1.000,00' }, { data: '01/02/2021', hora: '01:01:01', valor: 'R$ 2.000,00' }, { data: '03/03/2021', hora: '01:01:01', valor: 'R$ 500,00' }] },
+    { nome: 'Banco do Brasil', logo: 'logo-bb.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/05/2021', hora: '01:01:01', valor: 'R$ 1.000,00' }, { data: '01/02/2021', hora: '01:01:01', valor: 'R$ 2.000,00' }, { data: '03/06/2021', hora: '01:01:01', valor: 'R$ 200,00' }] },
     { nome: 'Nubank', logo: 'logo-nubank.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2022', hora: '01:01:01', valor: 'R$ 1.000,00' }, { data: '02/02/2021', hora: '01:01:01', valor: 'R$ 2.000,00' }, { data: '03/03/2021', hora: '01:01:01', valor: 'R$ 3.000,00' }] },
     { nome: 'Banco Inter', logo: 'logo-inter.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', hora: '23:23:23', valor: 'R$ 1.000,00' }, { data: '01/01/2021', hora: '10:10:10', valor: 'R$ 2.000,00' }, { data: '01/01/2021', hora: '10:10:09', valor: 'R$ 3.000,00' }] }
 ]
@@ -26,10 +26,12 @@ function testGetContas() {
         //gerando os objetos Conta
         const novaConta = new Conta(ct.nome, ct.carteira)
 
-        //gerando os objetos MoneyTime
-        novaConta.moneyTimeFlow = populandoMoneyTimeFlow(ct.moneyTimeFlow);
-
         novaConta.id = ++contaId;
+
+        //gerando os objetos MoneyTime
+        novaConta.moneyTimeFlow = populandoMoneyTimeFlow(ct.moneyTimeFlow, novaConta);
+
+
         //console.log("ContaID:" + contaId);
 
         //atribuindo os logos para exibição
@@ -37,11 +39,14 @@ function testGetContas() {
         novaConta.opcoesDeExibicao = {};//assim eu posso adicionar quantos atributos eu quiser aqui!!! 
         //e ele acessar diretamente com a notação de ponto.
 
-        //setando saldo dinamicamente
-        novaConta.saldo = novaConta.moneyTimeFlow[novaConta.moneyTimeFlow.length - 1].saldo;
+        //pego o do último, mas na verdade deveria pegar o do mais recente pela data
+        // já fiz o método que ordena, então já posso implementar isso
+        novaConta.setSaldoPelosRegistros();
 
         minhasContas.push(novaConta);
     });
+
+    console.log(minhasContas);
 
     return minhasContas;
 
@@ -51,19 +56,21 @@ function ordenaMoneyTimes(mtf) {
     mtf.sort(sortFunctionMoneyTimesPorDataEHora)
 }
 
-function populandoMoneyTimeFlow(mtf) {
+function populandoMoneyTimeFlow(mtf, conta) {
 
     const mtfArray = [];
 
     mtf.forEach(mt => {
 
-        const momento = new Momento(mt.data, mt.hora)
+        const momento = new Momento(0, mt.data, mt.hora)
         momento.id = ++momentoId;
         //console.log('MomentoId: ' + momentoId);
 
-        const moneyTime = new MoneyTime(mt.valor, momento);
+        const moneyTime = new MoneyTime(conta.id, mt.valor, momento);
         moneyTime.id = ++moneyTimeId;
         //console.log('moneyTimeId: ' + moneyTimeId);
+
+
         mtfArray.push(moneyTime);
     });
 

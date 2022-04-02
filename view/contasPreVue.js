@@ -37,10 +37,13 @@ function getCoresDoHistorico(preContas) {
                 valorAnterior = mt.saldo;
             } else if (fromRealtoNumber(valorAnterior) > fromRealtoNumber(mt.saldo)) {
                 mt.cor = 'red';
+                valorAnterior = mt.saldo
             } else if (fromRealtoNumber(valorAnterior) < fromRealtoNumber(mt.saldo)) {
                 mt.cor = 'green';
+                valorAnterior = mt.saldo
             } else if (fromRealtoNumber(valorAnterior) == fromRealtoNumber(mt.saldo)) {
                 mt.cor = 'blue';
+                valorAnterior = mt.saldo
             }
         });
 

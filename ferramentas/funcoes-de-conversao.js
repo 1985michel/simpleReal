@@ -6,5 +6,5 @@ function fromRealtoNumber(valor) {
     aux = aux.replaceAll('.', '');
     aux = aux.replaceAll(',', '.');
 
-    return aux;
+    return parseFloat(aux);
 }

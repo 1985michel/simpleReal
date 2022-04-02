@@ -29,11 +29,13 @@ const vm = new Vue({
             saldo: '',
             data: '',
             hora: '',
+
         },
         defaultItem: {
             saldo: '',
             data: '',
             hora: '',
+
         },
 
 
@@ -85,8 +87,8 @@ const vm = new Vue({
             this.dialogTitle = "Novo Saldo";
             this.editedCountIndex = contaId;
             this.hora = this.getHoraAtual();
-            console.log(this.editItem.hora);
-            this.dialog = true
+            //console.log(this.editItem.hora);
+            this.dialog = true;
         },
 
         editItem(item) {
@@ -98,7 +100,7 @@ const vm = new Vue({
         },
 
         deleteItem(item) {
-            this.dialogTitle = "Editar";
+            //this.dialogTitle = "Editar";
 
             this.editedIndex = this.contas.indexOf(item)
             this.editedItem = Object.assign({}, item)
@@ -136,11 +138,16 @@ const vm = new Vue({
                 const hora = this.editedItem.hora;
                 console.log(`Saldo: ${saldo} Data: ${data} Hora: ${hora}`);
 
-                const momento = new Momento(data, hora);
-                const moneyTime = new MoneyTime(saldo, momento);
-
+                const momento = new Momento(0, data, hora);
+                const moneyTime = new MoneyTime(this.editedCountIndex, saldo, momento);
 
                 this.contas[this.editedCountIndex - 1].addMoneyTime(moneyTime);
+
+                //let cont = this.getContaById(this.editedCountIndex);
+
+                //cont.cLPrint();
+
+                this.reprocessaDadosDaConta(this.getContaById(this.editedCountIndex));
             }
             this.close()
         },
@@ -168,8 +175,58 @@ const vm = new Vue({
 
 
             return hora + ':' + min + ':' + seg;
-        }
+        },
 
+        reprocessaDadosDaConta(conta) {
+
+            //conta.cLPrint();
+            conta.setSaldoPelosRegistros();//esse tem que vir primeiro porque ordena
+            this.getCoresDoHistorico(conta);
+
+
+        },
+
+        getCoresDoHistorico(conta) {
+
+            let valorAnterior = '';
+
+            conta.ordenarRegistrosPorMomento();
+
+            conta.moneyTimeFlow.forEach(mt => {
+                if (valorAnterior == '') {
+                    valorAnterior = mt.saldo;
+                    console.log(`Primeiro setamos o valorAnterior para ${valorAnterior}`);
+                } else if (fromRealtoNumber(valorAnterior) > fromRealtoNumber(mt.saldo)) {
+                    console.log(`Como ${fromRealtoNumber(valorAnterior)} > ${fromRealtoNumber(mt.saldo)} : RED`);
+                    valorAnterior = mt.saldo;
+                    mt.cor = 'red';
+                } else if (fromRealtoNumber(valorAnterior) < fromRealtoNumber(mt.saldo)) {
+                    valorAnterior = mt.saldo;
+                    mt.cor = 'green';
+                    console.log(`Como ${fromRealtoNumber(valorAnterior)} < ${fromRealtoNumber(mt.saldo)} : GREEN`);
+                } else if (fromRealtoNumber(valorAnterior) == fromRealtoNumber(mt.saldo)) {
+                    valorAnterior = mt.saldo;
+                    console.log(`Como ${fromRealtoNumber(valorAnterior)} == ${fromRealtoNumber(mt.saldo)} : BLUE`);
+                    mt.cor = 'blue';
+                }
+
+
+            });
+        },
+
+        getContaById(idConta) {
+
+
+            for (let index = 0; index < this.contas.length; index++) {
+                const c = this.contas[index];
+                if (c.id == idConta) {
+                    //console.log("Achamos a conta de nome: " + c.nome);
+                    c.cLPrint();
+                    return c;
+                }
+
+            }
+        }
 
     }
 })

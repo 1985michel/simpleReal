@@ -33,16 +33,16 @@ function sortFunctionMoneyTimesPorHora(a, b) {
     let dataB = b.momento.hora.slice();
 
     let aSplit = dataA.split(":")
-    let horaA = aSplit[2];
+    let horaA = aSplit[0];
     let minutoA = aSplit[1];
-    let segundoA = aSplit[0];
+    let segundoA = aSplit[2];
 
     horaA = `${horaA}${minutoA}${segundoA}`;
 
-    let bSplit = dataB.split("/")
-    let horaB = bSplit[2];
+    let bSplit = dataB.split(":")
+    let horaB = bSplit[0];
     let minutoB = bSplit[1];
-    let segundoB = bSplit[0];
+    let segundoB = bSplit[2];
 
     horaB = `${horaB}${minutoB}${segundoB}`;
 

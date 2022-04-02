@@ -1,11 +1,13 @@
 "use strict";
 
 class Momento {
-    constructor(data, hora) {
+    constructor(idMoneyTime, data, hora) {
 
         //fazer tratamentos funturos limitando possibilidades de edição
 
-        this.id = 0;
+        this.id = 0;//sempre zero, setado depois
+
+        this.MoneyTimeId = idMoneyTime;
 
         this.data = data.slice(); //slice to clone value
         this.hora = hora.slice();

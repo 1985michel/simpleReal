@@ -1,13 +1,16 @@
 "use strict";
 
 class MoneyTime {
-    constructor(saldo, momento) {
+    constructor(idConta, saldo, momento) {
 
-        this.id = 0;
+        this.id = 0;//sempre zero, setado depois
+
+        this.contaId = idConta;
 
         this.saldo = saldo; //saldo é um float
-        this.momento = new Momento(momento.data, momento.hora);//para garantir clone interno evitando alterações imprevistas
+        this.momento = new Momento(this.id, momento.data.slice(), momento.hora.slice());//para garantir clone interno evitando alterações imprevistas
 
+        this.momento.id = momento.id;
         //ID
     }
 
@@ -27,7 +30,7 @@ class MoneyTime {
     }
 
     setMomento(momento) {
-        this.momento = new Momento(momento.data, momento.hora);//para garantir clone interno evitando alterações imprevistas
+        this.momento = new Momento(this.id, momento.data, momento.hora);//para garantir clone interno evitando alterações imprevistas
         //não há razão para alterar nada no momento. Editou? Crie um novo.
     }
 
