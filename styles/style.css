@@ -1,5 +1,11 @@
 /* https://vuetifyjs.com/en/styles/text-and-typography/#text */
 
+/* icons: https://fontawesome.com/search?c=business&s=thin */
+
+/* icons: https://fonts.google.com/icons?selected=Material+Icons&icon.query=what */
+
+/* graficos: https://vuetifyjs.com/en/components/sparklines/#heart-rate */
+
 h1 {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
@@ -91,14 +97,6 @@ h6 {
   size: 0.75rem;
   letter-spacing: 0.1666666667em;
   text-transform: uppercase;
-}
-
-.vertical-space-1 {
-  /* margin-top: 0.65em;
-  margin-bottom: 0.8em; */
-
-  padding-top: 0.65em;
-  padding-bottom: 1em;
 }
 
 #app {
