@@ -1,0 +1,117 @@
+/* https://vuetifyjs.com/en/styles/text-and-typography/#text */
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  size: 6rem;
+  letter-spacing: -0.015625em;
+}
+
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  size: 3.75rem;
+  letter-spacing: -0.0083333333em;
+}
+
+h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  size: 3rem;
+  letter-spacing: normal;
+}
+
+h4 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  size: 2.125rem;
+  letter-spacing: 0.0073529412em;
+}
+
+h5 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  size: 1.5rem;
+  letter-spacing: normal;
+}
+
+h6 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  size: 1.25rem;
+  letter-spacing: 0.0125em;
+}
+
+.subtitle1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  size: 1rem;
+  letter-spacing: 0.009375em;
+}
+
+.subtitle2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  size: 0.875rem;
+  letter-spacing: 0.0071428571em;
+}
+
+.body1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  size: 1rem;
+  letter-spacing: 0.03125em;
+}
+
+.body2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  size: 0.875rem;
+  letter-spacing: 0.0178571429em;
+}
+
+.buttonText {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  size: 0.875rem;
+  letter-spacing: 0.0892857143em;
+  text-transform: uppercase;
+}
+
+.caption {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  size: 0.75rem;
+  letter-spacing: 0.0333333333em;
+}
+
+.overline {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  size: 0.75rem;
+  letter-spacing: 0.1666666667em;
+  text-transform: uppercase;
+}
+
+.vertical-space-1 {
+  /* margin-top: 0.65em;
+  margin-bottom: 0.8em; */
+
+  padding-top: 0.65em;
+  padding-bottom: 1em;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardfull {
+  flex: 1; /* elemento ocupa todo o espaço */
+  display: flex; /* flexbox */
+  flex-direction: column;
+}
+
+.padCard {
+  padding-bottom: 5px;
+}

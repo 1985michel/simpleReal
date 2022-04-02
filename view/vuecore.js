@@ -13,6 +13,7 @@ const vm = new Vue({
             'end',
         ],
         contas: getContasTratadas(),
+        expandContas: false
     },
     computed: {
 

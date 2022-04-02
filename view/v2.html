@@ -1,26 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Vuetify — A Material Design Framework for Vue.js</title>
-    <meta name="description"
-        content="Vuetify is a Material Design component framework for Vue.js. It aims to provide all the tools necessary to create beautiful content rich applications.">
-    <meta name="keywords"
-        content="vue, material design components, vue components, material design components, vuetify, vuetify.js, component framework">
-    <link href="/css/vendors~app.54c8a8d5.css" rel="stylesheet">
-    <link href="/css/app.def86829.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <title>Document</title>
 </head>
 
 <body>
-    <div id="app"></div>
-    <script type="text/javascript" src="/js/vuetify~app.cd674a40.js"></script>
-    <script type="text/javascript" src="/js/vendors~app.c4635799.js"></script>
-    <script type="text/javascript" src="/js/app.aef31ed7.js"></script>
-    <script defer
-        src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"
-        integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw=="
-        data-cf-beacon='{"rayId":"6f3c5505ea0f51ed","token":"c015656a85e947cf8dc1e002a32046b1","version":"2021.12.0","si":100}'
-        crossorigin="anonymous"></script>
+
+
+    <div id="app">
+        <v-app id="inspire">
+            <v-container class="grey lighten-5">
+                <v-row no-gutters style="background-color: blue;">
+                    <v-col class="col-10">
+                        <v-card class="pa-1 mb-2 col-12" outlined tile>
+                            1
+                        </v-card>
+                    </v-col>
+                    <v-col>
+                        <v-card class="pa-1 col-6" outlined tile>
+                            2
+                        </v-card>
+                    </v-col>
+                    <!-- <v-col>
+                        <v-card class="pa-2" outlined tile>
+                            3
+                        </v-card>
+                    </v-col> -->
+                </v-row>
+
+                <v-row :class="mb-6" no-gutters>
+                    <v-col>
+                        <v-card class="pa-2" outlined tile>
+                            21
+                        </v-card>
+                    </v-col>
+                    <v-col>
+                        <v-card class="pa-2" outlined tile>
+                            22
+                        </v-card>
+                    </v-col>
+                    <v-col>
+                        <v-card class="pa-2" outlined tile>
+                            23
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-app>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+
+        })
+    </script>
 </body>
 
 </html>

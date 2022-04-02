@@ -9,6 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,900;1,100;1,300;1,400;1,500;1,900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/style.css">
+
 
     <!-- <script src="../classes/conta.js"></script>
     <script src="vuecore.js"></script> -->
@@ -39,37 +47,43 @@
         <v-app>
             <v-main>
 
-                <v-container class=" lighten-5 mb-12" style="background-color: red;">
-                    <v-row no-gutters>
-                        <v-col style="background-color: red;" class="col-3">
+                <v-container class=" lighten-5 mb-12 grey">
 
+
+                    <h1 class="text-center display-3 vertical-space-1">Simple Real </h1>
+
+                    <v-row no-gutters>
+                        <v-col class=" col-3">
 
                             <v-card class="pa-2" outlined tile>
-                                {{ 2 }}
 
-                                <!-- <v-card class="pa-2" outlined tile style="background-color: black;"> -->
-                                <v-row justify="space-around" style="background-color: yellow;">
+                                <v-row justify="space-around">
 
                                     <v-col>
+                                        <v-card class="pa-4" outlined @click="expandContas = !expandContas">
+                                            <h3 class="title text-center">Contas</h3>
+                                        </v-card>
 
-                                        <h3 class="text-center" @click="expandContas = !expandContas">Contas</h3>
 
                                         <br>
 
                                         <v-expand-transition>
                                             <div>
-                                                <v-card class="mx-auto" max-width="344" v-for="c in contas"
-                                                    v-show="expandContas">
-                                                    <v-toolbar
+                                                <v-card class="padCard" v-for=" c in contas" v-show="expandContas">
+
+                                                    <v-card outlined class="d-flex justify-space-between pa-4"
                                                         @click="c.opcoesDeExibicao.showDetalhes = !c.opcoesDeExibicao.showDetalhes">
-                                                        <v-avatar size="36">
+
+                                                        <v-avatar size="36" align-start>
                                                             <img alt="user" :src="c.opcoesDeExibicao.logo">
                                                         </v-avatar>
-                                                        <v-spacer></v-spacer>
-                                                        <v-toolbar-title>{{ c.nome }}</v-toolbar-title>
-                                                        <v-spacer></v-spacer>
-                                                        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-                                                    </v-toolbar>
+
+                                                        <h3 class="align-self-center">{{ c.nome }}</h3>
+
+
+                                                        <v-app-bar-nav-icon align-end></v-app-bar-nav-icon>
+
+                                                    </v-card>
 
                                                     <v-expand-transition>
 
@@ -84,21 +98,20 @@
                                                             </v-card-text>
 
                                                             <v-card-actions>
-                                                                <v-btn color="dark-grey lighten-2" text
+                                                                <v-btn color="dark-grey lighten-2" text block
                                                                     @click="c.opcoesDeExibicao.showHistory = !c.opcoesDeExibicao.showHistory">
                                                                     Histórico
-                                                                </v-btn>
-
-                                                                <v-spacer></v-spacer>
-
-                                                                <v-btn icon
-                                                                    @click="c.opcoesDeExibicao.showHistory = !c.opcoesDeExibicao.showHistory">
-                                                                    <v-icon>{{ c.opcoesDeExibicao.showHistory ?
+                                                                    <v-icon>{{
+                                                                        c.opcoesDeExibicao.showHistory ?
                                                                         'mdi-chevron-up'
                                                                         :
                                                                         'mdi-chevron-down' }}
                                                                     </v-icon>
                                                                 </v-btn>
+
+                                                                <v-spacer></v-spacer>
+
+
                                                             </v-card-actions>
 
                                                             <v-expand-transition>
@@ -136,22 +149,21 @@
                                     </v-col>
 
                                 </v-row>
-                                <!-- </v-card> -->
+
                             </v-card>
 
 
-
-
-
                         </v-col>
-                        <v-col style="background-color: green;" class="col-6">
+                        <v-spacer></v-spacer>
+                        <v-col class="col-4">
                             <v-card class="pa-2" outlined tile>
-                                {{ 2 }}
+
                             </v-card>
                         </v-col>
-                        <v-col style=" background-color: blue;" class="col-3">
-                            <v-card class="pa-1" outlined tile>
-                                {{ 3 }}
+                        <v-spacer></v-spacer>
+                        <v-col class="col-3">
+                            <v-card class="pa-2" outlined tile>
+
                             </v-card>
                         </v-col>
                     </v-row>
@@ -200,40 +212,8 @@
     <script src="contasPreVue.js"></script>
 
     <script src="vuecore.js"></script>
-    <script>
-        /*         new Vue({
-                    el: '#app',
-                    vuetify: new Vuetify(),
-                    data: {
-                        alignments: [
-                            'start',
-                            'center',
-                            'end',
-                        ],
-                        contas: [
-                            { nome: 'Banco do Brasil', logo: 'logo-bb.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', valor: 'R$ 1.000,00' }, { data: '02/02/2021', valor: 'R$ 2.000,00' }, { data: '03/03/2021', valor: 'R$ 500,00' }], close: true },
-                            { nome: 'Nubank', logo: 'logo-nubank.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', valor: 'R$ 1.000,00' }, { data: '02/02/2021', valor: 'R$ 2.000,00' }, { data: '03/03/2021', valor: 'R$ 3.000,00' }] },
-                            { nome: 'Banco Inter', logo: 'logo-inter.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', valor: 'R$ 1.000,00' }, { data: '02/02/2021', valor: 'R$ 2.000,00' }, { data: '03/03/2021', valor: 'R$ 3.000,00' }] }
-                        ],
-                        apoio: ''
-                    },
-                    computed: {
-        
-                    },
-                    methods: {
-                        gerarVariaveisDeApresentacaoParaConta() {
-        
-        
-                        }, beforeMount() {
-                            this.gerarVariaveisDeApresentacaoParaConta();
-        
-                            this.contas.forEach(c => {
-                                c.close = false;
-                            });
-                        }
-                    }
-                }) */
-    </script>
+
+
 </body>
 
 </html>

@@ -72,5 +72,5 @@ function getLogo(nomeConta) {
 
 function getShowBooleans(conta) {
     conta.opcoesDeExibicao.showHistory = false;
-
+    conta.opcoesDeExibicao.showDetalhes = false;
 }
