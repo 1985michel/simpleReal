@@ -113,3 +113,11 @@ h6 {
 .padCard {
   padding-bottom: 5px;
 }
+
+.littlePaddingLeft {
+  padding-left: 10px;
+}
+
+.littleMarginLeft {
+  margin-left: 10px;
+}
