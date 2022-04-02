@@ -36,11 +36,15 @@ const vm = new Vue({
             hora: '',
         },
 
+
         //variaveis do pick date
         date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         menu1: false,
         menu2: false,
+
+        //variaveis de hora
+        hora: '',
 
     }),
     computed: {
@@ -48,6 +52,8 @@ const vm = new Vue({
         computedDateFormatted() {
             return this.formatDate(this.date)
         },
+
+
 
     },
     watch: {
@@ -62,6 +68,12 @@ const vm = new Vue({
         date(val) {
             this.dateFormatted = this.formatDate(this.date)
         },
+
+        hora() {
+            this.editedItem.hora = this.hora;
+        }
+
+
     },
     created() {
         /* aqui você pode chamar os métodos que quer que sejam executados antes de inicializar os componenetes */
@@ -72,6 +84,8 @@ const vm = new Vue({
         novoSaldo(contaId) {
             this.dialogTitle = "Novo Saldo";
             this.editedCountIndex = contaId;
+            this.hora = this.getHoraAtual();
+            console.log(this.editItem.hora);
             this.dialog = true
         },
 
@@ -142,6 +156,18 @@ const vm = new Vue({
 
             const [day, month, year] = date.split('/')
             return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+        },
+
+
+        //metodos de horário
+        getHoraAtual() {
+            const data = new Date();
+            const hora = data.getHours();          // 0-23
+            const min = data.getMinutes();        // 0-59
+            const seg = data.getSeconds();        // 0-59
+
+
+            return hora + ':' + min + ':' + seg;
         }
 
 
