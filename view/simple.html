@@ -152,6 +152,8 @@
                                                             <v-text-field type="text" v-model="carteiraContaAdd"
                                                                 placeholder="Informe a Carteira" outlined
                                                                 style="height: 55px;">
+                                                                <!-- <v-autocomplete v-model="carteiraContaAdd"
+                                                                :items="carteiras"></v-autocomplete> -->
                                                             </v-text-field>
 
                                                         </v-row>
@@ -359,6 +361,33 @@
 
 
                         <v-col class="col-6">
+
+
+                            <v-card>
+
+
+                                <p class="display-1">Dados básicos:</p>
+
+                                <p>Valor em caixa: {{ this.resultados.valorEmCaixa }}</p>
+
+                                <p>Divídas totais: {{ this.resultados.dividasTotais }}</p>
+
+                                <p>Patrimônio Real: {{ this.resultados.patrimonioReal }}
+                                </p>
+
+                                <p>Compromissos no mês: AQUI APRESENTAR OS COMPROMISSOS QUE VENCEM AINDA ESTE MÊS
+                                </p>
+
+                                <p>Resultado do mês até o momento: APRESENTAR VARIAÇÃO DO MÊS (SALDO ATUAL MENOS
+                                    SALDO
+                                    NO INÍCIO DO MÊS</p>
+
+                                <p>Previsão para fechamento do mês: SALDOS - COMPROMISSOS DO MÊS</p>
+
+
+
+
+                            </v-card>
 
 
 
@@ -602,10 +631,10 @@
 
                                         </h3>
                                         <v-spacer></v-spacer>
-                                        <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
+                                        <!-- <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
                                             @click="showAdicionarConta = !showAdicionarConta">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>
+                                        </v-btn> -->
 
                                     </div>
 
@@ -627,10 +656,10 @@
 
                                         </h3>
                                         <v-spacer></v-spacer>
-                                        <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
+                                        <!-- <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
                                             @click="showAdicionarConta = !showAdicionarConta">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>
+                                        </v-btn> -->
 
                                     </div>
 

@@ -9,7 +9,7 @@ function getLogos() {
 
 
 const contas = [
-    { nome: 'Banco do Brasil', logo: '../imgs/logo-bb.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/05/2021', hora: '01:01:01', valor: 'R$ 1.000,00' }, { data: '01/02/2021', hora: '01:01:01', valor: 'R$ 2.000,00' }, { data: '03/06/2021', hora: '01:01:01', valor: 'R$ 200,00' }] },
+    { nome: 'Banco do Brasil', logo: '../imgs/logo-bb.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/05/2021', hora: '01:01:01', valor: 'R$ 1.000,00' }, { data: '01/02/2021', hora: '01:01:01', valor: 'R$ 2.000,00' }, { data: '03/06/2022', hora: '01:01:01', valor: '- R$ 5000,00' }] },
     { nome: 'Nubank', logo: '../imgs/logo-nubank.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2022', hora: '01:01:01', valor: 'R$ 1.000,00' }, { data: '02/02/2021', hora: '01:01:01', valor: 'R$ 2.000,00' }, { data: '03/03/2021', hora: '01:01:01', valor: 'R$ 3.000,00' }] },
     { nome: 'Banco Inter', logo: '../imgs/logo-inter.png', carteira: 'Família', saldo: 'R$ 15.623,00', moneyTimeFlow: [{ data: '01/01/2021', hora: '23:23:23', valor: 'R$ 1.000,00' }, { data: '01/01/2021', hora: '10:10:10', valor: 'R$ 2.000,00' }, { data: '01/01/2021', hora: '10:10:09', valor: 'R$ 3.000,00' }] }
 ]

@@ -21,6 +21,8 @@ const vm = new Vue({
         editedCountIndex: -1,
         editMt: {},
 
+        carteiras: [],
+
         dialog: false,
         dialogDelete: false,
 
@@ -148,12 +150,39 @@ const vm = new Vue({
 
 
 
+        /* dados estatísticos */
+        resultados: {
+            valorEmCaixa: 0,
+            dividasTotais: 0,
+            patrimonioReal: 0,
+            compromissosNoMes: 0,
+            resultadoParcialDoMes: 0,
+            resultadoPrevistoParaOMes: 0,
+        }
+
+
+
+
     }),
     computed: {
         //metodos do pick date
         computedDateFormatted() {
             return this.formatDate(this.date)
         },
+
+        /* carteiras() {
+            //this.carteiras = [];
+            const carteiras = [];
+
+            for (const c in this.contas) {
+                if (!this.carteiras.includes(c.carteira)) {
+                    carteiras.push(c.carteira);
+                }
+            }
+
+            return carteiras;
+        }, */
+
 
 
 
@@ -236,9 +265,24 @@ const vm = new Vue({
     },
     created() {
         /* aqui você pode chamar os métodos que quer que sejam executados antes de inicializar os componenetes */
+        this.updateCarteiras();
+        this.getResultados();
     },
 
     methods: {
+
+        updateCarteiras() {
+
+            this.carteiras = [];
+
+            for (let index = 0; index < this.contas.length; index++) {
+                const c = this.contas[index];
+                if (!this.carteiras.includes(c.carteira)) {
+                    this.carteiras.push(c.carteira);
+                }
+            }
+
+        },
 
         adcionarConta() {
 
@@ -253,6 +297,9 @@ const vm = new Vue({
 
             //limpando os campos de adição de nova conta
             this.cleanAdcionarContaFields();
+
+            //atualizando as carteiras pois pode ter sido criada uma nova
+            //this.updateCarteiras();
 
         },
 
@@ -564,6 +611,58 @@ const vm = new Vue({
             }
             this.closeCompromissosDoMes()
         },
+
+
+
+
+
+
+
+
+
+
+
+        //funções estatísticas
+
+        /* resultados: {
+            valorEmCaixa: 0,
+            dividasTotais: 0,
+            patrimonioReal: 0,
+            compromissosNoMes: 0,
+            resultadoParcialDoMes: 0,
+            resultadoPrevistoParaOMes: 0, */
+
+        getResultados() {
+
+            this.getTotalEmCaixa();
+
+        },
+
+        getTotalEmCaixa() {
+
+            let totalPositivo = 0;
+            let totalNegativo = 0;
+
+            for (let index = 0; index < this.contas.length; index++) {
+                const c = this.contas[index];
+
+                const valorNumerico = fromRealtoNumber(c.saldo)
+
+                if (valorNumerico > 0) {
+                    totalPositivo += valorNumerico;
+                } else {
+                    //se a conta estiver negativa
+                    totalNegativo += valorNumerico;
+
+                }
+
+            }
+
+            this.resultados.valorEmCaixa = fromNumberToReal(totalPositivo);
+            this.resultados.dividasTotais = fromNumberToReal(totalNegativo);
+            this.resultados.patrimonioReal = fromNumberToReal(totalNegativo + totalPositivo);
+        }
+
 
     }
 })
