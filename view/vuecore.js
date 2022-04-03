@@ -102,7 +102,7 @@ const vm = new Vue({
             novaConta.opcoesDeExibicao.showHistory = false;
             novaConta.opcoesDeExibicao.showDetalhes = false;
 
-            novaConta.opcoesDeExibicao.logo = this.logoConfirmadoContaAdd;
+            novaConta.logo = this.logoConfirmadoContaAdd;
             this.contas.unshift(novaConta);
 
             //limpando os campos de adição de nova conta
@@ -212,20 +212,26 @@ const vm = new Vue({
                 /* const data = this.editedItem.data; */
                 const data = this.formatDate(this.date);
                 //const hora = this.editedItem.hora;
-                //console.log(`Saldo: ${saldo} Data: ${data} Hora: ${hora}`);
+                console.log(`Saldo: ${this.saldo} Data: ${data} Hora: ${this.hora}`);
 
-                const momento = new Momento(0, data, this.hora);
+                const momento = new Momento(data, this.hora);
                 const moneyTime = new MoneyTime(this.editedCountIndex, this.saldo, momento);
 
-                this.contas[this.editedCountIndex - 1].addMoneyTime(moneyTime);
+                //this.contas[this.editedCountIndex - 1].addMoneyTime(moneyTime);
 
-                //let cont = this.getContaById(this.editedCountIndex);
+                const cont = this.getContaById(this.editedCountIndex);
+                cont.addMoneyTime(moneyTime);
 
                 //cont.cLPrint();
 
                 this.reprocessaDadosDaConta(this.getContaById(this.editedCountIndex));
+                this.cleanNewSaldoModal();
             }
             this.close()
+        },
+
+        cleanNewSaldoModal() {
+            this.saldo = 'R$ 0,00';
         },
         //metodos do pick date
         formatDate(date) {

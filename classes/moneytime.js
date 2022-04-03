@@ -5,14 +5,17 @@ let idMoneyTimeGlobal = 0;
 class MoneyTime {
     constructor(idConta, saldo, momento) {
 
-        this.id = 0;//sempre zero, setado depois
+        this.id = ++idMoneyTimeGlobal;//sempre zero, setado depois
 
         this.contaId = idConta;
 
         this.saldo = saldo; //saldo é um float
-        this.momento = new Momento(this.id, momento.data.slice(), momento.hora.slice());//para garantir clone interno evitando alterações imprevistas
 
-        this.momento.id = momento.id;
+        momento.moneyTimeId = this.id;
+        this.momento = momento;
+        //this.momento = new Momento(this.id, momento.data.slice(), momento.hora.slice());//para garantir clone interno evitando alterações imprevistas
+
+        //this.momento.id = momento.id;
         //ID
     }
 

@@ -3,14 +3,14 @@
 let idContaGlobal = 0;
 
 class Conta {
-    constructor(nome, carteira) {
+    constructor(nome, carteira, logo) {
 
-        this.id = 0;
+        this.id = ++idContaGlobal;
 
         this.nome = nome;
         this.carteira = carteira;//A priore carteira será apenas uma string
+        this.logo = logo;
         this.moneyTimeFlow = [];
-
         this.saldo = 'R$ 0,00';//a conta não tem saldo quando é criada. Ele é setado dinamicamente.
 
         //ID
@@ -86,7 +86,16 @@ class Conta {
     setSaldoPelosRegistros() {
         this.ordenarRegistrosPorMomento();
 
-        const ultimoRegistro = this.moneyTimeFlow[this.moneyTimeFlow.length - 1].saldo;
+        let ultimoRegistro = '';
+
+        if (this.moneyTimeFlow.length > 1) {
+            ultimoRegistro = this.moneyTimeFlow[this.moneyTimeFlow.length - 1].saldo;
+        } else if (this.moneyTimeFlow.length == 1) {
+            ultimoRegistro = this.moneyTimeFlow[0].saldo;
+        } else {
+            ultimoRegistro = 'R$ 0,00';
+        }
+
         console.log(">>>>>>>> o ultimo registro foi de " + ultimoRegistro);
 
         this.saldo = ultimoRegistro;

@@ -17,7 +17,7 @@ function getContasTratadas() {
 function gerarVariaveisDeApresentacaoParaConta(preContas) {
 
     preContas.forEach(ct => {
-        ct.opcoesDeExibicao.logo = this.getLogo(ct.nome);
+        //ct.opcoesDeExibicao.logo = this.getLogo(ct.nome);
         getShowBooleans(ct);
     });
 

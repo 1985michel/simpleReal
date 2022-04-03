@@ -3,13 +3,13 @@
 let idMomentoGlobal = 0;
 
 class Momento {
-    constructor(idMoneyTime, data, hora) {
+    constructor(data, hora) {
 
         //fazer tratamentos funturos limitando possibilidades de edição
 
-        this.id = 0;//sempre zero, setado depois
+        this.id = ++idMomentoGlobal;//sempre zero, setado depois
 
-        this.MoneyTimeId = idMoneyTime;
+        this.moneyTimeId = -1;
 
         this.data = data.slice(); //slice to clone value
         this.hora = hora.slice();

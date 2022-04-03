@@ -155,7 +155,7 @@
                                                         </v-row>
                                                         <v-row align="center" justify="space-around">
                                                             <v-spacer></v-spacer>
-                                                            <v-btn text>
+                                                            <v-btn text @click="cleanAdcionarContaFields">
                                                                 Cancelar
                                                             </v-btn>
                                                             <v-btn text color="primary" @click="adcionarConta">
@@ -173,7 +173,7 @@
                                                         @click="c.opcoesDeExibicao.showDetalhes = !c.opcoesDeExibicao.showDetalhes">
 
                                                         <v-avatar size="36" align-start>
-                                                            <img alt="user" :src="c.opcoesDeExibicao.logo">
+                                                            <img alt="user" :src="c.logo">
                                                         </v-avatar>
 
                                                         <h3 class="align-self-center">{{ c.nome }}</h3>
