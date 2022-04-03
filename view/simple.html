@@ -353,13 +353,13 @@
                                     sort-by="vencimentoInicial" class="elevation-1">
                                     <template v-slot:top>
                                         <v-toolbar flat>
-                                            <v-toolbar-title>Compromissos</v-toolbar-title>
+                                            <v-toolbar-title>Compromissos Recorrentes</v-toolbar-title>
                                             <v-divider class="mx-4" inset vertical></v-divider>
                                             <v-spacer></v-spacer>
                                             <v-dialog v-model="dialogCompromissos" max-width="500px">
                                                 <template v-slot:activator="{ on, attrs }">
-                                                    <v-btn color="" dark class="mb-2" v-bind="attrs" v-on="on">
-                                                        New Item
+                                                    <v-btn color="" outlined class="mb-2" v-bind="attrs" v-on="on">
+                                                        Novo Compromisso
                                                     </v-btn>
                                                 </template>
                                                 <v-card>
@@ -393,6 +393,11 @@
                                                                     <v-text-field
                                                                         v-model="editedItemCompromissos.qtdParcelas"
                                                                         label="Qtd. Parcelas"></v-text-field>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-text-field
+                                                                        v-model="editedItemCompromissos.qtdParcelasASer"
+                                                                        label="Parc. Fut."></v-text-field>
                                                                 </v-col>
                                                             </v-row>
                                                         </v-container>

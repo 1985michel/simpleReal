@@ -82,6 +82,7 @@ const vm = new Vue({
             { text: 'Vencimento Inicial', value: 'vencimentoInicial' },
             { text: 'Recorrência', value: 'recorrencia' },
             { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
+            { text: 'Parc. Fut.', value: 'qtdParcelasASer' },
             { text: 'Actions', value: 'actions', sortable: false },
         ],
         compromissos: testeGetCompromissos(),
@@ -92,6 +93,7 @@ const vm = new Vue({
             vencimentoInicial: 0,
             recorrencia: 0,
             qtdParcelas: 0,
+            qtdParcelasASer: 0,
         },
         defaultItemCompromissos: {
             descricao: '',
@@ -99,6 +101,7 @@ const vm = new Vue({
             vencimentoInicial: 0,
             recorrencia: 0,
             qtdParcelas: 0,
+            qtdParcelasASer: 0,
         },
 
 
