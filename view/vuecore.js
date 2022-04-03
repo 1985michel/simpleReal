@@ -93,7 +93,7 @@ const vm = new Vue({
             vencimentoInicial: 0,
             recorrencia: 0,
             qtdParcelas: 0,
-            qtdParcelasASer: 0,
+            qtdParcelasFuturas: 0,
         },
         defaultItemCompromissos: {
             descricao: '',
@@ -101,7 +101,7 @@ const vm = new Vue({
             vencimentoInicial: 0,
             recorrencia: 0,
             qtdParcelas: 0,
-            qtdParcelasASer: 0,
+            qtdParcelasFuturas: 0,
         },
         expandCompromissosRecorrentes: false,
 
@@ -114,43 +114,43 @@ const vm = new Vue({
 
         /* compromissosDoMes */
 
-        /* 
-                dialogCompromissosDoMes: false,
-                dialogDeleteCompromissosDoMes: false,
-                headersCompromissosDoMes: [
-                    {
-                        text: 'Descrição',
-                        align: 'start',
-                        sortable: false,
-                        value: 'descricao',
-                    },
-                    { text: 'Valor', value: 'valor' },
-                    { text: 'Vencimento Inicial', value: 'vencimentoInicial' },
-                    { text: 'Recorrência', value: 'recorrencia' },
-                    { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
-                    { text: 'Parc. Fut.', value: 'qtdParcelasASer' },
-                    { text: 'Actions', value: 'actions', sortable: false },
-                ],
-                compromissos: testeGetCompromissos(),
-                editedIndexCompromissos: -1,
-                editedItemCompromissos: {
-                    descricao: '',
-                    valor: 0,
-                    vencimentoInicial: 0,
-                    recorrencia: 0,
-                    qtdParcelas: 0,
-                    qtdParcelasASer: 0,
-                },
-                defaultItemCompromissos: {
-                    descricao: '',
-                    valor: 0,
-                    vencimentoInicial: 0,
-                    recorrencia: 0,
-                    qtdParcelas: 0,
-                    qtdParcelasASer: 0,
-                },
-                expandCompromissosRecorrentes: false, */
 
+        /* dialogCompromissosDoMes: false,
+        dialogDeleteCompromissosDoMes: false,
+        headersCompromissosDoMes: [
+            {
+                text: 'Descrição',
+                align: 'start',
+                sortable: false,
+                value: 'descricao',
+            },
+            { text: 'Valor', value: 'valor' },
+            { text: 'Vencimento', value: 'vencimento' },
+            { text: 'Recorrência', value: 'recorrencia' },
+            { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
+            { text: 'Parc. Fut.', value: 'qtdParcelasASer' },
+            { text: 'Actions', value: 'actions', sortable: false },
+        ],
+        compromissos: testeGetCompromissos(),
+        editedIndexCompromissos: -1,
+        editedItemCompromissos: {
+            descricao: '',
+            valor: 0,
+            vencimentoInicial: 0,
+            recorrencia: 0,
+            qtdParcelas: 0,
+            qtdParcelasASer: 0,
+        },
+        defaultItemCompromissos: {
+            descricao: '',
+            valor: 0,
+            vencimentoInicial: 0,
+            recorrencia: 0,
+            qtdParcelas: 0,
+            qtdParcelasASer: 0,
+        },
+        expandCompromissosRecorrentes: false,
+ */
 
 
 
@@ -483,7 +483,8 @@ const vm = new Vue({
             if (this.editedIndexCompromissos > -1) {
                 Object.assign(this.compromissos[this.editedIndexCompromissos], this.editedItemCompromissos)
             } else {
-                this.compromissos.push(this.editedItemCompromissos)
+                const novoComp = new CompromissoPai(this.editedItemCompromissos.descricao, this.editedItemCompromissos.valor, this.editedItemCompromissos.vencimentoInicial, this.editedItemCompromissos.recorrencia, this.editedItemCompromissos.qtdParcelas, this.editedItemCompromissos.qtdParcelasFuturas)
+                this.compromissos.push(novoComp);
             }
             this.closeCompromissos()
         },

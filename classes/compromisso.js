@@ -24,6 +24,8 @@ class CompromissoFilho {
     constructor(idCompromissoPai, momentoVencimento) {
         this.id = ++idCompromissoFilhoGlobal;
         this.idCompromissoPai = idCompromissoPai;
+        this.descricao = '';
+        this.valor = '';
         this.vencimento = momentoVencimento;
         this.isPago = false;
     }
