@@ -76,7 +76,8 @@
                                                     </v-icon>
                                                 </h3>
                                                 <v-spacer></v-spacer>
-                                                <v-btn class="mx-2" outlined small fab color="blue-grey darken-4">
+                                                <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
+                                                    @click="showAdicionarConta = !showAdicionarConta">
                                                     <v-icon>mdi-plus</v-icon>
                                                 </v-btn>
 
@@ -89,6 +90,82 @@
 
                                         <v-expand-transition>
                                             <div>
+                                                <v-card outlined class=" justify-space-between pa-4"
+                                                    v-show="showAdicionarConta">
+                                                    <template d-flex>
+                                                        <v-row>
+                                                            <v-btn class="mx-2" outlined fab color="blue-grey darken-4"
+                                                                v-model="logoContaAdd" @click="dialogLogo = true">
+                                                                <v-avatar size="48" align-center justify-center>
+                                                                    <img alt="Icon" :src="logoConfirmadoContaAdd">
+                                                                </v-avatar>
+                                                            </v-btn>
+
+                                                            <v-dialog v-model="dialogLogo" max-width="290">
+                                                                <v-card>
+                                                                    <v-card-title class="text-h5">
+
+                                                                    </v-card-title>
+
+                                                                    <v-card-text>
+                                                                        <v-select :items="logos" v-model="logoContaAdd"
+                                                                            item-text="nome" item-value="img"
+                                                                            return-object label="Escolha um Logo:" solo>
+                                                                        </v-select>
+                                                                    </v-card-text>
+
+                                                                    <div class="text-center">
+                                                                        <v-avatar size="62" align-center justify-center>
+                                                                            <img alt="user" :src="logoContaAdd.img">
+                                                                        </v-avatar>
+                                                                    </div>
+
+
+
+                                                                    <v-card-actions>
+                                                                        <v-spacer></v-spacer>
+
+                                                                        <v-btn color="green darken-1" text
+                                                                            @click="dialogLogo = false">
+                                                                            Cancelar
+                                                                        </v-btn>
+
+                                                                        <v-btn color="green darken-1" text
+                                                                            @click="dialogLogo = false; logoConfirmadoContaAdd = logoContaAdd.img">
+                                                                            Salvar
+                                                                        </v-btn>
+                                                                    </v-card-actions>
+                                                                </v-card>
+                                                            </v-dialog>
+
+                                                            <v-text-field type="text" v-model="carteiraContaAdd"
+                                                                placeholder="Informe a Carteira" outlined
+                                                                style="height: 55px;">
+                                                            </v-text-field>
+
+                                                        </v-row>
+                                                        <v-row style="padding-top: 10px;">
+
+
+                                                            <v-text-field type="text" v-model="nomeContaAdd"
+                                                                placeholder="Informe o Nome da Conta" outlined
+                                                                style="height: 55px;">
+                                                            </v-text-field>
+
+                                                        </v-row>
+                                                        <v-row align="center" justify="space-around">
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn text>
+                                                                Cancelar
+                                                            </v-btn>
+                                                            <v-btn text color="primary" @click="adcionarConta">
+                                                                Salvar
+                                                            </v-btn>
+                                                        </v-row>
+
+                                                    </template>
+
+                                                </v-card>
                                                 <v-card class="padCard" v-for=" c in contas" :key="c.id"
                                                     v-show="expandContas">
 

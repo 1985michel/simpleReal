@@ -35,8 +35,17 @@ const vm = new Vue({
             saldo: '',
             data: '',
             hora: '',
-
         },
+
+        //adicão de conta
+        showAdicionarConta: false,
+        nomeContaAdd: '',
+        logoContaAdd: { nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' },
+        logoConfirmadoContaAdd: '../imgs/branco.png',
+        carteiraContaAdd: '',
+        dialogLogo: false,
+        logos: getLogos(),
+
 
 
         //variaveis do pick date
@@ -77,12 +86,38 @@ const vm = new Vue({
             this.editedItem.hora = this.hora;
         },
 
+
     },
     created() {
         /* aqui você pode chamar os métodos que quer que sejam executados antes de inicializar os componenetes */
     },
 
     methods: {
+
+        adcionarConta() {
+
+            const novaConta = new Conta(this.nomeContaAdd, this.carteiraContaAdd);
+
+            novaConta.opcoesDeExibicao = {};
+            novaConta.opcoesDeExibicao.showHistory = false;
+            novaConta.opcoesDeExibicao.showDetalhes = false;
+
+            novaConta.opcoesDeExibicao.logo = this.logoConfirmadoContaAdd;
+            this.contas.unshift(novaConta);
+
+            //limpando os campos de adição de nova conta
+            this.cleanAdcionarContaFields();
+
+        },
+
+        cleanAdcionarContaFields() {
+            this.nomeContaAdd = '';
+            this.logoContaAdd = { nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' };
+            this.logoConfirmadoContaAdd = '../imgs/branco.png';
+            this.carteiraContaAdd = '';
+
+            this.showAdicionarConta = false;
+        },
 
         novoSaldo(contaId) {
             this.dialogTitle = "Novo Saldo";

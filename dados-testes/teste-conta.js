@@ -1,7 +1,11 @@
 
 
 
+const logos = [{ nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' }, { nome: 'Nubank', img: '../imgs/logo-nubank.png' }, { nome: 'Inter', img: '../imgs/logo-inter.png' }];
 
+function getLogos() {
+    return logos;
+}
 
 
 const contas = [

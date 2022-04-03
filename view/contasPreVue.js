@@ -1,6 +1,7 @@
 
 
 
+
 function getContasTratadas() {
     const preContas = testGetContas();
 

@@ -1,5 +1,7 @@
 "use strict";
 
+let idMomentoGlobal = 0;
+
 class Momento {
     constructor(idMoneyTime, data, hora) {
 

@@ -1,5 +1,7 @@
 "use strict";
 
+let idMoneyTimeGlobal = 0;
+
 class MoneyTime {
     constructor(idConta, saldo, momento) {
 

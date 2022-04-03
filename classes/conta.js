@@ -1,5 +1,7 @@
 "use strict";
 
+let idContaGlobal = 0;
+
 class Conta {
     constructor(nome, carteira) {
 
@@ -9,7 +11,7 @@ class Conta {
         this.carteira = carteira;//A priore carteira será apenas uma string
         this.moneyTimeFlow = [];
 
-        this.saldo = '';//a conta não tem saldo quando é criada. Ele é setado dinamicamente.
+        this.saldo = 'R$ 0,00';//a conta não tem saldo quando é criada. Ele é setado dinamicamente.
 
         //ID
     }
