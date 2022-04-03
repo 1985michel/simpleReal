@@ -143,14 +143,16 @@
                                                                                             class="caption">{{
                                                                                             mt.momento.hora }}</span>
 
-                                                                                        <v-icon small class="mr-2"
-                                                                                            @click="editItem(mt.contaId, mt.id)">
-                                                                                            mdi-pencil
-                                                                                        </v-icon>
-                                                                                        <v-icon small
-                                                                                            @click="deleteItem(mt.contaId, mt.id)">
-                                                                                            mdi-delete
-                                                                                        </v-icon>
+                                                                                        <span class="float-right">
+                                                                                            <v-icon small class="mr-2"
+                                                                                                @click="editItem(mt.contaId, mt.id)">
+                                                                                                mdi-pencil
+                                                                                            </v-icon>
+                                                                                            <v-icon small
+                                                                                                @click="deleteItem(mt.contaId, mt.id)">
+                                                                                                mdi-delete
+                                                                                            </v-icon>
+                                                                                        </span>
 
                                                                                     </div>
                                                                                 </div>
@@ -228,7 +230,7 @@
                                     </v-card-title>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                                        <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
                                         <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
