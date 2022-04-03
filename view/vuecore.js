@@ -59,6 +59,49 @@ const vm = new Vue({
 
 
 
+
+
+
+
+
+
+
+
+        //COMPROMISSOS
+
+        dialogCompromissos: false,
+        dialogDeleteCompromissos: false,
+        headersCompromissos: [
+            {
+                text: 'Descrição',
+                align: 'start',
+                sortable: false,
+                value: 'descricao',
+            },
+            { text: 'Valor', value: 'valor' },
+            { text: 'Vencimento Inicial', value: 'vencimentoInicial' },
+            { text: 'Recorrência', value: 'recorrencia' },
+            { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
+            { text: 'Actions', value: 'actions', sortable: false },
+        ],
+        compromissos: testeGetCompromissos(),
+        editedIndexCompromissos: -1,
+        editedItemCompromissos: {
+            descricao: '',
+            valor: 0,
+            vencimentoInicial: 0,
+            recorrencia: 0,
+            qtdParcelas: 0,
+        },
+        defaultItemCompromissos: {
+            descricao: '',
+            valor: 0,
+            vencimentoInicial: 0,
+            recorrencia: 0,
+            qtdParcelas: 0,
+        },
+
+
     }),
     computed: {
         //metodos do pick date
@@ -67,6 +110,19 @@ const vm = new Vue({
         },
 
 
+
+
+
+
+
+
+
+
+        //COMPROMISSOS
+
+        formTitleCompromissos() {
+            return this.editedIndexCompromissos === -1 ? 'Novo Compromisso' : 'Editar Compromisso'
+        },
 
     },
     watch: {
@@ -86,6 +142,26 @@ const vm = new Vue({
             this.editedItem.hora = this.hora;
         },
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //COMPROMISSOS
+        dialogCompromissos(val) {
+            val || this.close()
+        },
+        dialogDeleteCompromissos(val) {
+            val || this.closeDelete()
+        },
 
     },
     created() {
@@ -310,6 +386,55 @@ const vm = new Vue({
             }
         },
 
+
+
+
+
+
+
+
+        //COMPROMISSOS
+        editItemCompromissos(item) {
+            this.editedIndexCompromissos = this.compromissos.indexOf(item)
+            this.editedItemCompromissos = Object.assign({}, item)
+            this.dialogCompromissos = true
+        },
+
+        deleteItemCompromissos(item) {
+            this.editedIndexCompromissos = this.compromissos.indexOf(item)
+            this.editedItemCompromissos = Object.assign({}, item)
+            this.dialogDeleteCompromissos = true
+        },
+
+        deleteItemConfirmCompromissos() {
+            this.compromissos.splice(this.editedIndexCompromissos, 1)
+            this.closeDeleteCompromissos()
+        },
+
+        closeCompromissos() {
+            this.dialogCompromissos = false
+            this.$nextTick(() => {
+                this.editedItemCompromissos = Object.assign({}, this.defaultItemCompromissos)
+                this.editedIndexCompromissos = -1
+            })
+        },
+
+        closeDeleteCompromissos() {
+            this.dialogDeleteCompromissos = false
+            this.$nextTick(() => {
+                this.editedItemCompromissos = Object.assign({}, this.defaultItemCompromissos)
+                this.editedIndexCompromissos = -1
+            })
+        },
+
+        saveCompromissos() {
+            if (this.editedIndexCompromissos > -1) {
+                Object.assign(this.compromissos[this.editedIndexCompromissos], this.editedItemCompromissos)
+            } else {
+                this.compromissos.push(this.editedItemCompromissos)
+            }
+            this.closeCompromissos()
+        },
 
     }
 })

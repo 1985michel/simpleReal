@@ -1,44 +1,29 @@
 "use strict";
 
-class Compromisso {
-    constructor(descricao, valor, vencimento, recorrencia) {
+
+let idCompromissoPaiGlobal = 0;
+let idCompromissoFilhoGlobal = 0;
+
+class CompromissoPai {
+    constructor(descricao, valor, vencimentoInicial, recorrencia, qtdParcelas) {
+
+        this.id = ++idCompromissoPaiGlobal;
         this.descricao = descricao.slice();
         this.valor = valor;
-        this.vencimento = new Momento(vencimento.data, vencimento.hora); //TODO conforme a periodicidade o compromisso deverá ser reprocessado a cada ciclo atribuindo o novo vencimento
+        this.vencimentoInicial = new Momento(vencimentoInicial.data, vencimentoInicial.hora); //TODO conforme a periodicidade o compromisso deverá ser reprocessado a cada ciclo atribuindo o novo vencimento
         this.recorrencia = recorrencia;
-    }
+        this.qtdParcelas = qtdParcelas;
 
-    getDescricao() {
-        return this.descricao.slice();
+        this.timeLine = [];
     }
+}
 
-    getValor() {
-        return this.valor;
+class CompromissoFilho {
+    constructor(idCompromissoPai, momentoVencimento) {
+        this.id = ++idCompromissoFilhoGlobal;
+        this.idCompromissoPai = idCompromissoPai;
+        this.vencimento = momentoVencimento;
+        this.isPago = false;
     }
-
-    getVencimento() {
-        return this.Vencimento;
-    }
-
-    getRecorrencia() {
-        return this.recorrencia;
-    }
-
-    setDescricao(descricao) {
-        this.descricao = descricao.slice();
-    }
-
-    setValor(valor) {
-        this.valor = valor; //TODO validações
-    }
-
-    setVencimento(vencimento) {
-        this.vencimento = new Momento(vencimento.data, vencimento.hora);
-    }
-
-    setRecorrencia(recorrencia) {
-        this.recorrencia = new recorrencia(recorrencia); //TDOD tratar depois da criacao da Classe Recorrência
-    }
-
 
 }
