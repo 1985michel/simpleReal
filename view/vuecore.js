@@ -15,10 +15,11 @@ const vm = new Vue({
         contas: getContasTratadas(),
         expandContas: false,
 
-
+        saldo: '',
 
         editedIndex: -1,
         editedCountIndex: -1,
+        editMt: {},
 
         dialog: false,
         dialogDelete: false,
@@ -29,7 +30,6 @@ const vm = new Vue({
             saldo: '',
             data: '',
             hora: '',
-
         },
         defaultItem: {
             saldo: '',
@@ -91,11 +91,25 @@ const vm = new Vue({
             this.dialog = true;
         },
 
-        editItem(item) {
+        editItem(contaId, id) {
             this.dialogTitle = "Editar ";
 
-            this.editedIndex = this.contas.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+            //this.editedIndex = this.contas.indexOf(item)
+            //this.editedItem = Object.assign({}, item)
+
+            this.editedCountIndex = contaId;
+            this.editedIndex = id;
+
+            const ct = this.getContaById(this.editedCountIndex);
+            const mt = ct.getMoneyTimeById(id)
+
+            this.editMt = mt;
+
+            //alimentando o formulário
+            this.saldo = mt.saldo;
+            this.hora = mt.momento.hora;
+            this.date = this.parseDate(mt.momento.data);
+
             this.dialog = true
         },
 
@@ -109,9 +123,9 @@ const vm = new Vue({
             this.editedCountIndex = contaId;
 
 
-            console.log(`Vamos trabalhar o id: ${id}`);
+            //console.log(`Vamos trabalhar o id: ${id}`);
             this.editedIndex = id;
-            console.log(`Vamos trabalhar o id: ${this.editedIndex}`);
+            //console.log(`Vamos trabalhar o id: ${this.editedIndex}`);
 
             //console.log("Queremos delete o mt de id: " + this.editItem.id);
             this.dialogDelete = true
@@ -121,10 +135,10 @@ const vm = new Vue({
             //this.contas.splice(this.editedIndex, 1)
             this.getContaById(this.editedCountIndex).deleteMoneyTimeById(this.editedIndex);
 
-            const conta = this.getContaById(this.editedCountIndex);
+            //const conta = this.getContaById(this.editedCountIndex);
 
-            console.log(`Queremos deletar a conta de id ${this.editedCountIndex} cujo nome é ${conta.nome}`);
-            console.log(`Queremos deletar a mt de id ${this.editedIndex} cujo valor é ${this.editedIndex.saldo}`);
+            //console.log(`Queremos deletar a conta de id ${this.editedCountIndex} cujo nome é ${conta.nome}`);
+            //console.log(`Queremos deletar a mt de id ${this.editedIndex} cujo valor é ${this.editedIndex.saldo}`);
 
             this.closeDelete()
         },
@@ -147,16 +161,25 @@ const vm = new Vue({
 
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.contas[this.editedIndex], this.editedItem)
+                //Object.assign(this.contas[this.editedIndex], this.editedItem)
+
+
+                this.editMt.saldo = this.saldo;
+                this.editMt.momento.data = this.formatDate(this.date);
+                this.editMt.momento.hora = this.hora
+
+
+                this.reprocessaDadosDaConta(this.getContaById(this.editedCountIndex));
+
             } else {
-                const saldo = this.editedItem.saldo;
+                //const saldo = this.editedItem.saldo;
                 /* const data = this.editedItem.data; */
                 const data = this.formatDate(this.date);
-                const hora = this.editedItem.hora;
-                console.log(`Saldo: ${saldo} Data: ${data} Hora: ${hora}`);
+                //const hora = this.editedItem.hora;
+                //console.log(`Saldo: ${saldo} Data: ${data} Hora: ${hora}`);
 
-                const momento = new Momento(0, data, hora);
-                const moneyTime = new MoneyTime(this.editedCountIndex, saldo, momento);
+                const momento = new Momento(0, data, this.hora);
+                const moneyTime = new MoneyTime(this.editedCountIndex, this.saldo, momento);
 
                 this.contas[this.editedCountIndex - 1].addMoneyTime(moneyTime);
 

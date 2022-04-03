@@ -47,9 +47,6 @@ class Conta {
         this.carteira = carteira;
     }
 
-    setMoneyTime(moneyTime) {
-        //TODO
-    }
 
     deleteMoneyTimeById(moneyTimeId) {
 
@@ -67,6 +64,18 @@ class Conta {
         }
 
     }
+
+    getMoneyTimeById(id) {
+        for (let index = 0; index < this.moneyTimeFlow.length; index++) {
+            const mt = this.moneyTimeFlow[index];
+
+            if (mt.id === id) {
+                return mt;
+            }
+
+        }
+    }
+
 
     ordenarRegistrosPorMomento() {
         this.moneyTimeFlow.sort(sortFunctionMoneyTimesPorDataEHora);
