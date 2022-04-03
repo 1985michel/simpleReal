@@ -62,8 +62,26 @@
                                 <v-row justify="space-around">
 
                                     <v-col>
-                                        <v-card class="pa-4" outlined @click="expandContas = !expandContas">
-                                            <h3 class="title text-center">Contas</h3>
+                                        <v-card class="pa-4" outlined>
+                                            <div class="d-flex">
+                                                <v-spacer></v-spacer>
+                                                <h3 class="title d-flex align-center justify-center"
+                                                    @click="expandContas = !expandContas" style="width: 100%;">
+                                                    Contas
+                                                    <v-icon>{{
+                                                        expandContas ?
+                                                        'mdi-chevron-up'
+                                                        :
+                                                        'mdi-chevron-down' }}
+                                                    </v-icon>
+                                                </h3>
+                                                <v-spacer></v-spacer>
+                                                <v-btn class="mx-2" outlined small fab color="blue-grey darken-4">
+                                                    <v-icon>mdi-plus</v-icon>
+                                                </v-btn>
+
+                                            </div>
+
                                         </v-card>
 
 

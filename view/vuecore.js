@@ -48,6 +48,8 @@ const vm = new Vue({
         //variaveis de hora
         hora: '',
 
+
+
     }),
     computed: {
         //metodos do pick date
@@ -73,8 +75,7 @@ const vm = new Vue({
 
         hora() {
             this.editedItem.hora = this.hora;
-        }
-
+        },
 
     },
     created() {
