@@ -105,6 +105,9 @@ const vm = new Vue({
         },
 
 
+        expandCompromissosRecorrentes: false,
+
+
     }),
     computed: {
         //metodos do pick date

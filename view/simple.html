@@ -86,6 +86,17 @@
                                         </v-card>
 
 
+
+
+
+
+                                        <!-- CONTAS -->
+
+
+
+
+
+
                                         <br>
 
                                         <v-expand-transition>
@@ -348,111 +359,146 @@
                         <!-- COMPROMISSOS -->
 
                         <v-col class="col-6">
-                            <v-card class="pa-2" outlined tile>
-                                <v-data-table :headers="headersCompromissos" :items="compromissos"
-                                    sort-by="vencimentoInicial" class="elevation-1">
-                                    <template v-slot:top>
-                                        <v-toolbar flat>
-                                            <v-toolbar-title>Compromissos Recorrentes</v-toolbar-title>
-                                            <v-divider class="mx-4" inset vertical></v-divider>
-                                            <v-spacer></v-spacer>
-                                            <v-dialog v-model="dialogCompromissos" max-width="500px">
-                                                <template v-slot:activator="{ on, attrs }">
-                                                    <v-btn color="" outlined class="mb-2" v-bind="attrs" v-on="on">
-                                                        Novo Compromisso
+
+
+
+                            <v-data-table :headers="headersCompromissos" :items="compromissos"
+                                sort-by="vencimentoInicial" class="elevation-1" v-show="expandCompromissosRecorrentes">
+                                <template v-slot:top>
+                                    <v-toolbar flat>
+                                        <v-toolbar-title>Compromissos Recorrentes</v-toolbar-title>
+                                        <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
+                                        <v-spacer></v-spacer>
+                                        <v-dialog v-model="dialogCompromissos" max-width="500px">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-btn color="" outlined class="mb-2" v-bind="attrs" v-on="on">
+                                                    Novo Compromisso
+                                                </v-btn>
+                                            </template>
+                                            <v-card>
+                                                <v-card-title>
+                                                    <span class="text-h5">{{ formTitleCompromissos }}</span>
+                                                </v-card-title>
+
+                                                <v-card-text>
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field v-model="editedItemCompromissos.descricao"
+                                                                    label="Descrição"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field v-model="editedItemCompromissos.valor"
+                                                                    label="Valor"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field
+                                                                    v-model="editedItemCompromissos.vencimentoInicial"
+                                                                    label="Vencimento Inicial"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field
+                                                                    v-model="editedItemCompromissos.recorrencia"
+                                                                    label="Recorrência"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field
+                                                                    v-model="editedItemCompromissos.qtdParcelas"
+                                                                    label="Qtd. Parcelas"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field
+                                                                    v-model="editedItemCompromissos.qtdParcelasASer"
+                                                                    label="Parc. Fut."></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                </v-card-text>
+
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="blue darken-1" text @click="closeCompromissos">
+                                                        Cancel
                                                     </v-btn>
-                                                </template>
-                                                <v-card>
-                                                    <v-card-title>
-                                                        <span class="text-h5">{{ formTitleCompromissos }}</span>
-                                                    </v-card-title>
-
-                                                    <v-card-text>
-                                                        <v-container>
-                                                            <v-row>
-                                                                <v-col cols="12" sm="6" md="4">
-                                                                    <v-text-field
-                                                                        v-model="editedItemCompromissos.descricao"
-                                                                        label="Descrição"></v-text-field>
-                                                                </v-col>
-                                                                <v-col cols="12" sm="6" md="4">
-                                                                    <v-text-field v-model="editedItemCompromissos.valor"
-                                                                        label="Valor"></v-text-field>
-                                                                </v-col>
-                                                                <v-col cols="12" sm="6" md="4">
-                                                                    <v-text-field
-                                                                        v-model="editedItemCompromissos.vencimentoInicial"
-                                                                        label="Vencimento Inicial"></v-text-field>
-                                                                </v-col>
-                                                                <v-col cols="12" sm="6" md="4">
-                                                                    <v-text-field
-                                                                        v-model="editedItemCompromissos.recorrencia"
-                                                                        label="Recorrência"></v-text-field>
-                                                                </v-col>
-                                                                <v-col cols="12" sm="6" md="4">
-                                                                    <v-text-field
-                                                                        v-model="editedItemCompromissos.qtdParcelas"
-                                                                        label="Qtd. Parcelas"></v-text-field>
-                                                                </v-col>
-                                                                <v-col cols="12" sm="6" md="4">
-                                                                    <v-text-field
-                                                                        v-model="editedItemCompromissos.qtdParcelasASer"
-                                                                        label="Parc. Fut."></v-text-field>
-                                                                </v-col>
-                                                            </v-row>
-                                                        </v-container>
-                                                    </v-card-text>
-
-                                                    <v-card-actions>
-                                                        <v-spacer></v-spacer>
-                                                        <v-btn color="blue darken-1" text @click="closeCompromissos">
-                                                            Cancel
-                                                        </v-btn>
-                                                        <v-btn color="blue darken-1" text @click="saveCompromissos">
-                                                            Save
-                                                        </v-btn>
-                                                    </v-card-actions>
-                                                </v-card>
-                                            </v-dialog>
-                                            <v-dialog v-model="dialogDeleteCompromissos" max-width="500px">
-                                                <v-card>
-                                                    <v-card-title class="text-h5">Are you sure you want to delete this
-                                                        item?</v-card-title>
-                                                    <v-card-actions>
-                                                        <v-spacer></v-spacer>
-                                                        <v-btn color="blue darken-1" text
-                                                            @click="closeDeleteCompromissos">Cancel
-                                                        </v-btn>
-                                                        <v-btn color="blue darken-1" text
-                                                            @click="deleteItemConfirmCompromissos">OK
-                                                        </v-btn>
-                                                        <v-spacer></v-spacer>
-                                                    </v-card-actions>
-                                                </v-card>
-                                            </v-dialog>
-                                        </v-toolbar>
-                                    </template>
-                                    <template v-slot:item.actions="{ item }">
-                                        <v-icon small class="mr-2" @click="editItemCompromissos(item)">
-                                            mdi-pencil
-                                        </v-icon>
-                                        <v-icon small @click="deleteItemCompromissos(item)">
-                                            mdi-delete
-                                        </v-icon>
-                                    </template>
-                                    <!-- <template v-slot:no-data>
+                                                    <v-btn color="blue darken-1" text @click="saveCompromissos">
+                                                        Save
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                        <v-dialog v-model="dialogDeleteCompromissos" max-width="500px">
+                                            <v-card>
+                                                <v-card-title class="text-h5">Are you sure you want to delete
+                                                    this
+                                                    item?</v-card-title>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="blue darken-1" text @click="closeDeleteCompromissos">
+                                                        Cancel
+                                                    </v-btn>
+                                                    <v-btn color="blue darken-1" text
+                                                        @click="deleteItemConfirmCompromissos">OK
+                                                    </v-btn>
+                                                    <v-spacer></v-spacer>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </v-toolbar>
+                                </template>
+                                <template v-slot:item.actions="{ item }">
+                                    <v-icon small class="mr-2" @click="editItemCompromissos(item)">
+                                        mdi-pencil
+                                    </v-icon>
+                                    <v-icon small @click="deleteItemCompromissos(item)">
+                                        mdi-delete
+                                    </v-icon>
+                                </template>
+                                <!-- <template v-slot:no-data>
                                         <v-btn color="primary" @click="initialize">
                                             Reset
                                         </v-btn>
                                     </template> -->
-                                </v-data-table>
+                            </v-data-table>
+
 
                             </v-card>
                         </v-col>
+
+
+
                         <v-spacer></v-spacer>
+
+
+
+
+
+
                         <v-col class="col-3">
                             <v-card class="pa-2" outlined tile>
+                                <v-card class="pa-4" outlined style="margin-top: 10px;">
+                                    <div class="d-flex">
+                                        <v-spacer></v-spacer>
+                                        <h3 class="title d-flex align-center justify-center"
+                                            @click="expandCompromissosRecorrentes = !expandCompromissosRecorrentes"
+                                            style="width: 100%;">
+                                            <v-icon>{{
+                                                expandCompromissosRecorrentes ?
+                                                'mdi-chevron-left'
+                                                :
+                                                'mdi-chevron-right' }}
+                                            </v-icon>
+                                            Compromissos Recorrentes
 
+                                        </h3>
+                                        <v-spacer></v-spacer>
+                                        <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
+                                            @click="showAdicionarConta = !showAdicionarConta">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>
+
+                                    </div>
+
+                                </v-card>
                             </v-card>
                         </v-col>
                     </v-row>
