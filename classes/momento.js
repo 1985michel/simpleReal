@@ -12,7 +12,11 @@ class Momento {
         this.moneyTimeId = -1;
 
         this.data = data.slice(); //slice to clone value
-        this.hora = hora.slice();
+
+        if (hora != '') {
+            this.hora = hora.slice();
+        }
+
 
         //ID
     }

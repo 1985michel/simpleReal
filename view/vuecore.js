@@ -82,7 +82,7 @@ const vm = new Vue({
             { text: 'Vencimento Inicial', value: 'vencimentoInicial' },
             { text: 'Recorrência', value: 'recorrencia' },
             { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
-            { text: 'Parc. Fut.', value: 'qtdParcelasASer' },
+            { text: 'Parc. Fut.', value: 'qtdParcelasFuturas' },
             { text: 'Actions', value: 'actions', sortable: false },
         ],
         compromissos: testeGetCompromissos(),
@@ -103,9 +103,55 @@ const vm = new Vue({
             qtdParcelas: 0,
             qtdParcelasASer: 0,
         },
-
-
         expandCompromissosRecorrentes: false,
+
+
+
+
+
+
+
+
+        /* compromissosDoMes */
+
+        /* 
+                dialogCompromissosDoMes: false,
+                dialogDeleteCompromissosDoMes: false,
+                headersCompromissosDoMes: [
+                    {
+                        text: 'Descrição',
+                        align: 'start',
+                        sortable: false,
+                        value: 'descricao',
+                    },
+                    { text: 'Valor', value: 'valor' },
+                    { text: 'Vencimento Inicial', value: 'vencimentoInicial' },
+                    { text: 'Recorrência', value: 'recorrencia' },
+                    { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
+                    { text: 'Parc. Fut.', value: 'qtdParcelasASer' },
+                    { text: 'Actions', value: 'actions', sortable: false },
+                ],
+                compromissos: testeGetCompromissos(),
+                editedIndexCompromissos: -1,
+                editedItemCompromissos: {
+                    descricao: '',
+                    valor: 0,
+                    vencimentoInicial: 0,
+                    recorrencia: 0,
+                    qtdParcelas: 0,
+                    qtdParcelasASer: 0,
+                },
+                defaultItemCompromissos: {
+                    descricao: '',
+                    valor: 0,
+                    vencimentoInicial: 0,
+                    recorrencia: 0,
+                    qtdParcelas: 0,
+                    qtdParcelasASer: 0,
+                },
+                expandCompromissosRecorrentes: false, */
+
+
 
 
     }),
