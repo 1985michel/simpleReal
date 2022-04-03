@@ -51,8 +51,21 @@ class Conta {
         //TODO
     }
 
-    deleteMoneyTime(moneyTime) {
-        //TODO
+    deleteMoneyTimeById(moneyTimeId) {
+
+        for (let index = 0; index < this.moneyTimeFlow.length; index++) {
+            const mt = this.moneyTimeFlow[index];
+
+            if (mt.id === moneyTimeId) {
+                this.moneyTimeFlow.splice(index, 1);//remove the elemento in index position
+            }
+
+        }
+
+        if (this.moneyTimeFlow.length == 0) {
+            this.saldo = 'R$ 0,00'
+        }
+
     }
 
     ordenarRegistrosPorMomento() {

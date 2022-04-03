@@ -99,16 +99,33 @@ const vm = new Vue({
             this.dialog = true
         },
 
-        deleteItem(item) {
-            //this.dialogTitle = "Editar";
+        deleteItem(contaId, id) {
+            this.dialogTitle = "Delete";
+            //this.editedIndex = this.getContaById(contaId).moneyTimeFlow.indexOf(item)
+            //this.editedItem = Object.assign({}, item)
+            /* console.log("Queremos deletar o mt de id: " + id);
+            this.getContaById(contaId).deleteMoneyTimeById(this.editItem.id); */
 
-            this.editedIndex = this.contas.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+            this.editedCountIndex = contaId;
+
+
+            console.log(`Vamos trabalhar o id: ${id}`);
+            this.editedIndex = id;
+            console.log(`Vamos trabalhar o id: ${this.editedIndex}`);
+
+            //console.log("Queremos delete o mt de id: " + this.editItem.id);
             this.dialogDelete = true
         },
 
         deleteItemConfirm() {
-            this.contas.splice(this.editedIndex, 1)
+            //this.contas.splice(this.editedIndex, 1)
+            this.getContaById(this.editedCountIndex).deleteMoneyTimeById(this.editedIndex);
+
+            const conta = this.getContaById(this.editedCountIndex);
+
+            console.log(`Queremos deletar a conta de id ${this.editedCountIndex} cujo nome é ${conta.nome}`);
+            console.log(`Queremos deletar a mt de id ${this.editedIndex} cujo valor é ${this.editedIndex.saldo}`);
+
             this.closeDelete()
         },
 
@@ -226,7 +243,8 @@ const vm = new Vue({
                 }
 
             }
-        }
+        },
+
 
     }
 })
