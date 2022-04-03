@@ -115,7 +115,7 @@ const vm = new Vue({
         /* compromissosDoMes */
 
 
-        /* dialogCompromissosDoMes: false,
+        dialogCompromissosDoMes: false,
         dialogDeleteCompromissosDoMes: false,
         headersCompromissosDoMes: [
             {
@@ -126,31 +126,25 @@ const vm = new Vue({
             },
             { text: 'Valor', value: 'valor' },
             { text: 'Vencimento', value: 'vencimento' },
-            { text: 'Recorrência', value: 'recorrencia' },
-            { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
-            { text: 'Parc. Fut.', value: 'qtdParcelasASer' },
+            { text: 'Pago?', value: 'isPago' },
             { text: 'Actions', value: 'actions', sortable: false },
         ],
-        compromissos: testeGetCompromissos(),
-        editedIndexCompromissos: -1,
-        editedItemCompromissos: {
+        compromissosDoMes: testeGetCompromissosDoMes(),
+        editedIndexCompromissosDoMes: -1,
+        editedItemCompromissosDoMes: {
             descricao: '',
             valor: 0,
-            vencimentoInicial: 0,
-            recorrencia: 0,
-            qtdParcelas: 0,
-            qtdParcelasASer: 0,
+            vencimento: 0,
+            isPago: 0,
         },
-        defaultItemCompromissos: {
+        defaultItemCompromissosDoMes: {
             descricao: '',
             valor: 0,
-            vencimentoInicial: 0,
-            recorrencia: 0,
-            qtdParcelas: 0,
-            qtdParcelasASer: 0,
+            vencimento: 0,
+            isPago: 0,
         },
-        expandCompromissosRecorrentes: false,
- */
+        expandCompromissosDoMes: false,
+
 
 
 
@@ -174,6 +168,18 @@ const vm = new Vue({
 
         formTitleCompromissos() {
             return this.editedIndexCompromissos === -1 ? 'Novo Compromisso' : 'Editar Compromisso'
+        },
+
+
+
+
+
+
+
+        //COMPROMISSOS DO MES
+
+        formTitleCompromissosDoMes() {
+            return this.editedIndexCompromissosDoMes === -1 ? 'Novo Compromisso' : 'Editar Compromisso'
         },
 
     },
@@ -212,6 +218,18 @@ const vm = new Vue({
             val || this.close()
         },
         dialogDeleteCompromissos(val) {
+            val || this.closeDelete()
+        },
+
+
+
+
+
+        //COMPROMISSOS DO MES
+        dialogCompromissosDoMes(val) {
+            val || this.close()
+        },
+        dialogDeleteCompromissosDoMes(val) {
             val || this.closeDelete()
         },
 
@@ -483,10 +501,68 @@ const vm = new Vue({
             if (this.editedIndexCompromissos > -1) {
                 Object.assign(this.compromissos[this.editedIndexCompromissos], this.editedItemCompromissos)
             } else {
-                const novoComp = new CompromissoPai(this.editedItemCompromissos.descricao, this.editedItemCompromissos.valor, this.editedItemCompromissos.vencimentoInicial, this.editedItemCompromissos.recorrencia, this.editedItemCompromissos.qtdParcelas, this.editedItemCompromissos.qtdParcelasFuturas)
+                const novoComp = new CompromissoPai(this.editedItemCompromissos.descricao, this.editedItemCompromissos.valor, this.editedItemCompromissos.vencimentoInicial, this.editedItemCompromissos.recorrencia, this.editedItemCompromissos.qtdParcelas, this.editedItemCompromissos.qtdParcelasFuturas);
+
                 this.compromissos.push(novoComp);
             }
             this.closeCompromissos()
+        },
+
+
+
+
+
+
+
+
+
+
+
+        //COMPROMISSOS
+        editItemCompromissosDoMes(item) {
+            this.editedIndexCompromissosDoMes = this.compromissosDoMes.indexOf(item)
+            this.editedItemCompromissosDoMes = Object.assign({}, item)
+            this.dialogCompromissosDoMes = true
+        },
+
+        deleteItemCompromissosDoMes(item) {
+            this.editedIndexCompromissosDoMes = this.compromissosDoMes.indexOf(item)
+            this.editedItemCompromissosDoMes = Object.assign({}, item)
+            this.dialogDeleteCompromissosDoMes = true
+        },
+
+        deleteItemConfirmCompromissosDoMes() {
+            this.compromissosDoMes.splice(this.editedIndexCompromissosDoMes, 1)
+            this.closeDeleteCompromissosDoMes()
+        },
+
+        closeCompromissosDoMes() {
+            this.dialogCompromissosDoMes = false
+            this.$nextTick(() => {
+                this.editedItemCompromissosDoMes = Object.assign({}, this.defaultItemCompromissosDoMes)
+                this.editedIndexCompromissosDoMes = -1
+            })
+        },
+
+        closeDeleteCompromissosDoMes() {
+            this.dialogDeleteCompromissosDoMes = false
+            this.$nextTick(() => {
+                this.editedItemCompromissosDoMes = Object.assign({}, this.defaultItemCompromissosDoMes)
+                this.editedIndexCompromissosDoMes = -1
+            })
+        },
+
+        saveCompromissosDoMes() {
+            if (this.editedIndexCompromissosDoMes > -1) {
+                Object.assign(this.compromissosDoMes[this.editedIndexCompromissosDoMes], this.editedItemCompromissosDoMes)
+            } else {
+                const novoComp = new CompromissoAvulso(this.editedItemCompromissosDoMes.descricao, this.editedItemCompromissosDoMes.valor, this.editedItemCompromissosDoMes.vencimento);
+
+                novoComp.isPago = this.editedItemCompromissosDoMes.isPago;
+
+                this.compromissosDoMes.push(novoComp);
+            }
+            this.closeCompromissosDoMes()
         },
 
     }

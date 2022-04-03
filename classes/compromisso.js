@@ -21,12 +21,28 @@ class CompromissoPai {
 }
 
 class CompromissoFilho {
-    constructor(idCompromissoPai, momentoVencimento) {
+    constructor(compromissoPai, venciento) {
+
+        //nem todo compromisso filho tem compromisso pai, pode ser um compromisso único
+        this.idCompromissoPai = compromissoPai.id;
         this.id = ++idCompromissoFilhoGlobal;
-        this.idCompromissoPai = idCompromissoPai;
-        this.descricao = '';
-        this.valor = '';
-        this.vencimento = momentoVencimento;
+
+        this.descricao = compromissoPai.descricao;
+        this.valor = compromissoPai.valor;
+        this.vencimento = venciento;
+        this.isPago = false;
+    }
+
+}
+
+class CompromissoAvulso {
+
+    constructor(descricao, valor, vencimento) {
+        //vou usar o mesmo id do compromisso filho pois um vai extender o outro futuramente
+        this.id = ++idCompromissoFilhoGlobal;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.vencimento = vencimento;
         this.isPago = false;
     }
 
