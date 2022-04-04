@@ -681,12 +681,12 @@
                                                 <v-card-text>
                                                     <v-container>
                                                         <v-row>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="12" sm="12" md="12">
                                                                 <v-text-field v-model="editedItemRecebimentos.descricao"
                                                                     label="Descrição">
                                                                 </v-text-field>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="6" sm="6" md="6">
                                                                 <!-- <v-text-field
                                                                     v-model="editedItemRecebimentos.isRendaPassiva"
                                                                     label="Renda Passiva?"></v-text-field> -->
@@ -695,25 +695,56 @@
                                                                     label="Renda Passiva?">
                                                                 </v-checkbox>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="6" sm="6" md="6">
                                                                 <v-text-field
                                                                     v-model="editedItemRecebimentos.ativoResponsavel"
                                                                     label="Ativo Responsável"></v-text-field>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="6" sm="6" md="6">
                                                                 <v-text-field v-model="editedItemRecebimentos.valor"
                                                                     label="Valor">
                                                                 </v-text-field>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
-                                                                <v-text-field
+                                                            <v-col cols="6" sm="6" md="6">
+                                                                <!-- <v-text-field
                                                                     v-model="editedItemRecebimentos.contaDeRecebimento"
-                                                                    label="Conta de Recebimento"></v-text-field>
+                                                                    label="Conta de Recebimento"></v-text-field> -->
+                                                                <v-select :items="contas"
+                                                                    v-model="editedItemRecebimentos.contaDeRecebimento"
+                                                                    item-text="nome" item-value="id"
+                                                                    label="Selecione uma conta:" solo>
+                                                                </v-select>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
-                                                                <v-text-field
-                                                                    v-model="editedItemRecebimentos.dataRecebimento"
-                                                                    label="Data de Recebimento"></v-text-field>
+                                                            <v-col cols="12" sm="12" md="12">
+
+
+                                                                <v-menu ref="menu1" v-model="menu1"
+                                                                    :close-on-content-click="false"
+                                                                    transition="scale-transition" offset-y
+                                                                    max-width="290px" min-width="auto">
+                                                                    <template v-slot:activator="{ on, attrs }">
+                                                                        <v-text-field v-model="dateFormatted"
+                                                                            label="Date" hint="DD/MM/YYYY format"
+                                                                            persistent-hint prepend-icon="mdi-calendar"
+                                                                            v-bind="attrs" v-on="on">
+                                                                        </v-text-field>
+                                                                    </template>
+                                                                    <v-date-picker v-model="date" no-title
+                                                                        @input="menu1 = false">
+                                                                    </v-date-picker>
+                                                                </v-menu>
+
+
+
+                                                                <!-- <label>Data de Recebimento:</label>
+                                                                <v-date-picker
+                                                                    v-model="editedItemRecebimentos.dataRecebimento">
+                                                                </v-date-picker> -->
+
+                                                                <!-- <v-text-field
+                                                                    v-model=" editedItemRecebimentos.dataRecebimento"
+                                                                    label="Data de Recebimento">
+                                                                    </v-text-field> -->
                                                             </v-col>
 
                                                         </v-row>

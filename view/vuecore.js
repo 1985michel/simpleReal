@@ -216,7 +216,7 @@ const vm = new Vue({
             ativoResponsavel: 0,
             valor: 0,
             contaDeRecebimento: 0,
-            dataRecebimento: 0,
+            dataRecebimento: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         },
         defaultItemRecebimentos: {
             descricao: '',
@@ -224,8 +224,10 @@ const vm = new Vue({
             ativoResponsavel: 0,
             valor: 0,
             contaDeRecebimento: 0,
-            dataRecebimento: 0,
+            dataRecebimento: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         },
+        menuDatePickerDataRecebimento: false,
+        dataRecebimento: '',
         expandRecebimentos: false,
 
 
@@ -303,6 +305,8 @@ const vm = new Vue({
         date(val) {
             this.dateFormatted = this.formatDate(this.date)
         },
+
+
 
         hora() {
             this.editedItem.hora = this.hora;
@@ -759,6 +763,7 @@ const vm = new Vue({
         },
 
         saveRecebimentos() {
+            this.editedItemRecebimentos.dataRecebimento = this.formatDate(this.date);
             if (this.editedIndexRecebimentos > -1) {
                 Object.assign(this.recebimentos[this.editedIndexRecebimentos], this.editedItemRecebimentos)
             } else {
