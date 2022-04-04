@@ -669,6 +669,16 @@ const vm = new Vue({
 
 
 
+
+
+
+
+
+
+
+        /* métodos de extração e injeção de JSON */
+
+
         extracao() {
             ativaStringfyInOut(this.contas, this.compromissos, this.compromissosDoMes);
         },

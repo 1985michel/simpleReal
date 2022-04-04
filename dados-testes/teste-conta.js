@@ -1,7 +1,7 @@
 
 
 
-const logos = [{ nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' }, { nome: 'Nubank', img: '../imgs/logo-nubank.png' }, { nome: 'Inter', img: '../imgs/logo-inter.png' }];
+const logos = [{ nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' }, { nome: 'Nubank', img: '../imgs/logo-nubank.png' }, { nome: 'Inter', img: '../imgs/logo-inter.png' }, { nome: 'Caixa Econômica Federal', img: '../imgs/logo-cef.svg' }, { nome: 'Santander', img: '../imgs/logo-santander.png' }, { nome: 'Itaú', img: '../imgs/logo-itau.png' }];
 
 function getLogos() {
     return logos;
