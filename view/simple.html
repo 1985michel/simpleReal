@@ -552,9 +552,12 @@
                                                                     label="Vencimento"></v-text-field>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
-                                                                <v-text-field
-                                                                    v-model="editedItemCompromissosDoMes.isPago"
-                                                                    label="Pago?"></v-text-field>
+                                                                <!-- <v-text-field
+                                                                    v-model="editedItemCompromissosDoMes.ispago"
+                                                                    label="Pago?"></v-text-field> -->
+                                                                <v-checkbox v-model="editedItemCompromissosDoMes.ispago"
+                                                                    label="Pago?">
+                                                                </v-checkbox>
                                                             </v-col>
 
                                                         </v-row>
@@ -599,6 +602,10 @@
                                     <v-icon small @click="deleteItemCompromissosDoMes(item)">
                                         mdi-delete
                                     </v-icon>
+                                </template>
+                                <template v-slot:item.ispago="{ item }">
+                                    <v-simple-checkbox v-model="item.ispago" disabled>
+                                    </v-simple-checkbox>
                                 </template>
                                 <!-- <template v-slot:no-data>
                                         <v-btn color="primary" @click="initialize">

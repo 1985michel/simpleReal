@@ -43,7 +43,7 @@ class CompromissoAvulso {
         this.descricao = descricao;
         this.valor = valor;
         this.vencimento = vencimento;
-        this.isPago = false;
+        this.ispago = false;
     }
 
 }

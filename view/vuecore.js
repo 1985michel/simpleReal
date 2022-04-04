@@ -84,12 +84,12 @@ const vm = new Vue({
                 sortable: false,
                 value: 'descricao',
             },
-            { text: 'Valor', value: 'valor' },
-            { text: 'Vencimento Inicial', value: 'vencimentoInicial' },
-            { text: 'Recorrência', value: 'recorrencia' },
-            { text: 'Qtd. Parcelas', value: 'qtdParcelas' },
-            { text: 'Parc. Fut.', value: 'qtdParcelasFuturas' },
-            { text: 'Actions', value: 'actions', sortable: false },
+            { text: 'Valor', value: 'valor', align: 'center' },
+            { text: 'Vencimento Inicial', value: 'vencimentoInicial', align: 'center' },
+            { text: 'Recorrência', value: 'recorrencia', align: 'center' },
+            { text: 'Qtd. Parcelas', value: 'qtdParcelas', align: 'center' },
+            { text: 'Parc. Fut.', value: 'qtdParcelasFuturas', align: 'center' },
+            { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
         ],
         compromissos: testeGetCompromissos(),
         editedIndexCompromissos: -1,
@@ -130,10 +130,10 @@ const vm = new Vue({
                 sortable: false,
                 value: 'descricao',
             },
-            { text: 'Valor', value: 'valor' },
-            { text: 'Vencimento', value: 'vencimento' },
-            { text: 'Pago?', value: 'isPago' },
-            { text: 'Actions', value: 'actions', sortable: false },
+            { text: 'Valor', value: 'valor', align: 'center' },
+            { text: 'Vencimento', value: 'vencimento', align: 'center' },
+            { text: 'Pago?', value: 'ispago', align: 'center' },
+            { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
         ],
         compromissosDoMes: testeGetCompromissosDoMes(),
         editedIndexCompromissosDoMes: -1,
@@ -141,15 +141,22 @@ const vm = new Vue({
             descricao: '',
             valor: 0,
             vencimento: 0,
-            isPago: 0,
+            ispago: false,
         },
         defaultItemCompromissosDoMes: {
             descricao: '',
             valor: 0,
             vencimento: 0,
-            isPago: 0,
+            ispago: false,
         },
         expandCompromissosDoMes: false,
+
+
+
+
+
+
+
 
 
 
@@ -190,16 +197,16 @@ const vm = new Vue({
         headersRecebimentos: [
             {
                 text: 'Descrição',
-                align: 'start',
+                align: 'center',
                 sortable: false,
                 value: 'descricao',
             },
-            { text: 'Ativo Responsável', value: 'ativoResponsavel' },
-            { text: 'Renda Passiva?', value: 'isrendapassiva' },
-            { text: 'Valor', value: 'valor' },
-            { text: 'Conta de Recebimento', value: 'contaDeRecebimento' },
-            { text: 'Data de Recebimento', value: 'dataRecebimento' },
-            { text: 'Actions', value: 'actions', sortable: false },
+            { text: 'Ativo Responsável', value: 'ativoResponsavel', align: 'center' },
+            { text: 'Renda Passiva?', value: 'isrendapassiva', align: 'center', },
+            { text: 'Valor', value: 'valor', align: 'center', },
+            { text: 'Conta de Recebimento', value: 'contaDeRecebimento', align: 'center', },
+            { text: 'Data de Recebimento', value: 'dataRecebimento', align: 'center', },
+            { text: 'Actions', value: 'actions', sortable: false, align: 'center', },
         ],
         recebimentos: testeGetRecebimentos(),
         editedIndexRecebimentos: -1,
@@ -690,7 +697,7 @@ const vm = new Vue({
             } else {
                 const novoComp = new CompromissoAvulso(this.editedItemCompromissosDoMes.descricao, this.editedItemCompromissosDoMes.valor, this.editedItemCompromissosDoMes.vencimento);
 
-                novoComp.isPago = this.editedItemCompromissosDoMes.isPago;
+                novoComp.ispago = this.editedItemCompromissosDoMes.ispago;
 
                 this.compromissosDoMes.push(novoComp);
             }
