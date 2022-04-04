@@ -162,7 +162,64 @@ const vm = new Vue({
             compromissosNoMes: 0,
             resultadoParcialDoMes: 0,
             resultadoPrevistoParaOMes: 0,
-        }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Recebimentos
+
+        //constructor(isRendaPassiva, ativoResponsavel, descricao, valor, contaDeRecebimento, dataRecebimento) 
+
+        dialogRecebimentos: false,
+        dialogDeleteRecebimentos: false,
+        headersRecebimentos: [
+            {
+                text: 'Descrição',
+                align: 'start',
+                sortable: false,
+                value: 'descricao',
+            },
+            { text: 'Ativo Responsável', value: 'ativoResponsavel' },
+            { text: 'Renda Passiva?', value: 'isrendapassiva' },
+            { text: 'Valor', value: 'valor' },
+            { text: 'Conta de Recebimento', value: 'contaDeRecebimento' },
+            { text: 'Data de Recebimento', value: 'dataRecebimento' },
+            { text: 'Actions', value: 'actions', sortable: false },
+        ],
+        recebimentos: testeGetRecebimentos(),
+        editedIndexRecebimentos: -1,
+        editedItemRecebimentos: {
+            descricao: '',
+            isrendapassiva: false,
+            ativoResponsavel: 0,
+            valor: 0,
+            contaDeRecebimento: 0,
+            dataRecebimento: 0,
+        },
+        defaultItemRecebimentos: {
+            descricao: '',
+            isrendapassiva: false,
+            ativoResponsavel: 0,
+            valor: 0,
+            contaDeRecebimento: 0,
+            dataRecebimento: 0,
+        },
+        expandRecebimentos: false,
 
 
 
@@ -215,6 +272,17 @@ const vm = new Vue({
             return this.editedIndexCompromissosDoMes === -1 ? 'Novo Compromisso' : 'Editar Compromisso'
         },
 
+
+
+
+
+
+        //RECEBIMENTOS
+
+        formTitleRecebimentos() {
+            return this.editedIndexRecebimentos === -1 ? 'Novo Recebimento' : 'Editar Recebimento'
+        },
+
     },
     watch: {
         dialog(val) {
@@ -263,6 +331,19 @@ const vm = new Vue({
             val || this.close()
         },
         dialogDeleteCompromissosDoMes(val) {
+            val || this.closeDelete()
+        },
+
+
+
+
+
+
+        //Recebimentos
+        dialogRecebimentos(val) {
+            val || this.close()
+        },
+        dialogDeleteRecebimentos(val) {
             val || this.closeDelete()
         },
 
@@ -615,6 +696,73 @@ const vm = new Vue({
             }
             this.closeCompromissosDoMes()
         },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Recebimento
+        editItemRecebimentos(item) {
+            this.editedIndexRecebimentos = this.recebimentos.indexOf(item)
+            this.editedItemRecebimentos = Object.assign({}, item)
+            this.dialogRecebimentos = true
+        },
+
+        deleteItemRecebimentos(item) {
+            this.editedIndexRecebimentos = this.recebimentos.indexOf(item)
+            this.editedItemRecebimentos = Object.assign({}, item)
+            this.dialogDeleteRecebimentos = true
+        },
+
+        deleteItemConfirmRecebimentos() {
+            this.recebimentos.splice(this.editedIndexRecebimentos, 1)
+            this.closeDeleteRecebimentos()
+        },
+
+        closeRecebimentos() {
+            this.dialogRecebimentos = false
+            this.$nextTick(() => {
+                this.editedItemRecebimentos = Object.assign({}, this.defaultItemRecebimentos)
+                this.editedIndexRecebimentos = -1
+            })
+        },
+
+        closeDeleteRecebimentos() {
+            this.dialogDeleteRecebimentos = false
+            this.$nextTick(() => {
+                this.editedItemRecebimentos = Object.assign({}, this.defaultItemRecebimentos)
+                this.editedIndexRecebimentos = -1
+            })
+        },
+
+        saveRecebimentos() {
+            if (this.editedIndexRecebimentos > -1) {
+                Object.assign(this.recebimentos[this.editedIndexRecebimentos], this.editedItemRecebimentos)
+            } else {
+                //isRendaPassiva, ativoResponsavel, descricao, valor, contaDeRecebimento, dataRecebimento
+                const novoRec = new Recebimento(this.editedItemRecebimentos.isrendapassiva, this.editedItemRecebimentos.ativoResponsavel, this.editedItemRecebimentos.descricao, this.editedItemRecebimentos.valor, this.editedItemRecebimentos.contaDeRecebimento, this.editedItemRecebimentos.dataRecebimento);
+
+                this.recebimentos.push(novoRec);
+            }
+            this.closeRecebimentos()
+        },
+
 
 
 
