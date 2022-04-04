@@ -1,13 +1,16 @@
 
 
 
-const compromissosDoMes = [
+/* const compromissosDoMes = [
     { descricao: 'Água', valor: 'R$ 10,00', vencimento: '01/01/2000', isPago: 'false' },
     { descricao: 'Energia', valor: 'R$ 10,00', vencimento: '01/01/2000', isPago: 'false' },
     { descricao: 'Seguro', valor: 'R$ 10,00', vencimento: '01/01/2000', isPago: 'false' },
     { descricao: 'Escola', valor: 'R$ 10,00', vencimento: '01/01/2000', isPago: 'true' },
     { descricao: 'Pneu', valor: 'R$ 10,00', vencimento: '01/01/2000', isPago: 'false' }
-]
+] */
+
+
+const compromissosDoMes = [];
 
 function constroiCompromissosDoMes() {
     let compArray = [];

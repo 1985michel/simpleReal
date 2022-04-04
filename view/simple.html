@@ -362,6 +362,12 @@
 
                         <v-col class="col-6">
 
+                            <textarea id="txtarea2" class="form-control col-3 form-control btn-dark"
+                                rows="1"></textarea>
+
+                            <button class="" @click="extracao">Stringfy</button>
+                            <button class="" @click="injetaFromJson">Injetar</button>
+
 
                             <v-card>
 
@@ -713,6 +719,10 @@
 
     <!-- tratamento pre Vue -->
     <script src="contasPreVue.js"></script>
+    <script src="../ferramentas/extracao.js"></script>
+
+
+
 
     <script src="vuecore.js"></script>
 

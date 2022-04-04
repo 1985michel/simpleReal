@@ -1,6 +1,10 @@
 
 
 
+//variaveis globais apenas para uso com extracao e injecao de DB.
+let contasArray = [];
+let compromissosArray = [];
+let compromissosDoMesArray = [];
 
 
 const vm = new Vue({
@@ -661,7 +665,24 @@ const vm = new Vue({
             this.resultados.valorEmCaixa = fromNumberToReal(totalPositivo);
             this.resultados.dividasTotais = fromNumberToReal(totalNegativo);
             this.resultados.patrimonioReal = fromNumberToReal(totalNegativo + totalPositivo);
+        },
+
+
+
+        extracao() {
+            ativaStringfyInOut(this.contas, this.compromissos, this.compromissosDoMes);
+        },
+
+        injetaFromJson() {
+            this.contas = contasArray;
+            this.compromissos = compromissosArray;
+            this.compromissosDoMes = compromissosDoMesArray;
+
+            //daí atualizamos os dados estatísticos;
+            this.getResultados();
         }
+
+
 
 
     }
