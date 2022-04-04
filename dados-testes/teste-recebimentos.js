@@ -2,14 +2,16 @@
 
 //isRendaPassiva, ativoResponsavel, descricao, valor, contaDeRecebimento, dataRecebimento
 
-const recebimentos = [
+/* const recebimentos = [
     { isRendaPassiva: false, ativoResponsavel: 'tempo', descricao: 'Salário', valor: 'R$ 10.000,00', contaDeRecebimento: 'Banco do Brasil', dataRecebimento: '01/01/2000' },
     { isRendaPassiva: false, ativoResponsavel: 'tempo', descricao: 'Salário Esposa', valor: 'R$ 10.000,00', contaDeRecebimento: 'Banco do Brasil', dataRecebimento: '01/01/2000' },
     { isRendaPassiva: true, ativoResponsavel: 'imóvel', descricao: 'Aluguel', valor: 'R$ 10.000,00', contaDeRecebimento: 'Banco do Brasil', dataRecebimento: '01/01/2000' },
     { isRendaPassiva: true, ativoResponsavel: 'KNRI11', descricao: 'Salário', valor: 'R$ 10.000,00', contaDeRecebimento: 'Banco do Brasil', dataRecebimento: '01/01/2000' },
     { isRendaPassiva: true, ativoResponsavel: 'IVVB11', descricao: 'Salário', valor: 'R$ 10.000,00', contaDeRecebimento: 'Banco do Brasil', dataRecebimento: '01/01/2000' }
-]
+] */
 
+
+const recebimentos = [];
 
 function constroiRecebimentos() {
 

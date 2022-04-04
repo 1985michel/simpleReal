@@ -1,7 +1,7 @@
 
 
 
-const logos = [{ nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' }, { nome: 'Nubank', img: '../imgs/logo-nubank.png' }, { nome: 'Inter', img: '../imgs/logo-inter.png' }, { nome: 'Caixa Econômica Federal', img: '../imgs/logo-cef.svg' }, { nome: 'Santander', img: '../imgs/logo-santander.png' }, { nome: 'Itaú', img: '../imgs/logo-itau.png' }, { nome: 'Avenue', img: '../imgs/logo-avenue.jpeg' }, { nome: 'Binance', img: '../imgs/logo-binance.png' }, { nome: 'Modal Mais', img: '../imgs/logo-modalmais.png' }, { nome: 'Nu Invest', img: '../imgs/logo-nuinvest.png' }, { nome: 'Santander', img: '../imgs/logo-santander.png' }, { nome: 'XP', img: '../imgs/logo-xp.png' }];
+const logos = [{ nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' }, { nome: 'Nubank', img: '../imgs/logo-nubank.png' }, { nome: 'Inter', img: '../imgs/logo-inter.png' }, { nome: 'Caixa Econômica Federal', img: '../imgs/logo-cef.svg' }, { nome: 'Santander', img: '../imgs/logo-santander.png' }, { nome: 'Itaú', img: '../imgs/logo-itau.png' }, { nome: 'Avenue', img: '../imgs/logo-avenue.jpeg' }, { nome: 'Binance', img: '../imgs/logo-binance.png' }, { nome: 'Modal Mais', img: '../imgs/logo-modalmais.png' }, { nome: 'Nu Invest', img: '../imgs/logo-nuinvest.png' }, { nome: 'Santander', img: '../imgs/logo-santander.png' }, { nome: 'XP', img: '../imgs/logo-xp.png' }, { nome: 'Fumpresp', img: '../imgs/logo-fumpresp.png' }];
 
 function getLogos() {
     return logos;

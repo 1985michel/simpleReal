@@ -88,6 +88,40 @@
 
                                         </v-card>
 
+                                        <v-card class="pa-4" outlined style="margin-top: 10px;">
+                                            <div class=" d-flex">
+                                                <v-spacer></v-spacer>
+                                                <h3 class="title d-flex align-center justify-center"
+                                                    @click="expandRecebimentos = !expandRecebimentos"
+                                                    style="width: 100%;">
+
+                                                    Recebimentos
+                                                    <v-icon>{{
+                                                        expandRecebimentos ?
+                                                        'mdi-chevron-right'
+                                                        :
+                                                        'mdi-chevron-up' }}
+                                                    </v-icon>
+
+                                                </h3>
+                                                <v-spacer></v-spacer>
+                                                <!-- <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
+                                                    @click="showAdicionarConta = !showAdicionarConta">
+                                                    <v-icon>mdi-plus</v-icon>
+                                                </v-btn> -->
+
+                                            </div>
+
+                                        </v-card>
+
+                                        <v-card style="margin-top: 10px;" class="pa-4" outlined>
+                                            <textarea id="txtarea2" class="form-control col-3 form-control btn-dark"
+                                                rows="1"></textarea>
+
+                                            <button class="" @click="extracao">Stringfy</button>
+                                            <button class="" @click="injetaFromJson">Injetar</button>
+                                        </v-card>
+
 
 
 
@@ -349,6 +383,13 @@
                             </v-dialog>
 
 
+
+
+
+
+
+
+
                         </v-col>
 
                         <v-spacer></v-spacer>
@@ -365,38 +406,11 @@
 
                         <v-col class="col-6">
 
-                            <textarea id="txtarea2" class="form-control col-3 form-control btn-dark"
-                                rows="1"></textarea>
-
-                            <button class="" @click="extracao">Stringfy</button>
-                            <button class="" @click="injetaFromJson">Injetar</button>
-
-
-                            <v-card>
-
-
-                                <p class="display-1">Dados básicos:</p>
-
-                                <p>Valor em caixa: {{ this.resultados.valorEmCaixa }}</p>
-
-                                <p>Divídas totais: {{ this.resultados.dividasTotais }}</p>
-
-                                <p>Patrimônio Real: {{ this.resultados.patrimonioReal }}
-                                </p>
-
-                                <p>Compromissos no mês: AQUI APRESENTAR OS COMPROMISSOS QUE VENCEM AINDA ESTE MÊS
-                                </p>
-
-                                <p>Resultado do mês até o momento: APRESENTAR VARIAÇÃO DO MÊS (SALDO ATUAL MENOS
-                                    SALDO
-                                    NO INÍCIO DO MÊS</p>
-
-                                <p>Previsão para fechamento do mês: SALDOS - COMPROMISSOS DO MÊS</p>
 
 
 
 
-                            </v-card>
+
 
 
 
@@ -427,11 +441,13 @@
                                                         <v-row>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field v-model="editedItemCompromissos.descricao"
-                                                                    label="Descrição"></v-text-field>
+                                                                    label="Descrição">
+                                                                </v-text-field>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field v-model="editedItemCompromissos.valor"
-                                                                    label="Valor"></v-text-field>
+                                                                    label="Valor">
+                                                                </v-text-field>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field
@@ -544,7 +560,8 @@
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field
                                                                     v-model="editedItemCompromissosDoMes.valor"
-                                                                    label="Valor"></v-text-field>
+                                                                    label="Valor">
+                                                                </v-text-field>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field
@@ -666,7 +683,8 @@
                                                         <v-row>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field v-model="editedItemRecebimentos.descricao"
-                                                                    label="Descrição"></v-text-field>
+                                                                    label="Descrição">
+                                                                </v-text-field>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <!-- <v-text-field
@@ -684,7 +702,8 @@
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field v-model="editedItemRecebimentos.valor"
-                                                                    label="Valor"></v-text-field>
+                                                                    label="Valor">
+                                                                </v-text-field>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
                                                                 <v-text-field
@@ -756,6 +775,40 @@
 
 
 
+
+
+
+
+                            <!-- //dados estatísticos -->
+                            <v-card>
+
+
+                                <p class="display-1">Dados básicos:</p>
+
+                                <p>Valor em caixa: {{ this.resultados.valorEmCaixa }}</p>
+
+                                <p>Divídas totais: {{ this.resultados.dividasTotais }}</p>
+
+                                <p>Patrimônio Real: {{ this.resultados.patrimonioReal }}
+                                </p>
+
+                                <p>Compromissos no mês: AQUI APRESENTAR OS COMPROMISSOS QUE VENCEM AINDA ESTE MÊS
+                                </p>
+
+                                <p>Resultado do mês até o momento: APRESENTAR VARIAÇÃO DO MÊS (SALDO ATUAL MENOS
+                                    SALDO
+                                    NO INÍCIO DO MÊS</p>
+
+                                <p>Previsão para fechamento do mês: SALDOS - COMPROMISSOS DO MÊS</p>
+
+
+
+
+                            </v-card>
+
+
+
+
                         </v-col>
 
 
@@ -823,29 +876,7 @@
 
 
 
-                                <v-card class="pa-4" outlined style="margin-top: 10px;">
-                                    <div class="d-flex">
-                                        <v-spacer></v-spacer>
-                                        <h3 class="title d-flex align-center justify-center"
-                                            @click="expandRecebimentos = !expandRecebimentos" style="width: 100%;">
-                                            <v-icon>{{
-                                                expandRecebimentos ?
-                                                'mdi-chevron-left'
-                                                :
-                                                'mdi-chevron-right' }}
-                                            </v-icon>
-                                            Recebimentos
 
-                                        </h3>
-                                        <v-spacer></v-spacer>
-                                        <!-- <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
-                                            @click="showAdicionarConta = !showAdicionarConta">
-                                            <v-icon>mdi-plus</v-icon>
-                                        </v-btn> -->
-
-                                    </div>
-
-                                </v-card>
 
 
 
