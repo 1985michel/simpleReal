@@ -439,36 +439,57 @@
                                                 <v-card-text>
                                                     <v-container>
                                                         <v-row>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="12" sm="12" md="12">
                                                                 <v-text-field v-model="editedItemCompromissos.descricao"
                                                                     label="Descrição">
                                                                 </v-text-field>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="6" sm="6" md="6">
                                                                 <v-text-field v-model="editedItemCompromissos.valor"
                                                                     label="Valor">
                                                                 </v-text-field>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
-                                                                <v-text-field
+                                                                <!-- <v-text-field
                                                                     v-model="editedItemCompromissos.vencimentoInicial"
-                                                                    label="Vencimento Inicial"></v-text-field>
+                                                                    label="Vencimento Inicial"></v-text-field> -->
+                                                                <v-menu ref="menu1" v-model="menu1"
+                                                                    :close-on-content-click="false"
+                                                                    transition="scale-transition" offset-y
+                                                                    max-width="290px" min-width="auto">
+                                                                    <template v-slot:activator="{ on, attrs }">
+                                                                        <v-text-field v-model="dateFormatted"
+                                                                            label="Vencimento:" hint="DD/MM/YYYY format"
+                                                                            persistent-hint prepend-icon="mdi-calendar"
+                                                                            v-bind="attrs" v-on="on">
+                                                                        </v-text-field>
+                                                                    </template>
+                                                                    <v-date-picker v-model="date" no-title
+                                                                        @input="menu1 = false">
+                                                                    </v-date-picker>
+                                                                </v-menu>
                                                             </v-col>
                                                             <v-col cols="12" sm="6" md="4">
-                                                                <v-text-field
+                                                                Recorrência: <v-select :items="recorrencia"
                                                                     v-model="editedItemCompromissos.recorrencia"
-                                                                    label="Recorrência"></v-text-field>
+                                                                    item-text="nome" item-value="diasPorCiclo"
+                                                                    label="Recorrência:" solo>
+                                                                </v-select>
+                                                                <!-- <v-text-field
+                                                                    v-model="editedItemCompromissos.recorrencia"
+                                                                    label="Recorrência"></v-text-field> -->
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="12" sm="6" md="4"
+                                                                v-show="editedItemCompromissos.recorrencia != 0">
                                                                 <v-text-field
                                                                     v-model="editedItemCompromissos.qtdParcelas"
                                                                     label="Qtd. Parcelas"></v-text-field>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <!-- <v-col cols="12" sm="6" md="4" >
                                                                 <v-text-field
                                                                     v-model="editedItemCompromissos.qtdParcelasFuturas"
                                                                     label="Parc. Fut."></v-text-field>
-                                                            </v-col>
+                                                            </v-col> -->
                                                         </v-row>
                                                     </v-container>
                                                 </v-card-text>
@@ -949,6 +970,7 @@
     <!-- funções ferramentais -->
     <script src="../ferramentas/funcoes-de-ordenacao.js"></script>
     <script src="../ferramentas/funcoes-de-conversao.js"></script>
+    <script src="../ferramentas/funcoes-de-data.js"></script>
 
     <!-- teste -->
     <script src="../dados-testes/teste-conta.js"></script>

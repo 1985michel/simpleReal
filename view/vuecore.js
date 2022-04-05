@@ -6,6 +6,16 @@ let contasArray = [];
 let compromissosArray = [];
 let compromissosDoMesArray = [];
 
+const recorrencia = [
+    { nome: 'Única', diasPorCiclo: 0 },
+    { nome: 'Diária', diasPorCiclo: 1 },
+    { nome: 'Semanal', diasPorCiclo: 7 },
+    { nome: 'Semanal Fixa', diasPorCiclo: -8 },
+    { nome: 'Mensal', diasPorCiclo: 30 },
+    { nome: 'Anual', diasPorCiclo: 365 },
+    { nome: 'Mensal Fixa', diasPorCiclo: -30 },
+]
+
 
 const vm = new Vue({
     el: '#app',
@@ -110,6 +120,7 @@ const vm = new Vue({
             qtdParcelasFuturas: 0,
         },
         expandCompromissosRecorrentes: false,
+        recorrencia: recorrencia,
 
 
 
@@ -606,7 +617,7 @@ const vm = new Vue({
 
 
 
-        //COMPROMISSOS
+        //COMPROMISSOS RECORRENTES
         editItemCompromissos(item) {
             this.editedIndexCompromissos = this.compromissos.indexOf(item)
             this.editedItemCompromissos = Object.assign({}, item)
@@ -641,6 +652,7 @@ const vm = new Vue({
         },
 
         saveCompromissos() {
+            this.editedItemCompromissos.vencimentoInicial = this.formatDate(this.date);
             if (this.editedIndexCompromissos > -1) {
                 Object.assign(this.compromissos[this.editedIndexCompromissos], this.editedItemCompromissos)
             } else {
@@ -650,6 +662,7 @@ const vm = new Vue({
             }
             this.closeCompromissos()
         },
+
 
 
 
@@ -696,6 +709,7 @@ const vm = new Vue({
         },
 
         saveCompromissosDoMes() {
+
             if (this.editedIndexCompromissosDoMes > -1) {
                 Object.assign(this.compromissosDoMes[this.editedIndexCompromissosDoMes], this.editedItemCompromissosDoMes)
             } else {
