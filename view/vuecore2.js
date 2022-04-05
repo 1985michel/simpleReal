@@ -852,7 +852,7 @@ const vm = new Vue({
 
         //MONEY TIME
         editItemMoneyTime(item) {
-            alert(`item: ${item.momento.data}`)
+            //alert(`item: ${item.momento.data}`)
             this.editedIndexMoneyTime = this.getContaById(item.contaId).moneyTimeFlow.indexOf(item)
             this.editedItemMoneyTime = Object.assign({}, item)
 
