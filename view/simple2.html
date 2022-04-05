@@ -273,7 +273,8 @@
 
 
                             <v-data-table :headers="headersContas" :items="contas" sort-by="nome" class="elevation-1"
-                                v-show="expandContas">
+                                v-show="expandContas" :single-expand="singleExpandContas"
+                                :expanded.sync="expandedContas" item-key="id" show-expand>
                                 <template v-slot:top>
                                     <v-toolbar flat>
                                         <v-toolbar-title>Contas</v-toolbar-title>
@@ -404,6 +405,17 @@
                                         {{ item.calories }}
                                     </v-chip> -->
                                 </template>
+                                <template v-slot:item.saldo="{ item }">
+                                    <v-chip color="orange" dark>
+                                        {{ item.saldo }}
+                                    </v-chip>
+                                </template>
+                                <template v-slot:expanded-item="{ headers, item }">
+                                    <td :colspan="headers.length">
+                                        More info about {{ item.name }}
+                                    </td>
+                                </template>
+
                                 <!-- <template v-slot:no-data>
                                         <v-btn color="primary" @click="initialize">
                                             Reset

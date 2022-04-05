@@ -81,6 +81,8 @@ const vm = new Vue({
 
         //CONTAS
 
+        singleExpandContas: false,
+        expandedContas: [],//não sei para que serve
         dialogContas: false,
         dialogDeleteContas: false,
         headersContas: [
@@ -94,6 +96,7 @@ const vm = new Vue({
             { text: 'Saldo', value: 'saldo', align: 'center' },
             { text: 'Carteira', value: 'carteira', align: 'center' },
             { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+            { text: 'Histórico', value: 'data-table-expand' },
 
         ],
         contas: getContasTratadas(),
