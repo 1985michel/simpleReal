@@ -410,8 +410,114 @@
                                     </v-chip>
                                 </template>
                                 <template v-slot:expanded-item="{ headers, item }">
-                                    <td :colspan="headers.length">
-                                        More info about {{ item.name }}
+
+                                    <td :colspan="headers.length" style="background-color: darkgray;">
+                                        <v-data-table :headers="headersMoneyTime" :items="item.moneyTimeFlow"
+                                            sort-by="saldo" class="elevation-1" item-key="id" show-expand
+                                            style="margin: 5px;">
+                                            <template v-slot:top>
+                                                <v-toolbar flat>
+                                                    <v-toolbar-title>Histórico de Saldos em <b>{{item.nome}}</b>
+                                                    </v-toolbar-title>
+                                                    <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
+                                                    <v-spacer></v-spacer>
+
+
+
+
+                                                    <v-dialog v-model="dialogMoneyTime" max-width="500px">
+                                                        <template v-slot:activator="{ on, attrs }">
+                                                            <v-btn color="" outlined class="mb-2" v-bind="attrs"
+                                                                v-on="on"
+                                                                @click="idDaContaDonaDosMoneyTimesDaTabela = item.id">
+                                                                Novo Saldo
+                                                            </v-btn>
+                                                        </template>
+                                                        <v-card>
+                                                            <v-card-title>
+                                                                <span class="text-h5">{{ formTitleMoneyTime }}</span>
+                                                            </v-card-title>
+
+                                                            <v-card-text>
+                                                                <v-container>
+                                                                    <v-row>
+                                                                        <v-col cols="12" sm="12" md="12">
+                                                                            <v-text-field
+                                                                                v-model="editedItemMoneyTime.saldo"
+                                                                                label="Saldo">
+                                                                            </v-text-field>
+                                                                        </v-col>
+                                                                        <v-col cols="6" sm="6" md="6">
+                                                                            <v-text-field
+                                                                                v-model="editedItemMoneyTime.momento.data"
+                                                                                label="Data">
+                                                                            </v-text-field>
+                                                                        </v-col>
+                                                                        <v-col cols="6" sm="6" md="6">
+                                                                            <v-text-field
+                                                                                v-model="editedItemMoneyTime.momento.hora"
+                                                                                label="Hora">
+                                                                            </v-text-field>
+                                                                        </v-col>
+
+                                                                    </v-row>
+                                                                </v-container>
+                                                            </v-card-text>
+
+                                                            <v-card-actions>
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn color="blue darken-1" text
+                                                                    @click="closeMoneyTime">
+                                                                    Cancel
+                                                                </v-btn>
+                                                                <v-btn color="blue darken-1" text
+                                                                    @click="saveMoneyTime">
+                                                                    Save
+                                                                </v-btn>
+                                                            </v-card-actions>
+                                                        </v-card>
+                                                    </v-dialog>
+
+
+
+                                                    <v-dialog v-model="dialogDeleteMoneyTime" max-width="500px">
+                                                        <v-card>
+                                                            <v-card-title class="text-h5">Confirma deleção do registro?
+                                                            </v-card-title>
+                                                            <v-card-actions>
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn color="blue darken-1" text
+                                                                    @click="closeDeleteMoneyTime">
+                                                                    Cancel
+                                                                </v-btn>
+                                                                <v-btn color="blue darken-1" text
+                                                                    @click="deleteItemConfirmMoneyTime">Ok
+                                                                </v-btn>
+
+                                                                <v-spacer></v-spacer>
+                                                            </v-card-actions>
+                                                        </v-card>
+                                                    </v-dialog>
+                                                </v-toolbar>
+                                            </template>
+                                            <template v-slot:item.actions="{ item }">
+                                                <v-icon small class="mr-2" @click="editItemMoneyTime(item)">
+                                                    mdi-pencil
+                                                </v-icon>
+                                                <v-icon small @click="deleteItemMoneyTime(item)">
+                                                    mdi-delete
+                                                </v-icon>
+                                            </template>
+
+
+
+                                            <!-- <template v-slot:no-data>
+                <v-btn color="primary" @click="initialize">
+                    Reset
+                </v-btn>
+            </template> -->
+                                        </v-data-table>
+
                                     </td>
                                 </template>
 
