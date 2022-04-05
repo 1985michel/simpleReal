@@ -7,6 +7,16 @@ function getDataAtual() {
     return hoje;
 }
 
+function getHoraAtual() {
+    const data = new Date();
+    const hora = data.getHours();          // 0-23
+    const min = data.getMinutes();        // 0-59
+    const seg = data.getSeconds();        // 0-59
+
+
+    return `${hora}:${min}:${seg}`;
+}
+
 function getDataAtualFormatada() {
 
     const [year, month, day] = getDataAtual().split('-');

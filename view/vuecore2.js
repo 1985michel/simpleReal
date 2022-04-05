@@ -81,7 +81,7 @@ const vm = new Vue({
 
         //CONTAS
 
-        singleExpandContas: false,
+        singleExpandContas: false, //é da tabela, determina se você pode abrir o histórico de várias contas ao mesmo tempo
         expandedContas: [],//não sei para que serve
         dialogContas: false,
         dialogDeleteContas: false,
@@ -112,6 +112,57 @@ const vm = new Vue({
             carteira: '',
         },
         expandContas: false,
+
+
+
+
+
+
+
+
+
+
+        //MONEY TIME FLOW
+
+
+        dialogMoneyTime: false,
+        dialogDeleteMoneyTime: false,
+        headersMoneyTime: [
+            {
+                text: 'Saldo',
+                align: 'center',
+                sortable: false,
+                value: 'saldo',
+            },
+            { text: 'Data', value: 'momento.data', align: 'center' },
+            { text: 'Hora', value: 'momento.hora', align: 'center' },
+            { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+
+        ],
+        //contas: getContasTratadas(),
+        idDaContaDonaDosMoneyTimesDaTabela: -1,
+        editedIndexMoneyTime: -1,
+        editedItemMoneyTime: {
+            contaId: '',
+            id: '',
+            valor: '',
+            momento: {
+                data: '',
+                hora: '',
+                id: '',
+            }
+        },
+        defaultItemMoneyTime: {
+            contaId: '',
+            id: '',
+            valor: '',
+            momento: {
+                data: this.getDataAtualFormatada(),
+                hora: getHoraAtual(),
+                id: '',
+            }
+        },
+        expandMoneyTime: false,
 
 
 
@@ -318,6 +369,15 @@ const vm = new Vue({
 
 
 
+        //MONEY TIME
+
+        formTitleMoneyTime() {
+            return this.editedIndexMoneyTime === -1 ? 'Novo Saldo' : 'Editar Saldo'
+        },
+
+
+
+
 
 
 
@@ -383,6 +443,18 @@ const vm = new Vue({
             val || this.close()
         },
         dialogDeleteContas(val) {
+            val || this.closeDelete()
+        },
+
+
+
+
+
+        //MONEY TIME
+        dialogMoneyTime(val) {
+            val || this.close()
+        },
+        dialogDeleteMoneyTime(val) {
             val || this.closeDelete()
         },
 
@@ -640,7 +712,7 @@ const vm = new Vue({
             const seg = data.getSeconds();        // 0-59
 
 
-            return hora + ':' + min + ':' + seg;
+            return `${hora}:${min}:${seg}`;
         },
 
         reprocessaDadosDaConta(conta) {
@@ -763,6 +835,82 @@ const vm = new Vue({
                 this.contas.push(novaConta);
             }
             this.closeContas()
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //MONEY TIME
+        editItemMoneyTime(item) {
+            alert(`item: ${item.momento.data}`)
+            this.editedIndexMoneyTime = this.getContaById(item.contaId).moneyTimeFlow.indexOf(item)
+            this.editedItemMoneyTime = Object.assign({}, item)
+
+            this.dialogMoneyTime = true
+        },
+
+        deleteItemMoneyTime(item) {
+            this.editedIndexMoneyTime = this.getContaById(item.contaId).moneyTimeFlow.indexOf(item)
+            this.editedItemMoneyTime = Object.assign({}, item)
+            this.dialogDeleteMoneyTime = true
+        },
+
+        deleteItemConfirmMoneyTime() {
+            this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow.splice(this.editedIndexMoneyTime, 1)
+            this.closeDeleteMoneyTime()
+        },
+
+        closeMoneyTime() {
+            this.dialogMoneyTime = false
+            //ao que parece nextTick faz a DOM atualizar antes do que está dentro do nextTick seja executado
+            //no caso abaixo é limpar os campos do modal de edição
+            this.$nextTick(() => {
+                this.editedItemMoneyTime = Object.assign({}, this.defaultItemMoneyTime)
+                this.editedIndexMoneyTime = -1
+            })
+        },
+
+        closeDeleteMoneyTime() {
+            this.dialogDeleteMoneyTime = false
+            this.$nextTick(() => {
+                this.editedItemMoneyTime = Object.assign({}, this.defaultItemMoneyTime)
+                this.editedIndexMoneyTime = -1
+            })
+        },
+
+        saveMoneyTime() {
+
+            /* this.editedItemContas.vencimentoInicial = this.formatDate(this.date); */
+
+            if (this.editedIndexMoneyTime > -1) {
+
+                //abaixo ele pega o que foi editado e coloca na posição orignal do array contas
+                Object.assign(this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow[this.editedIndexMoneyTime], this.editedItemMoneyTime)
+            } else {
+
+                //o idDaContaDonaDosMoneyTimesDaTabela eu seto lá no botão que abre o modal para o registro de novo saldo
+                this.editedItemMoneyTime.contaId = this.idDaContaDonaDosMoneyTimesDaTabela;
+
+                const momento = new Momento(this.editedItemMoneyTime.momento.data, this.editedItemMoneyTime.momento.hora);
+
+                const novoMoneyTime = new MoneyTime(this.editedItemMoneyTime.contaId, this.editedItemMoneyTime.saldo, momento);
+
+                const conta = this.getContaById(this.idDaContaDonaDosMoneyTimesDaTabela);
+
+                //idDaContaDonaDosMoneyTimesDaTabela
+                this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow.unshift(novoMoneyTime);
+            }
+            this.closeMoneyTime()
         },
 
 
