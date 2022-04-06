@@ -8,13 +8,13 @@ let compromissosDoMesArray = [];
 let recebimentosArray = []
 
 const recorrencia = [
-    { nome: 'Única', diasPorCiclo: 0 },
+
     { nome: 'Diária', diasPorCiclo: 1 },
     { nome: 'Semanal', diasPorCiclo: 7 },
-    { nome: 'Semanal Fixa', diasPorCiclo: -8 },
+
     { nome: 'Mensal', diasPorCiclo: 30 },
     { nome: 'Anual', diasPorCiclo: 365 },
-    { nome: 'Mensal Fixa', diasPorCiclo: -30 },
+
 ]
 
 
@@ -192,7 +192,7 @@ const vm = new Vue({
             { text: 'Recorrência', value: 'recorrencia', align: 'center' },
             { text: 'Qtd. Parcelas', value: 'qtdParcelas', align: 'center' },
             { text: 'Parc. Fut.', value: 'qtdParcelasFuturas', align: 'center' },
-            { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center' },
+            { text: 'Fat. no Cartão?', value: 'isfaturadonocartao', align: 'center' },
             { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
         ],
         compromissos: testeGetCompromissos(),
@@ -249,7 +249,7 @@ const vm = new Vue({
             {
                 text: 'Descrição',
                 align: 'start',
-                sortable: false,
+                sortable: true,
                 value: 'descricao',
             },
             { text: 'Valor', value: 'valor', align: 'center' },

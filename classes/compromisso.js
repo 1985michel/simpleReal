@@ -61,6 +61,9 @@ class CompromissoPai {
 
         let proxima = '';
 
+
+
+
         if (this.recorrencia == 1 || this.recorrencia == 7) {
 
             //console.log(`Entramos a recorrencia deu ${this.recorrencia}`);
