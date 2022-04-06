@@ -274,11 +274,15 @@
 
                             <v-data-table :headers="headersContas" :items="contas" sort-by="nome" class="elevation-1"
                                 v-show="expandContas" :single-expand="singleExpandContas"
-                                :expanded.sync="expandedContas" item-key="id" show-expand>
+                                :expanded.sync="expandedContas" item-key="id" show-expand :search="searchContas"
+                                :custom-filter="filterEntidades">
                                 <template v-slot:top>
                                     <v-toolbar flat>
                                         <v-toolbar-title>Contas</v-toolbar-title>
-                                        <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
+                                        <v-divider class="mx-4" inset vertical></v-divider>
+                                        <v-text-field v-model="searchContas" label="Localizar" style="margin-top: 20px;"
+                                            class="mx-4">
+                                        </v-text-field>
                                         <v-spacer></v-spacer>
 
                                         <v-dialog v-model="dialogContas" max-width="500px">
@@ -553,11 +557,15 @@
 
 
                             <v-data-table :headers="headersCompromissos" :items="compromissos"
-                                sort-by="vencimentoInicial" class="elevation-1" v-show="expandCompromissosRecorrentes">
+                                sort-by="vencimentoInicial" class="elevation-1" v-show="expandCompromissosRecorrentes"
+                                :search="searchCompromissos" :custom-filter="filterEntidades">
                                 <template v-slot:top>
                                     <v-toolbar flat>
                                         <v-toolbar-title>Compromissos Recorrentes</v-toolbar-title>
-                                        <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
+                                        <v-divider class="mx-4" inset vertical></v-divider>
+                                        <v-text-field v-model="searchCompromissos" label="Localizar"
+                                            style="margin-top: 20px;" class="mx-4">
+                                        </v-text-field>
                                         <v-spacer></v-spacer>
                                         <v-dialog v-model="dialogCompromissos" max-width="500px">
                                             <template v-slot:activator="{ on, attrs }">
@@ -702,7 +710,7 @@
                             <!-- sort-by="descricao"  -->
                             <v-data-table :headers="headersCompromissosDoMes" :items="compromissosDoMes"
                                 class="elevation-1" v-show="expandCompromissosDoMes" :search="searchCompromissosDoMes"
-                                :custom-filter="filterCompromissosDoMes">
+                                :custom-filter="filterEntidades">
                                 <!-- <template v-slot:top>
                                     <v-text-field v-model="search" label="Search (UPPER CASE ONLY)" class="mx-4">
                                     </v-text-field>
@@ -855,12 +863,16 @@
 
 
                             <v-data-table :headers="headersRecebimentos" :items="recebimentos" sort-by="dataRecebimento"
-                                class="elevation-1" v-show="expandRecebimentos">
+                                class="elevation-1" v-show="expandRecebimentos" :search="searchRecebimentos"
+                                :custom-filter="filterEntidades">
 
                                 <template v-slot:top>
                                     <v-toolbar flat>
                                         <v-toolbar-title>Recebimentos</v-toolbar-title>
-                                        <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
+                                        <v-divider class="mx-4" inset vertical></v-divider>
+                                        <v-text-field v-model="searchRecebimentos" label="Localizar"
+                                            style="margin-top: 20px;" class="mx-4">
+                                        </v-text-field>
                                         <v-spacer></v-spacer>
                                         <v-dialog v-model="dialogRecebimentos" max-width="500px">
                                             <template v-slot:activator="{ on, attrs }">

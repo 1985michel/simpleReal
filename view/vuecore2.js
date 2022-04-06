@@ -81,7 +81,7 @@ const vm = new Vue({
 
 
         //CONTAS
-
+        searchContas: '',
         singleExpandContas: false, //é da tabela, determina se você pode abrir o histórico de várias contas ao mesmo tempo
         expandedContas: [],//não sei para que serve
         dialogContas: false,
@@ -178,6 +178,7 @@ const vm = new Vue({
 
         //COMPROMISSOS RECORRENTES
 
+        searchCompromissos: '',
         dialogCompromissos: false,
         dialogDeleteCompromissos: false,
         headersCompromissos: [
@@ -317,7 +318,7 @@ const vm = new Vue({
         //Recebimentos
 
         //constructor(isRendaPassiva, ativoResponsavel, descricao, valor, contaDeRecebimento, dataRecebimento) 
-
+        searchRecebimentos: '',
         dialogRecebimentos: false,
         dialogDeleteRecebimentos: false,
         headersRecebimentos: [
@@ -1143,7 +1144,9 @@ const vm = new Vue({
             }
             this.closeCompromissosDoMes()
         },
-        filterCompromissosDoMes(value, search, item) {
+
+        //esse filter vale para todas as entidades
+        filterEntidades(value, search, item) {
             return value != null &&
                 search != null &&
                 typeof value === 'string' &&
