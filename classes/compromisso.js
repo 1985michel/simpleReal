@@ -17,12 +17,23 @@ class CompromissoPai {
         this.vencimentoInicial = vencimentoInicial;
         this.recorrencia = recorrencia;
         this.qtdParcelas = qtdParcelas;
-        this.qtdParcelasFuturas = this.calculaQuantidadeDeParcelasFuturas();
+        this.qtdParcelasFuturas = 0;
 
+
+        this.datasFuturas = [];
         this.timeLine = [];
+
+
+        this.calculaQuantidadeDeParcelasFuturas();
+
+
+
     }
 
     calculaQuantidadeDeParcelasFuturas() {
+
+        //primeiro limpamos o array
+        this.datasFuturas = [];
 
         const comparandoPrimeiroVencimentoComADataAtual = isDataABeforDataB(getDataAtualFormatada(), this.vencimentoInicial);
 
@@ -70,6 +81,7 @@ class CompromissoPai {
                     if (compara != false) {
                         //parcelas que vencem hoje são consideradas parcelas futuras
                         /* console.log(` DAY A proxima parcela analisada vence em ${proxima} e por isso foi considerada futura.`); */
+                        this.datasFuturas.push(proxima);
                         qtdPacFut++;
                     } else {
                         qtdParPassadas++;
@@ -93,6 +105,7 @@ class CompromissoPai {
                     if (compara != false) {
                         //parcelas que vencem hoje são consideradas parcelas futuras
                         /* console.log(` DAY A proxima parcela analisada vence em ${proxima} e por isso foi considerada futura.`); */
+                        this.datasFuturas.push(proxima);
                         qtdPacFut++;
                     } else {
                         qtdParPassadas++;
@@ -102,7 +115,66 @@ class CompromissoPai {
                 console.log(`Nao entramos, a recorrencia analisada foi ${this.recorrencia}`);
             }
 
-            return qtdPacFut;
+            console.log(`Ainda faltam: ${qtdPacFut}`);
+
+            this.qtdParcelasFuturas = qtdPacFut;
+
+            this.geraCompromissosMensais();
+        }
+    }
+
+    geraCompromissosMensais() {
+
+        let newComps = [];
+
+        for (let index = 0; index < this.datasFuturas.length; index++) {
+            const dt = this.datasFuturas[index];
+
+            const novoCompFilho = new CompromissoFilho(this, dt);
+
+            newComps.push(novoCompFilho);
+
+        }
+
+        //quando é na criação do compromisso pai, tudo bem.
+        //mas e quando é na edição? 
+        // se eu gerar novos, vai ficar em duplicidade
+        // se eu apagar a timeline antes de incluir, vai apagar os passados.
+        // o melhor parece ser apagar os futuros (gerando novos), mas manter os passados.
+
+        //como identificar os compromissos mensais?
+        //não pode ser id, pq não estou alterando, estou gerando novos
+        //não pode ser por data, pois talvez só se alterou a data de vencimento e por isso os outros se alteraram
+        //não pode ser por valor
+
+        //vou fazer o seguinte: vou correr a time line e vou excluir os compromisso futuros, deixando somente os passados.
+
+        const tamanhoOriginal = this.timeLine.length;
+
+        for (let index = 0; index < tamanhoOriginal; index++) {
+
+            if (index >= this.timeLine.length) {
+                break;//sai do for
+            }
+
+            const comp = this.timeLine[index];
+
+            const hoje = getDataAtualFormatada();
+            const venc = this.timeLine[index].vencimento;
+            const comparaDatas = isDataABeforDataB(hoje, venc);
+
+            if (comparaDatas != false) {
+                //se entrou é pq ou é data futura ou hoje,
+
+                this.timeLine.splice(index, 1);
+                index--;//volta o indice uma casa               
+
+            }
+        }
+
+        for (let index = 0; index < newComps.length; index++) {
+            const cp = newComps[index];
+            this.timeLine.push(cp);
         }
     }
 }

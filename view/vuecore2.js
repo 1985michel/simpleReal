@@ -219,6 +219,21 @@ const vm = new Vue({
 
 
 
+        //Vou usar a estrutura abaixo para o array de compromissosDoMes
+        // se for um compromisso avulso aí o o idRecorrente será '-1'
+        /* compromissosMensais: [
+            { idRecorrente: 1, timeLine: [] },
+            { idRecorrente: -1, timeLine: [compromissoDoMes] },
+            { idRecorrente: 1, timeLine: [] },
+        ], 
+        
+            TODOS OS COMPROMISSOS AVULSOS FICARÃO SOB O MESMO IDRECORRENTE: -1  E VAI SER SÓ 1
+
+            DEPOIS EU VOU ENCONTRAR UMA ESTRUTURA MELHOR
+        
+        */
+
+        compromissosDoMes: [],
 
 
         /* compromissosDoMes */
@@ -238,7 +253,7 @@ const vm = new Vue({
             { text: 'Pago?', value: 'ispago', align: 'center' },
             { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
         ],
-        compromissosDoMes: testeGetCompromissosDoMes(),
+        //compromissosDoMes: testeGetCompromissosDoMes(),
         editedIndexCompromissosDoMes: -1,
         editedItemCompromissosDoMes: {
             descricao: '',
@@ -965,15 +980,97 @@ const vm = new Vue({
 
         saveCompromissos() {
             this.editedItemCompromissos.vencimentoInicial = this.formatDate(this.date);
+
             if (this.editedIndexCompromissos > -1) {
-                Object.assign(this.compromissos[this.editedIndexCompromissos], this.editedItemCompromissos)
+                Object.assign(this.compromissos[this.editedIndexCompromissos], this.editedItemCompromissos);
+
+                //já que foi alterado vamos recalcular a quantidade de parcelas futuras.
+                const cp = this.compromissos[this.editedIndexCompromissos];
+                //this.compromissos[this.editedIndexCompromissos].calculaQuantidadeDeParcelasFuturas();
+                cp.calculaQuantidadeDeParcelasFuturas();
+
+
+                //vamos remover dos compromissos aqueles que foram retirados da time line do objeto pai
+                for (let index = 0; index < this.compromissosDoMes.length; index++) {
+                    const c = this.compromissosDoMes[index];
+
+                    if ('idCompromissoPai' in c) {
+                        if (c.idCompromissoPai == cp.id) {
+                            if (!cp.timeLine.includes(c)) {
+                                this.compromissosDoMes.splice(index, 1);
+                                index--;//já que tirou um objeto, volta o indice
+                            }
+                        }
+                    }
+                }
+
+                //agora adicionamos os novos
+                for (let index = 0; index < cp.timeLine.length; index++) {
+                    const comp = cp.timeLine[index];
+                    this.compromissosDoMes.push(comp);
+                }
+
             } else {
                 const novoComp = new CompromissoPai(this.editedItemCompromissos.descricao, this.editedItemCompromissos.valor, this.editedItemCompromissos.vencimentoInicial, this.editedItemCompromissos.recorrencia, this.editedItemCompromissos.qtdParcelas, this.editedItemCompromissos.qtdParcelasFuturas);
 
                 this.compromissos.push(novoComp);
+
+                /* const ob = { idRecorrente: novoComp.id, timeLine: novoComp.timeLine };
+                this.compromissosDoMes.push(ob); */
+
+                for (let index = 0; index < novoComp.timeLine.length; index++) {
+                    const comp = novoComp.timeLine[index];
+                    this.compromissosDoMes.push(comp);
+                }
             }
             this.closeCompromissos()
         },
+
+
+
+
+
+
+
+
+
+
+
+
+        getCompromissosDoMesPorIdDeCompromissoRecorrente(id) {
+            for (let index = 0; compromissosDoMes < array.length; index++) {
+                const objCompM = compromissosDoMes[index];
+
+                if (objCompM[index].idRecorrente == id) {
+                    return compromissosDoMes[index]
+                }
+            }
+        },
+
+        getCompromissosDoMesPorIdDeCompromissoAvulso(id) {
+
+            for (let index = 0; compromissosDoMes < array.length; index++) {
+                const objCompM = compromissosDoMes[index];
+
+                if (objCompM[index].idRecorrente == -1) {
+
+                    const timeLineAvulsos = objCompM[index].timeLine;
+
+                    for (let index2 = 0; index2 < timeLineAvulsos.length; index2++) {
+                        const compAvulso = timeLineAvulsos[index2];
+
+                        if (compAvulso.id == id) {
+                            return timeLineAvulsos[index2];
+                        }
+
+                    }
+
+
+                }
+            }
+        },
+
+
 
 
 
@@ -1033,6 +1130,11 @@ const vm = new Vue({
             }
             this.closeCompromissosDoMes()
         },
+
+
+
+
+
 
 
 

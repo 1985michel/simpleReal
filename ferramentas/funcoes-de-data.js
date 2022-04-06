@@ -40,6 +40,10 @@ function parseToDate(date) {
 
 function isDataABeforDataB(a, b) {
 
+    //retorn false: se A posterior a B
+    //retorna -1 se forem iguais
+    //retorna trua se A anterior a B
+
     //console.log(`Vamos comparar ${a} e ${b}`);
 
     const [dayA, monthA, yearA] = a.split('/');
