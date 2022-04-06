@@ -17,6 +17,8 @@ function getHoraAtual() {
     return `${hora}:${min}:${seg}`;
 }
 
+
+
 function getDataAtualFormatada() {
 
     const [year, month, day] = getDataAtual().split('-');

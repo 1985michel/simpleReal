@@ -175,7 +175,7 @@ const vm = new Vue({
             id: '',
             valor: '',
             momento: {
-                data: this.getDataAtualFormatada(),
+                data: '',
                 hora: getHoraAtual(),
                 id: '',
             }

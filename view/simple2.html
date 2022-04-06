@@ -432,7 +432,8 @@
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn color="" outlined class="mb-2" v-bind="attrs"
                                                                 v-on="on"
-                                                                @click="idDaContaDonaDosMoneyTimesDaTabela = item.id">
+                                                                @click="idDaContaDonaDosMoneyTimesDaTabela = item.id;
+                                                                defaultItemMoneyTime.momento.hora = getHoraAtual(); defaultItemMoneyTime.momento.data = this.getDataAtualFormatada()">
                                                                 Novo Saldo
                                                             </v-btn>
                                                         </template>
