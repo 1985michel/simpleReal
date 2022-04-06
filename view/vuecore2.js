@@ -17,6 +17,23 @@ const recorrencia = [
 
 ]
 
+/* const competencias = [
+
+    { nome: '01/2022', valor: '01/2022' },
+    { nome: '02/2022', valor: '01/2022' },
+    { nome: '03/2022', valor: '01/2022' },
+    { nome: '04/2022', valor: '01/2022' },
+    { nome: '05/2022', valor: '01/2022' },
+    { nome: '06/2022', valor: '01/2022' },
+    { nome: '07/2022', valor: '01/2022' },
+    { nome: '08/2022', valor: '01/2022' },
+    { nome: '09/2022', valor: '01/2022' },
+    { nome: '10/2022', valor: '01/2022' },
+    { nome: '11/2022', valor: '01/2022' },
+    { nome: '12/2022', valor: '01/2022' },
+    { nome: '01/2023', valor: '01/2022' },
+] */
+
 
 const vm = new Vue({
     el: '#app',
@@ -35,7 +52,7 @@ const vm = new Vue({
         /* editedIndex: -1,
         editedCountIndex: -1,
         editMt: {}, */
-
+        competencias: [],
         carteiras: [],
 
         dialogUpDateSaldo: false,
@@ -243,11 +260,11 @@ const vm = new Vue({
 
         /* compromissosDoMes */
 
-
+        pormes: '',
         searchCompromissosDoMes: '',
         dialogCompromissosDoMes: false,
         dialogDeleteCompromissosDoMes: false,
-        headersCompromissosDoMes: [
+        /* headersCompromissosDoMes: [
             {
                 text: 'Descrição',
                 align: 'start',
@@ -255,11 +272,19 @@ const vm = new Vue({
                 value: 'descricao',
             },
             { text: 'Valor', value: 'valor', align: 'center' },
-            { text: 'Vencimento', value: 'vencimento', align: 'center' },
+            {
+                text: 'Vencimento', align: 'center', value: 'vencimento',
+                filter: value => {
+                    if (!this.pormes) return true
+
+                    //return value < parseInt(this.pormes)
+                    return value == parseInt(this.pormes)
+                },
+            },
             { text: 'Pago?', value: 'ispago', align: 'center' },
             { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center' },
             { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
-        ],
+        ], */
         //compromissosDoMes: testeGetCompromissosDoMes(),
         editedIndexCompromissosDoMes: -1,
         editedItemCompromissosDoMes: {
@@ -423,6 +448,30 @@ const vm = new Vue({
             return this.editedIndexCompromissosDoMes === -1 ? 'Novo Compromisso' : 'Editar Compromisso'
         },
 
+        headersComputedCompromissosDoMes() {
+            return [
+                {
+                    text: 'Descrição',
+                    align: 'start',
+                    sortable: true,
+                    value: 'descricao',
+                },
+                { text: 'Valor', value: 'valor', align: 'center' },
+                {
+                    text: 'Vencimento', align: 'center', value: 'vencimento',
+                    filter: value => {
+                        if (!this.pormes) return true
+
+                        //return value < parseInt(this.pormes)
+                        return this.filtroPorMes(value);
+                    },
+                },
+                { text: 'Pago?', value: 'ispago', align: 'center' },
+                { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center' },
+                { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+            ]
+        },
+
 
 
 
@@ -525,6 +574,7 @@ const vm = new Vue({
         /* aqui você pode chamar os métodos que quer que sejam executados antes de inicializar os componenetes */
         this.updateCarteiras();
         this.getResultados();
+        this.gerarCompetênciaAnoAtual();
     },
 
     methods: {
@@ -1151,6 +1201,37 @@ const vm = new Vue({
                 search != null &&
                 typeof value === 'string' &&
                 value.toString().toLocaleUpperCase().indexOf(search.toLocaleUpperCase()) !== -1
+        },
+
+        filtroPorMes(value) {
+
+            if (this.pormes == '-1') return true;
+
+            const [diaV, mesV, anoV] = value.split('/');
+
+            const [mesP, anoP] = this.pormes.split('/');
+
+            if (anoP == anoV) {
+                if (mesP == mesV) {
+                    console.log(`Retornando TRUE em: ${value} sob filtro ${this.pormes}`);
+                    return true;
+                }
+            }
+            console.log(`Retornando FALSE em: ${value} sob filtro ${this.pormes}`);
+            return false
+
+        },
+
+        gerarCompetênciaAnoAtual() {
+            const anoAtual = getDataAtualFormatada().split('/')[2];
+            this.competencias.push({ nome: 'Selecione', valor: '-1' });
+            for (let index = 1; index <= 12; index++) {
+                let mes = '';
+                if (index < 10) {
+                    mes = `0${index}`;
+                }
+                this.competencias.push({ nome: `${mes}/${anoAtual}`, valor: `${mes}/${anoAtual}` });
+            }
         },
 
 
