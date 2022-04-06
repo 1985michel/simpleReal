@@ -192,6 +192,7 @@ const vm = new Vue({
             { text: 'Recorrência', value: 'recorrencia', align: 'center' },
             { text: 'Qtd. Parcelas', value: 'qtdParcelas', align: 'center' },
             { text: 'Parc. Fut.', value: 'qtdParcelasFuturas', align: 'center' },
+            { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center' },
             { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
         ],
         compromissos: testeGetCompromissos(),
@@ -203,6 +204,7 @@ const vm = new Vue({
             recorrencia: 0,
             qtdParcelas: 0,
             qtdParcelasFuturas: 0,
+            isfaturadonocartao: false,
         },
         defaultItemCompromissos: {
             descricao: '',
@@ -211,6 +213,7 @@ const vm = new Vue({
             recorrencia: 0,
             qtdParcelas: 0,
             qtdParcelasFuturas: 0,
+            isfaturadonocartao: false,
         },
         expandCompromissosRecorrentes: false,
         recorrencia: recorrencia,
@@ -403,7 +406,7 @@ const vm = new Vue({
         //COMPROMISSOS
 
         formTitleCompromissos() {
-            return this.editedIndexCompromissos === -1 ? 'Novo Compromisso' : 'Editar Compromisso'
+            return this.editedIndexCompromissos === -1 ? 'Novo Compromisso Recorrente' : 'Editar Compromisso Recorrente'
         },
 
 
@@ -1017,7 +1020,10 @@ const vm = new Vue({
                 }
 
             } else {
-                const novoComp = new CompromissoPai(this.editedItemCompromissos.descricao, this.editedItemCompromissos.valor, this.editedItemCompromissos.vencimentoInicial, this.editedItemCompromissos.recorrencia, this.editedItemCompromissos.qtdParcelas, this.editedItemCompromissos.qtdParcelasFuturas);
+
+                //alert(`Como chega o faturado no cartão: ${this.editedItemCompromissos.isfaturadonocartao}`)
+
+                const novoComp = new CompromissoPai(this.editedItemCompromissos.descricao, this.editedItemCompromissos.valor, this.editedItemCompromissos.vencimentoInicial, this.editedItemCompromissos.recorrencia, this.editedItemCompromissos.qtdParcelas, this.editedItemCompromissos.isfaturadonocartao);
 
                 this.compromissos.push(novoComp);
 
@@ -1089,7 +1095,7 @@ const vm = new Vue({
 
 
 
-        //COMPROMISSOS
+        //COMPROMISSOS DO MES
         editItemCompromissosDoMes(item) {
             this.editedIndexCompromissosDoMes = this.compromissosDoMes.indexOf(item)
             this.editedItemCompromissosDoMes = Object.assign({}, item)
