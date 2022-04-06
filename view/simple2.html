@@ -413,6 +413,28 @@
                                         {{ item.saldo }}
                                     </v-chip>
                                 </template>
+
+                                <template v-slot:body.append>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <!-- <v-select :items="carteiras" v-model="porcarteira" item-text="nome"
+                                                item-value="valor" label="Mês:" solo
+                                                @change="calcularTotalNaCarteira()">
+                                            </v-select> -->
+                                            <v-select :items="carteiras" v-model="porcarteira" label="Carteira:" solo
+                                                @change="calcularTotalNaCarteira()">
+                                            </v-select>
+                                            <v-toolbar-title>
+                                                Total: {{ valorTotalNaCarteira }}
+
+                                            </v-toolbar-title>
+                                            <!-- <p class="display-1">Total: {{ valorTotalCompromissosNaCompetencia }}</p> -->
+                                        </td>
+                                        <td colspan="4"></td>
+                                    </tr>
+                                </template>
+
                                 <template v-slot:expanded-item="{ headers, item }">
 
                                     <td :colspan="headers.length" style="background-color: darkgray;">
@@ -836,12 +858,27 @@
                                             <!-- <v-text-field v-model="pormes" type="text" label="Mês Desejado">
                                             </v-text-field> -->
                                             <v-select :items="competencias" v-model="pormes" item-text="nome"
-                                                item-value="valor" label="Mês:" solo>
+                                                item-value="valor" label="Mês:" solo
+                                                @change="calcularCompromissosNaCompetencia()">
                                             </v-select>
+                                            <v-toolbar-title>
+                                                Total: {{ valorTotalCompromissosNaCompetencia }}
+
+                                            </v-toolbar-title>
+                                            <!-- <p class="display-1">Total: {{ valorTotalCompromissosNaCompetencia }}</p> -->
                                         </td>
                                         <td colspan="4"></td>
                                     </tr>
                                 </template>
+                                <!-- <template v-slot:body.append>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <p>Total: {{ valorTotalCompromissosNaCompetencia }}</p>
+                                        </td>
+                                        <td colspan="4"></td>
+                                    </tr>
+                                </template> -->
                                 <!-- <template v-slot:body.append>
                                     <tr>
                                         <td></td>

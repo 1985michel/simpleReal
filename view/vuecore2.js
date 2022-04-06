@@ -53,7 +53,9 @@ const vm = new Vue({
         editedCountIndex: -1,
         editMt: {}, */
         competencias: [],
+        valorTotalCompromissosNaCompetencia: 0,
         carteiras: [],
+        valorTotalNaCarteira: 0,
 
         dialogUpDateSaldo: false,
         /* dialogDelete: false, */
@@ -130,6 +132,7 @@ const vm = new Vue({
             carteira: '',
         },
         expandContas: false,
+        porcarteira: '',
 
 
 
@@ -896,6 +899,10 @@ const vm = new Vue({
 
                 //abaixo ele pega o que foi editado e coloca na posição orignal do array contas
                 Object.assign(this.contas[this.editedIndexContas], this.editedItemContas)
+
+                if (!this.carteiras.includes(this.editedItemContas.carteira)) {
+                    this.updateCarteiras();
+                }
             } else {
 
                 //recebo o logo que foi confirmado
@@ -907,8 +914,40 @@ const vm = new Vue({
                 const novaConta = new Conta(this.editedItemContas.nome, this.editedItemContas.carteira, this.editedItemContas.logo);
 
                 this.contas.push(novaConta);
+
+                if (!this.carteiras.includes(novaConta.carteira)) {
+                    this.updateCarteiras();
+                }
             }
             this.closeContas()
+        },
+
+        calcularTotalNaCarteira() {
+
+            this.valorTotalNaCarteira = 0;
+
+            for (let index = 0; index < this.contas.length; index++) {
+                const c = this.contas[index];
+
+                if (this.filtroPorCarteira(c.carteira)) {
+                    if (c.saldo.includes('R$')) {
+                        this.valorTotalNaCarteira += fromRealtoNumber(c.saldo);
+                    }
+                }
+            }
+
+            this.valorTotalNaCarteira = fromNumberToReal(this.valorTotalNaCarteira)
+
+        },
+
+        filtroPorCarteira(value) {
+
+            if (this.porcarteira == '-1') return true;
+
+            if (value == this.porcarteira) return true;
+
+            return false
+
         },
 
 
@@ -1235,6 +1274,25 @@ const vm = new Vue({
         },
 
 
+        calcularCompromissosNaCompetencia() {
+            this.valorTotalCompromissosNaCompetencia = 0;
+
+
+            for (let index = 0; index < this.compromissosDoMes.length; index++) {
+                const c = this.compromissosDoMes[index];
+
+                if (this.filtroPorMes(c.vencimento)) {
+                    this.valorTotalCompromissosNaCompetencia += fromRealtoNumber(c.valor);
+                }
+
+            }
+
+            this.valorTotalCompromissosNaCompetencia = fromNumberToReal(this.valorTotalCompromissosNaCompetencia)
+
+
+        },
+
+
 
 
 
@@ -1382,6 +1440,7 @@ const vm = new Vue({
 
             //daí atualizamos os dados estatísticos;
             this.getResultados();
+            this.updateCarteiras();
         }
 
 
