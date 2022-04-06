@@ -209,7 +209,7 @@ class CompromissoPai {
 
 
 class CompromissoFilho {
-    constructor(compromissoPai, venciento) {
+    constructor(compromissoPai, vencimento) {
 
         //nem todo compromisso filho tem compromisso pai, pode ser um compromisso único
         this.idCompromissoPai = compromissoPai.id;
@@ -217,7 +217,7 @@ class CompromissoFilho {
         this.isfaturadonocartao = compromissoPai.isfaturadonocartao; //importa para não somar duas vezes nas dívidas
         this.descricao = compromissoPai.descricao;
         this.valor = compromissoPai.valor;
-        this.vencimento = venciento;
+        this.vencimento = vencimento;
         this.isPago = false;
     }
 

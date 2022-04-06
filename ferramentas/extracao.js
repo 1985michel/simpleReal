@@ -84,7 +84,7 @@ function processaEntradaDeTodosOsDados(entrada) {
     toRecebimentos(obj.recebimentos)
 
 
-    console.log(`Temos: ${contasArray.length} contas;   ${compromissosArray.length} compromissos; ${compromissosDoMesArray.lenght} compromissos do mes.`);
+    console.log(`Temos: ${contasArray.length} contas;   ${compromissosArray.length} compromissos; ${compromissosDoMesArray.length} compromissos do mes.`);
 
 
 
@@ -142,8 +142,8 @@ function getObjectConta(el) {
 
     conta.saldo = el.saldo;
     conta.opcoesDeExibicao = {};
-    conta.opcoesDeExibicao.showHistory = el.opcoesDeExibicao.showHistory;
-    conta.opcoesDeExibicao.showDetalhes = el.opcoesDeExibicao.showDetalhes;
+    conta.opcoesDeExibicao.showHistory = false;
+    conta.opcoesDeExibicao.showDetalhes = false;
 
     contasArray.push(conta);
 
@@ -153,7 +153,10 @@ function getObjectCompromisso(el) {
 
     /* constructor(descricao, valor, vencimentoInicial, recorrencia, qtdParcelas, qtdParcelasFuturas) */
 
-    const comp = new CompromissoPai(el.descricao, el.valor, el.vencimentoInicial, el.recorrencia, el.qtdParcelas, el.qtdParcelasFuturas);
+    const comp = new CompromissoPai(el.descricao, el.valor, el.vencimentoInicial, el.recorrencia, el.qtdParcelas, el.isfaturadonocartao);
+
+    comp.qtdParcelasFuturas = el.qtdParcelasFuturas;
+
     comp.id = el.id;
 
 
@@ -165,7 +168,7 @@ function getObjectCompromissoDoMes(el) {
 
     /* descricao, valor, vencimento*/
 
-    const comp = new CompromissoAvulso(el.descricao, el.valor, el.vencimento);
+    const comp = new CompromissoAvulso(el.descricao, el.valor, el.vencimento, el.isfaturadonocartao);
     comp.id = el.id;
     comp.isPago = el.isPago;
 
