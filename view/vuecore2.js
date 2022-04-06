@@ -243,6 +243,7 @@ const vm = new Vue({
         /* compromissosDoMes */
 
 
+        searchCompromissosDoMes: '',
         dialogCompromissosDoMes: false,
         dialogDeleteCompromissosDoMes: false,
         headersCompromissosDoMes: [
@@ -1141,6 +1142,12 @@ const vm = new Vue({
                 this.compromissosDoMes.push(novoComp);
             }
             this.closeCompromissosDoMes()
+        },
+        filterCompromissosDoMes(value, search, item) {
+            return value != null &&
+                search != null &&
+                typeof value === 'string' &&
+                value.toString().toLocaleUpperCase().indexOf(search.toLocaleUpperCase()) !== -1
         },
 
 

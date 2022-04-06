@@ -701,11 +701,23 @@
 
                             <!-- sort-by="descricao"  -->
                             <v-data-table :headers="headersCompromissosDoMes" :items="compromissosDoMes"
-                                class="elevation-1" v-show="expandCompromissosDoMes">
+                                class="elevation-1" v-show="expandCompromissosDoMes" :search="searchCompromissosDoMes"
+                                :custom-filter="filterCompromissosDoMes">
+                                <!-- <template v-slot:top>
+                                    <v-text-field v-model="search" label="Search (UPPER CASE ONLY)" class="mx-4">
+                                    </v-text-field>
+                                </template> -->
                                 <template v-slot:top>
                                     <v-toolbar flat>
-                                        <v-toolbar-title>Compromissos do Mês</v-toolbar-title>
-                                        <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
+                                        <v-toolbar-title>
+                                            Compromissos do Mês
+
+                                        </v-toolbar-title>
+
+                                        <v-divider class="mx-4" inset vertical></v-divider>
+                                        <v-text-field v-model="searchCompromissosDoMes" label="Localizar"
+                                            style="margin-top: 20px;" class="mx-4">
+                                        </v-text-field>
                                         <v-spacer></v-spacer>
                                         <v-dialog v-model="dialogCompromissosDoMes" max-width="500px">
                                             <template v-slot:activator="{ on, attrs }">
@@ -806,6 +818,16 @@
                                     <v-simple-checkbox v-model="item.isfaturadonocartao" disabled>
                                     </v-simple-checkbox>
                                 </template>
+                                <!-- <template v-slot:body.append>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <v-text-field v-model="mes" type="string" label="Less than">
+                                            </v-text-field>
+                                        </td>
+                                        <td colspan="4"></td>
+                                    </tr>
+                                </template> -->
                                 <!-- <template v-slot:no-data>
                                         <v-btn color="primary" @click="initialize">
                                             Reset
