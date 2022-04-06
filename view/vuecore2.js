@@ -5,6 +5,7 @@
 let contasArray = [];
 let compromissosArray = [];
 let compromissosDoMesArray = [];
+let recebimentosArray = []
 
 const recorrencia = [
     { nome: 'Única', diasPorCiclo: 0 },
@@ -175,7 +176,7 @@ const vm = new Vue({
 
 
 
-        //COMPROMISSOS
+        //COMPROMISSOS RECORRENTES
 
         dialogCompromissos: false,
         dialogDeleteCompromissos: false,
@@ -251,6 +252,7 @@ const vm = new Vue({
             { text: 'Valor', value: 'valor', align: 'center' },
             { text: 'Vencimento', value: 'vencimento', align: 'center' },
             { text: 'Pago?', value: 'ispago', align: 'center' },
+            { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center' },
             { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
         ],
         //compromissosDoMes: testeGetCompromissosDoMes(),
@@ -260,12 +262,14 @@ const vm = new Vue({
             valor: 0,
             vencimento: 0,
             ispago: false,
+            isfaturadonocartao: false,
         },
         defaultItemCompromissosDoMes: {
             descricao: '',
             valor: 0,
             vencimento: 0,
             ispago: false,
+            isfaturadonocartao: false,
         },
         expandCompromissosDoMes: false,
 
@@ -910,7 +914,7 @@ const vm = new Vue({
             if (this.editedIndexMoneyTime > -1) {
 
                 //abaixo ele pega o que foi editado e coloca na posição orignal do array contas
-                Object.assign(this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow[this.editedIndexMoneyTime], this.editedItemMoneyTime)
+                Object.assign(this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow[this.editedIndexMoneyTime], this.editedItemMoneyTime);
             } else {
 
                 //o idDaContaDonaDosMoneyTimesDaTabela eu seto lá no botão que abre o modal para o registro de novo saldo
@@ -923,7 +927,9 @@ const vm = new Vue({
                 const conta = this.getContaById(this.idDaContaDonaDosMoneyTimesDaTabela);
 
                 //idDaContaDonaDosMoneyTimesDaTabela
-                this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow.unshift(novoMoneyTime);
+                //this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow.unshift(novoMoneyTime);
+                conta.moneyTimeFlow.unshift(novoMoneyTime);
+                this.reprocessaDadosDaConta(conta);
             }
             this.closeMoneyTime()
         },
@@ -1037,7 +1043,7 @@ const vm = new Vue({
 
 
 
-        getCompromissosDoMesPorIdDeCompromissoRecorrente(id) {
+        /* getCompromissosDoMesPorIdDeCompromissoRecorrente(id) {
             for (let index = 0; compromissosDoMes < array.length; index++) {
                 const objCompM = compromissosDoMes[index];
 
@@ -1068,7 +1074,7 @@ const vm = new Vue({
 
                 }
             }
-        },
+        }, */
 
 
 
@@ -1122,7 +1128,7 @@ const vm = new Vue({
             if (this.editedIndexCompromissosDoMes > -1) {
                 Object.assign(this.compromissosDoMes[this.editedIndexCompromissosDoMes], this.editedItemCompromissosDoMes)
             } else {
-                const novoComp = new CompromissoAvulso(this.editedItemCompromissosDoMes.descricao, this.editedItemCompromissosDoMes.valor, this.editedItemCompromissosDoMes.vencimento);
+                const novoComp = new CompromissoAvulso(this.editedItemCompromissosDoMes.descricao, this.editedItemCompromissosDoMes.valor, this.editedItemCompromissosDoMes.vencimento, this.editedItemCompromissosDoMes.isfaturadonocartao);
 
                 novoComp.ispago = this.editedItemCompromissosDoMes.ispago;
 
@@ -1268,13 +1274,14 @@ const vm = new Vue({
 
 
         extracao() {
-            ativaStringfyInOut(this.contas, this.compromissos, this.compromissosDoMes);
+            ativaStringfyInOut(this.contas, this.compromissos, this.compromissosDoMes, this.recebimentos);
         },
 
         injetaFromJson() {
             this.contas = contasArray;
             this.compromissos = compromissosArray;
             this.compromissosDoMes = compromissosDoMesArray;
+            this.recebimentos = recebimentosArray;
 
             //daí atualizamos os dados estatísticos;
             this.getResultados();

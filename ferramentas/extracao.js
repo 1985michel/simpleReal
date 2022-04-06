@@ -12,12 +12,12 @@ function arrayToString(arr) {
     return stringada;
 }
 
-function ativaStringfyInOut(contas, compromissos, compromissosDoMes) {
+function ativaStringfyInOut(contas, compromissos, compromissosDoMes, recebimentos) {
 
     //se a caixa de texto estiver vazia
     if (document.querySelector("#txtarea2").value == "") {
         if (confirm("Gerar extração?")) {
-            getStringfyOut(contas, compromissos, compromissosDoMes);
+            getStringfyOut(contas, compromissos, compromissosDoMes, recebimentos);
         }
 
     } else {
@@ -40,17 +40,17 @@ function getStringfyIn() {
 
 }
 
-function getStringfyOut(contas, compromissos, compromissosDoMes) {
+function getStringfyOut(contas, compromissos, compromissosDoMes, recebimentos) {
 
     //limpa a caixa
     document.getElementById("txtarea2").value = ""
 
     //gera os dados de saída
-    document.getElementById("txtarea2").value = stringfyAll(contas, compromissos, compromissosDoMes);
+    document.getElementById("txtarea2").value = stringfyAll(contas, compromissos, compromissosDoMes, recebimentos);
 }
 
 
-function stringfyAll(contas, compromissos, compromissosDoMes) {
+function stringfyAll(contas, compromissos, compromissosDoMes, recebimentos) {
 
     let txt = '{"contas":' + arrayToString(contas);
 
@@ -63,6 +63,7 @@ function stringfyAll(contas, compromissos, compromissosDoMes) {
     //dados básicos
     txt += ', "compromissosDoMes":' + arrayToString(compromissosDoMes);
 
+    txt += ', "recebimentos":' + arrayToString(recebimentos);
 
     txt += '}';
 
@@ -80,6 +81,7 @@ function processaEntradaDeTodosOsDados(entrada) {
     /* toCarteiras(obj.carteiras);*/
     toCompromissos(obj.compromissos);
     toCompromissosDoMes(obj.compromissosDoMes);
+    toRecebimentos(obj.recebimentos)
 
 
     console.log(`Temos: ${contasArray.length} contas;   ${compromissosArray.length} compromissos; ${compromissosDoMesArray.lenght} compromissos do mes.`);
@@ -92,6 +94,13 @@ function toContas(contas) {
     contas.forEach(element => {
         //console.log(`element é um objeto que tem os seguintes atributos ${Object.keys(element)}`);
         getObjectConta(element);
+    });
+}
+
+function toRecebimentos(recebimentos) {
+    recebimentos.forEach(element => {
+        //console.log(`element é um objeto que tem os seguintes atributos ${Object.keys(element)}`);
+        getObjectRecebimento(element);
     });
 }
 
@@ -164,5 +173,17 @@ function getObjectCompromissoDoMes(el) {
     compromissosDoMesArray.push(comp);
 
     console.log(`Compromissos do Mes: ${compromissosDoMesArray.length}`);
+
+}
+
+function getObjectRecebimento(el) {
+
+    /* constructor(descricao, valor, vencimentoInicial, recorrencia, qtdParcelas, qtdParcelasFuturas) */
+
+    const rec = new Recebimento(el.isRendaPassiva, el.ativoResponsavel, el.descricao, el.valor, el.contaDeRecebimento, el.dataRecebimento);
+    rec.id = el.id;
+
+
+    recebimentosArray.push(rec);
 
 }

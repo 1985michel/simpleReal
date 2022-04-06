@@ -8,7 +8,7 @@ let idCompromissoPaiGlobal = 0;
 let idCompromissoFilhoGlobal = 0;
 
 class CompromissoPai {
-    constructor(descricao, valor, vencimentoInicial, recorrencia, qtdParcelas) {
+    constructor(descricao, valor, vencimentoInicial, recorrencia, qtdParcelas, isfaturadonocartao) {
 
         this.id = ++idCompromissoPaiGlobal;
         this.descricao = descricao.slice();
@@ -18,6 +18,7 @@ class CompromissoPai {
         this.recorrencia = recorrencia;
         this.qtdParcelas = qtdParcelas;
         this.qtdParcelasFuturas = 0;
+        this.isfaturadonocartao = isfaturadonocartao;//essa variável é importante para que a dívida não seja contada duas vezes: na fatura do cartão e também como dívida em aberto;
 
 
         this.datasFuturas = [];
@@ -29,6 +30,10 @@ class CompromissoPai {
 
 
     }
+
+
+
+
 
     calculaQuantidadeDeParcelasFuturas() {
 
@@ -206,24 +211,29 @@ class CompromissoFilho {
         //nem todo compromisso filho tem compromisso pai, pode ser um compromisso único
         this.idCompromissoPai = compromissoPai.id;
         this.id = ++idCompromissoFilhoGlobal;
-
+        this.isfaturadonocartao = compromissoPai.isfaturadonocartao; //importa para não somar duas vezes nas dívidas
         this.descricao = compromissoPai.descricao;
         this.valor = compromissoPai.valor;
         this.vencimento = venciento;
         this.isPago = false;
     }
 
+
+
 }
 
 class CompromissoAvulso {
 
-    constructor(descricao, valor, vencimento) {
+    constructor(descricao, valor, vencimento, isfaturadonocartao) {
         //vou usar o mesmo id do compromisso filho pois um vai extender o outro futuramente
         this.id = ++idCompromissoFilhoGlobal;
         this.descricao = descricao;
         this.valor = valor;
         this.vencimento = vencimento;
         this.ispago = false;
+        this.isfaturadonocartao = isfaturadonocartao
     }
+
+
 
 }
