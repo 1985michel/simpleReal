@@ -107,7 +107,7 @@ const vm = new Vue({
         expandedContas: [],//não sei para que serve
         dialogContas: false,
         dialogDeleteContas: false,
-        headersContas: [
+        /* headersContas: [
             {
                 text: '',
                 align: 'center',
@@ -120,7 +120,7 @@ const vm = new Vue({
             { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
             { text: 'Histórico', value: 'data-table-expand' },
 
-        ],
+        ],*/
         contas: getContasTratadas(),
         editedIndexContas: -1,
         editedItemContas: {
@@ -422,6 +422,31 @@ const vm = new Vue({
             return this.editedIndexContas === -1 ? 'Nova Conta' : 'Editar Conta'
         },
 
+        headersComputedContas() {
+            return [
+                {
+                    text: '',
+                    align: 'center',
+                    sortable: false,
+                    value: 'logo',
+                },
+                { text: 'Nome Conta', value: 'nome', align: 'center' },
+                { text: 'Saldo', value: 'saldo', align: 'center' },
+                {
+                    text: 'Carteira', value: 'carteira', align: 'center', filter: value => {
+                        if (!this.porcarteira) return true
+
+                        //return value < parseInt(this.pormes)
+                        return this.filtroPorCarteira(value);
+                    },
+                },
+                { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+                { text: 'Histórico', value: 'data-table-expand' },
+
+            ]
+        },
+
+
 
 
 
@@ -666,22 +691,22 @@ const vm = new Vue({
 
 
         /* adcionarConta() {
-
+    
             const novaConta = new Conta(this.nomeContaAdd, this.carteiraContaAdd);
-
+    
             novaConta.opcoesDeExibicao = {};
             novaConta.opcoesDeExibicao.showHistory = false;
             novaConta.opcoesDeExibicao.showDetalhes = false;
-
+    
             novaConta.logo = this.logoConfirmadoContaAdd;
             this.contas.unshift(novaConta);
-
+    
             //limpando os campos de adição de nova conta
             this.cleanAdcionarContaFields();
-
+    
             //atualizando as carteiras pois pode ter sido criada uma nova
             //this.updateCarteiras();
-
+    
         }, */
 
         /* cleanAdcionarContaFields() {
@@ -689,10 +714,10 @@ const vm = new Vue({
             this.logoContaAdd = { nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' };
             this.logoConfirmadoContaAdd = '../imgs/branco.png';
             this.carteiraContaAdd = '';
-
+    
             this.showAdicionarConta = false;
         },
-
+    
         novoSaldo(contaId) {
             this.dialogTitle = "Novo Saldo";
             this.editedCountIndex = contaId;
@@ -700,43 +725,43 @@ const vm = new Vue({
             //console.log(this.editItem.hora);
             this.dialog = true;
         },
-
+    
         editItem(contaId, id) {
             this.dialogTitle = "Editar ";
-
+    
             //this.editedIndex = this.contas.indexOf(item)
             //this.editedItem = Object.assign({}, item)
-
+    
             this.editedCountIndex = contaId;
             this.editedIndex = id;
-
+    
             const ct = this.getContaById(this.editedCountIndex);
             const mt = ct.getMoneyTimeById(id)
-
+    
             this.editMt = mt;
-
+    
             //alimentando o formulário
             this.saldo = mt.saldo;
             this.hora = mt.momento.hora;
             this.date = this.parseDate(mt.momento.data);
-
+    
             this.dialog = true
         },
-
+    
         deleteItem(contaId, id) {
             this.dialogTitle = "Delete";
             //this.editedIndex = this.getContaById(contaId).moneyTimeFlow.indexOf(item)
             //this.editedItem = Object.assign({}, item)
             // console.log("Queremos deletar o mt de id: " + id);
             //this.getContaById(contaId).deleteMoneyTimeById(this.editItem.id); 
-
+    
             this.editedCountIndex = contaId;
-
-
+    
+    
             //console.log(`Vamos trabalhar o id: ${id}`);
             this.editedIndex = id;
             //console.log(`Vamos trabalhar o id: ${this.editedIndex}`);
-
+    
             //console.log("Queremos delete o mt de id: " + this.editItem.id);
             this.dialogDelete = true
         }, */
@@ -744,15 +769,15 @@ const vm = new Vue({
         /* deleteItemConfirm() {
             //this.contas.splice(this.editedIndex, 1)
             this.getContaById(this.editedCountIndex).deleteMoneyTimeById(this.editedIndex);
-
+    
             //const conta = this.getContaById(this.editedCountIndex);
-
+    
             //console.log(`Queremos deletar a conta de id ${this.editedCountIndex} cujo nome é ${conta.nome}`);
             //console.log(`Queremos deletar a mt de id ${this.editedIndex} cujo valor é ${this.editedIndex.saldo}`);
-
+    
             this.closeDelete()
         },
-
+    
          */
 
         /* close() {
@@ -762,7 +787,7 @@ const vm = new Vue({
                 this.editedIndex = -1
             })
         },
-
+    
         closeDelete() {
             this.dialogDelete = false
             this.$nextTick(() => {
@@ -774,32 +799,32 @@ const vm = new Vue({
         /* save() {
             if (this.editedIndex > -1) {
                 //Object.assign(this.contas[this.editedIndex], this.editedItem)
-
-
+    
+    
                 this.editMt.saldo = this.saldo;
                 this.editMt.momento.data = this.formatDate(this.date);
                 this.editMt.momento.hora = this.hora
-
-
+    
+    
                 this.reprocessaDadosDaConta(this.getContaById(this.editedCountIndex));
-
+    
             } else {
                 //const saldo = this.editedItem.saldo;
                 // const data = this.editedItem.data; 
                 const data = this.formatDate(this.date);
                 //const hora = this.editedItem.hora;
                 console.log(`Saldo: ${this.saldo} Data: ${data} Hora: ${this.hora}`);
-
+    
                 const momento = new Momento(data, this.hora);
                 const moneyTime = new MoneyTime(this.editedCountIndex, this.saldo, momento);
-
+    
                 //this.contas[this.editedCountIndex - 1].addMoneyTime(moneyTime);
-
+    
                 const cont = this.getContaById(this.editedCountIndex);
                 cont.addMoneyTime(moneyTime);
-
+    
                 //cont.cLPrint();
-
+    
                 this.reprocessaDadosDaConta(this.getContaById(this.editedCountIndex));
                 this.cleanNewSaldoModal();
             }
@@ -1220,32 +1245,32 @@ const vm = new Vue({
         /* getCompromissosDoMesPorIdDeCompromissoRecorrente(id) {
             for (let index = 0; compromissosDoMes < array.length; index++) {
                 const objCompM = compromissosDoMes[index];
-
+    
                 if (objCompM[index].idRecorrente == id) {
                     return compromissosDoMes[index]
                 }
             }
         },
-
+    
         getCompromissosDoMesPorIdDeCompromissoAvulso(id) {
-
+    
             for (let index = 0; compromissosDoMes < array.length; index++) {
                 const objCompM = compromissosDoMes[index];
-
+    
                 if (objCompM[index].idRecorrente == -1) {
-
+    
                     const timeLineAvulsos = objCompM[index].timeLine;
-
+    
                     for (let index2 = 0; index2 < timeLineAvulsos.length; index2++) {
                         const compAvulso = timeLineAvulsos[index2];
-
+    
                         if (compAvulso.id == id) {
                             return timeLineAvulsos[index2];
                         }
-
+    
                     }
-
-
+    
+    
                 }
             }
         }, */

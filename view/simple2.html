@@ -271,10 +271,10 @@
 
 
 
-                            <v-data-table :headers="headersContas" :items="contas" sort-by="logo" class="elevation-1"
-                                v-show="expandContas" item-key="id" :single-expand="singleExpandContas"
-                                :expanded.sync="expandedContas" item-key="id" show-expand :search="searchContas"
-                                :custom-filter="filterEntidades">
+                            <v-data-table :headers="headersComputedContas" :items="contas" sort-by="logo"
+                                class="elevation-1" v-show="expandContas" item-key="id"
+                                :single-expand="singleExpandContas" :expanded.sync="expandedContas" item-key="id"
+                                show-expand :search="searchContas" :custom-filter="filterEntidades">
                                 <template v-slot:top>
                                     <v-toolbar flat>
                                         <v-toolbar-title>Contas</v-toolbar-title>
