@@ -610,7 +610,7 @@ const vm = new Vue({
                     vencDia == depoisDeAmanha ||
                     vencDia == amanhaMaisTres
                 ) return 'yellow darken-2';
-                return 'white';
+                return 'transparent';
             }
 
             return 'white';

@@ -856,10 +856,9 @@
                                 </template>
                                 <!-- item.ispago ? 'green' : getVencimentoColor(item.vencimento) -->
                                 <template v-slot:item.vencimento="{ item }">
-                                    <v-chip text-color="white" label
+                                    <v-chip text-color="" class="font-weight-medium" label
                                         :color="item.ispago ? 'green': getVencimentoColor(item.vencimento)">
-                                        <b>{{ item.vencimento }}</b>
-                                    </v-chip>
+                                        {{ item.vencimento }} </v-chip>
                                 </template>
                                 <template v-slot:body.append>
                                     <tr>
