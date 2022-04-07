@@ -54,8 +54,10 @@ const vm = new Vue({
         editMt: {}, */
         competencias: [],
         valorTotalCompromissosNaCompetencia: 0,
+        valorCompromissosEmAbertoNaCompetencia: 0,
         carteiras: [],
         valorTotalNaCarteira: 0,
+        valorTotalDeRecebimentosNaCompetencia: 0,
 
         dialogUpDateSaldo: false,
         /* dialogDelete: false, */
@@ -264,6 +266,7 @@ const vm = new Vue({
         /* compromissosDoMes */
 
         pormes: '',
+        pormesrecebimentos: '',
         searchCompromissosDoMes: '',
         dialogCompromissosDoMes: false,
         dialogDeleteCompromissosDoMes: false,
@@ -1242,6 +1245,7 @@ const vm = new Vue({
                 value.toString().toLocaleUpperCase().indexOf(search.toLocaleUpperCase()) !== -1
         },
 
+        //compromissos 
         filtroPorMes(value) {
 
             if (this.pormes == '-1') return true;
@@ -1273,21 +1277,50 @@ const vm = new Vue({
             }
         },
 
+        //recebimentos
 
+        filtroPorMesRecebimentos(value) {
+
+
+
+            if (this.pormesrecebimentos == '-1') return true;
+
+            const [diaV, mesV, anoV] = value.split('/');
+
+            const [mesP, anoP] = this.pormesrecebimentos.split('/');
+
+            if (anoP == anoV) {
+                if (mesP == mesV) {
+                    //console.log(`Retornando TRUE em: ${value} sob filtro ${this.pormesrecebimentos}`);
+                    return true;
+                }
+            }
+            //console.log(`Retornando FALSE em: ${value} sob filtro ${this.pormesrecebimentos}`);
+            return false
+
+        },
+
+        //compromissos
         calcularCompromissosNaCompetencia() {
-            this.valorTotalCompromissosNaCompetencia = 0;
 
+            this.valorTotalCompromissosNaCompetencia = 0;
+            this.valorCompromissosEmAbertoNaCompetencia = 0;
 
             for (let index = 0; index < this.compromissosDoMes.length; index++) {
                 const c = this.compromissosDoMes[index];
 
                 if (this.filtroPorMes(c.vencimento)) {
                     this.valorTotalCompromissosNaCompetencia += fromRealtoNumber(c.valor);
+
+                    if (!c.ispago) {
+                        this.valorCompromissosEmAbertoNaCompetencia += fromRealtoNumber(c.valor);
+                    }
                 }
 
             }
 
             this.valorTotalCompromissosNaCompetencia = fromNumberToReal(this.valorTotalCompromissosNaCompetencia)
+            this.valorCompromissosEmAbertoNaCompetencia = fromNumberToReal(this.valorCompromissosEmAbertoNaCompetencia)
 
 
         },
@@ -1364,7 +1397,23 @@ const vm = new Vue({
             this.closeRecebimentos()
         },
 
+        calcularRecebimentosNaCompetencia() {
+            this.valorTotalDeRecebimentosNaCompetencia = 0;
 
+
+            for (let index = 0; index < this.recebimentos.length; index++) {
+                const r = this.recebimentos[index];
+
+                if (this.filtroPorMesRecebimentos(r.dataRecebimento)) {
+                    this.valorTotalDeRecebimentosNaCompetencia += fromRealtoNumber(r.valor);
+                }
+
+            }
+
+            this.valorTotalDeRecebimentosNaCompetencia = fromNumberToReal(this.valorTotalDeRecebimentosNaCompetencia)
+
+
+        },
 
 
 

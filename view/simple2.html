@@ -863,6 +863,8 @@
                                             </v-select>
                                             <v-toolbar-title>
                                                 Total: {{ valorTotalCompromissosNaCompetencia }}
+                                                <v-divider class="mx-4" inset vertical></v-divider>
+                                                Em aberto: {{ valorCompromissosEmAbertoNaCompetencia }}
 
                                             </v-toolbar-title>
                                             <!-- <p class="display-1">Total: {{ valorTotalCompromissosNaCompetencia }}</p> -->
@@ -1067,6 +1069,25 @@
                                 <template v-slot:item.isrendapassiva="{ item }">
                                     <v-simple-checkbox v-model="item.isrendapassiva" disabled>
                                     </v-simple-checkbox>
+                                </template>
+                                <template v-slot:body.append>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <!-- <v-text-field v-model="pormes" type="text" label="Mês Desejado">
+                                            </v-text-field> -->
+                                            <v-select :items="competencias" v-model="pormesrecebimentos"
+                                                item-text="nome" item-value="valor" label="Mês:" solo
+                                                @change="calcularRecebimentosNaCompetencia()">
+                                            </v-select>
+                                            <v-toolbar-title>
+                                                Total: {{ valorTotalDeRecebimentosNaCompetencia }}
+
+                                            </v-toolbar-title>
+                                            <!-- <p class="display-1">Total: {{ valorTotalCompromissosNaCompetencia }}</p> -->
+                                        </td>
+                                        <td colspan="4"></td>
+                                    </tr>
                                 </template>
                             </v-data-table>
 

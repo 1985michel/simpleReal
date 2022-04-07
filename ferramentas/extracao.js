@@ -170,7 +170,7 @@ function getObjectCompromissoDoMes(el) {
 
     const comp = new CompromissoAvulso(el.descricao, el.valor, el.vencimento, el.isfaturadonocartao);
     comp.id = el.id;
-    comp.isPago = el.isPago;
+    comp.ispago = el.ispago;
 
 
     compromissosDoMesArray.push(comp);
