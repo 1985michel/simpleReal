@@ -585,8 +585,8 @@ const vm = new Vue({
     },
     created() {
         /* aqui você pode chamar os métodos que quer que sejam executados antes de inicializar os componenetes */
-        this.updateCarteiras();
-        this.getResultados();
+        /* this.updateCarteiras();
+        this.getResultados(); */
         this.gerarCompetênciaAnoAtual();
 
     },
@@ -621,7 +621,11 @@ const vm = new Vue({
 
         updateCarteiras() {
 
+
+
             this.carteiras = [];
+
+            this.carteiras.push('Todas');
 
             for (let index = 0; index < this.contas.length; index++) {
                 const c = this.contas[index];
@@ -629,6 +633,8 @@ const vm = new Vue({
                     this.carteiras.push(c.carteira);
                 }
             }
+
+            this.porcarteira = this.carteiras[0];
 
         },
 
@@ -980,6 +986,7 @@ const vm = new Vue({
         filtroPorCarteira(value) {
 
             if (this.porcarteira == '-1') return true;
+            if (this.porcarteira == 'Todas') return true;
 
             if (value == this.porcarteira) return true;
 
@@ -1525,6 +1532,7 @@ const vm = new Vue({
             //daí atualizamos os dados estatísticos;
             this.getResultados();
             this.updateCarteiras();
+            this.calcularTotalNaCarteira();
             this.calcularCompromissosNaCompetencia();
         }
 

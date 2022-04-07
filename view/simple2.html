@@ -416,22 +416,24 @@
 
                                 <template v-slot:body.append>
                                     <tr>
-                                        <td></td>
-                                        <td>
+
+                                        <td colspan="2">
                                             <!-- <v-select :items="carteiras" v-model="porcarteira" item-text="nome"
                                                 item-value="valor" label="Mês:" solo
                                                 @change="calcularTotalNaCarteira()">
                                             </v-select> -->
-                                            <v-select :items="carteiras" v-model="porcarteira" label="Carteira:" solo
-                                                @change="calcularTotalNaCarteira()">
+                                            <h3>Selecione uma Carteira:</h3>
+                                            <!-- label="Carteira:" -->
+                                            <v-select :items="carteiras" v-model="porcarteira" item-text="item"
+                                                item-value="item" solo @change="calcularTotalNaCarteira()">
                                             </v-select>
-                                            <v-toolbar-title v-show="porcarteira != -1">
-                                                Total: {{ valorTotalNaCarteira }}
 
-                                            </v-toolbar-title>
                                             <!-- <p class="display-1">Total: {{ valorTotalCompromissosNaCompetencia }}</p> -->
                                         </td>
-                                        <td colspan="4"></td>
+                                        <td colspan="4">
+                                            <h3 class="text-left font-weight-medium">Total: {{ valorTotalNaCarteira }}
+                                            </h3>
+                                        </td>
                                     </tr>
                                 </template>
 
