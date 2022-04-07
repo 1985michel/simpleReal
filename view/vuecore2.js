@@ -1082,7 +1082,10 @@ const vm = new Vue({
             if (this.editedIndexMoneyTime > -1) {
 
                 //abaixo ele pega o que foi editado e coloca na posição orignal do array contas
-                Object.assign(this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow[this.editedIndexMoneyTime], this.editedItemMoneyTime);
+                const conta = this.getContaById(this.editedItemMoneyTime.contaId);
+                Object.assign(conta.moneyTimeFlow[this.editedIndexMoneyTime], this.editedItemMoneyTime);
+
+                this.reprocessaDadosDaConta(conta);
             } else {
 
                 //o idDaContaDonaDosMoneyTimesDaTabela eu seto lá no botão que abre o modal para o registro de novo saldo
