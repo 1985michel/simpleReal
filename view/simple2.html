@@ -861,8 +861,10 @@
                                         {{ item.vencimento }} </v-chip>
                                 </template>
                                 <template v-slot:body.append>
+
                                     <tr>
                                         <td>
+                                            <h3>Selecione um mês:</h3>
                                             <v-select :items="competencias" v-model="pormes" item-text="nome"
                                                 item-value="valor" label="Mês:" solo
                                                 @change="calcularCompromissosNaCompetencia()">
@@ -878,10 +880,12 @@
                                                 Em aberto: {{ valorCompromissosEmAbertoNaCompetencia }}
 
                                             </v-toolbar-title> -->
-                                            <h3 class="text-left">Total: {{ valorTotalCompromissosNaCompetencia }}</h3>
+                                            <h3 class="text-left font-weight-medium">Total: {{
+                                                valorTotalCompromissosNaCompetencia }}</h3>
                                         </td>
                                         <td colspan="3">
-                                            <h3 class="text-left">Em aberto: {{ valorCompromissosEmAbertoNaCompetencia
+                                            <h3 class="text-left font-weight-medium">Em aberto: {{
+                                                valorCompromissosEmAbertoNaCompetencia
                                                 }}
                                             </h3>
                                         </td>
