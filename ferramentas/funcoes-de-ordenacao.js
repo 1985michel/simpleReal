@@ -86,3 +86,29 @@ function sortFunctionMoneyTimesPorDataEHora(a, b) {
     }
 }
 
+
+function sortFunctionCompromissosDoMesPorVencimento(a, b) {
+
+    let dataA = a.vencimento.slice();//clona a string
+    let dataB = b.vencimento.slice();
+
+    let aSplit = dataA.split("/")
+    let anoA = aSplit[2];
+    let mesA = aSplit[1];
+    let diaA = aSplit[0];
+
+    dataA = `${anoA}${mesA}${diaA}`;
+
+    let bSplit = dataB.split("/")
+    let anoB = bSplit[2];
+    let mesB = bSplit[1];
+    let diaB = bSplit[0];
+
+    dataB = `${anoB}${mesB}${diaB}`;
+
+    if (dataA < dataB) {
+        return -1;
+    } else {
+        return true;
+    }
+}

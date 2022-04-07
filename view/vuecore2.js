@@ -319,6 +319,7 @@ const vm = new Vue({
 
 
 
+
         /* dados estatísticos */
         resultados: {
             valorEmCaixa: 0,
@@ -477,6 +478,11 @@ const vm = new Vue({
                 { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center', },
                 { text: 'Actions', value: 'actions', sortable: false, align: 'center', },
             ]
+        },
+
+        compromissosDoMesOrdenado() {
+            this.compromissosDoMes.sort(sortFunctionCompromissosDoMesPorVencimento)
+            return this.compromissosDoMes;
         },
 
 
