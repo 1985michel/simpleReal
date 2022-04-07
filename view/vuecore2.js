@@ -53,11 +53,11 @@ const vm = new Vue({
         editedCountIndex: -1,
         editMt: {}, */
         competencias: [],
-        valorTotalCompromissosNaCompetencia: 0,
-        valorCompromissosEmAbertoNaCompetencia: 0,
+        valorTotalCompromissosNaCompetencia: 'R$ 0,00',
+        valorCompromissosEmAbertoNaCompetencia: 'R$ 0,00',
         carteiras: [],
-        valorTotalNaCarteira: 0,
-        valorTotalDeRecebimentosNaCompetencia: 0,
+        valorTotalNaCarteira: 'R$ 0,00',
+        valorTotalDeRecebimentosNaCompetencia: 'R$ 0,00',
 
         dialogUpDateSaldo: false,
         /* dialogDelete: false, */
@@ -461,6 +461,7 @@ const vm = new Vue({
                     align: 'start',
                     sortable: true,
                     value: 'descricao',
+                    width: "30%",
                 },
                 { text: 'Valor', value: 'valor', align: 'center' },
                 {
@@ -472,9 +473,9 @@ const vm = new Vue({
                         return this.filtroPorMes(value);
                     },
                 },
-                { text: 'Pago?', value: 'ispago', align: 'center' },
-                { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center' },
-                { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+                { text: 'Pago?', value: 'ispago', align: 'center', },
+                { text: 'Faturado no Cartão?', value: 'isfaturadonocartao', align: 'center', },
+                { text: 'Actions', value: 'actions', sortable: false, align: 'center', },
             ]
         },
 

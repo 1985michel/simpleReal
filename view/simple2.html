@@ -732,9 +732,12 @@
 
                             <!-- sort-by="descricao"  -->
                             <!-- atenção que aqui estamos usando heardercomputed -->
-                            <v-data-table :headers="headersComputedCompromissosDoMes" :items="compromissosDoMes"
+                            <!-- <v-data-table :headers="headersComputedCompromissosDoMes" :items="compromissosDoMes"
                                 class="elevation-1" v-show="expandCompromissosDoMes" :search="searchCompromissosDoMes"
-                                :custom-filter="filterEntidades">
+                                :custom-filter="filterEntidades" calculate-widths="true"> -->
+                            <v-data-table :headers="headersComputedCompromissosDoMes" :items="compromissosDoMes"
+                                class="elevation-1" item-key="descricao" v-show="expandCompromissosDoMes"
+                                :search="searchCompromissosDoMes" :custom-filter="filterEntidades">
                                 <!-- <template v-slot:top>
                                     <v-text-field v-model="search" label="Search (UPPER CASE ONLY)" class="mx-4">
                                     </v-text-field>
@@ -853,24 +856,31 @@
                                 </template>
                                 <template v-slot:body.append>
                                     <tr>
-                                        <td></td>
                                         <td>
-                                            <!-- <v-text-field v-model="pormes" type="text" label="Mês Desejado">
-                                            </v-text-field> -->
                                             <v-select :items="competencias" v-model="pormes" item-text="nome"
                                                 item-value="valor" label="Mês:" solo
                                                 @change="calcularCompromissosNaCompetencia()">
                                             </v-select>
-                                            <v-toolbar-title>
+                                        </td>
+                                        <td colspan="2">
+                                            <!-- <v-text-field v-model="pormes" type="text" label="Mês Desejado">
+                                            </v-text-field> -->
+
+                                            <!-- <v-toolbar-title>
                                                 Total: {{ valorTotalCompromissosNaCompetencia }}
                                                 <v-divider class="mx-4" inset vertical></v-divider>
                                                 Em aberto: {{ valorCompromissosEmAbertoNaCompetencia }}
 
-                                            </v-toolbar-title>
-                                            <!-- <p class="display-1">Total: {{ valorTotalCompromissosNaCompetencia }}</p> -->
+                                            </v-toolbar-title> -->
+                                            <h3 class="text-left">Total: {{ valorTotalCompromissosNaCompetencia }}</h3>
                                         </td>
-                                        <td colspan="4"></td>
+                                        <td colspan="3">
+                                            <h3 class="text-left">Em aberto: {{ valorCompromissosEmAbertoNaCompetencia
+                                                }}
+                                            </h3>
+                                        </td>
                                     </tr>
+
                                 </template>
                                 <!-- <template v-slot:body.append>
                                     <tr>
@@ -896,9 +906,15 @@
                                             Reset
                                         </v-btn>
                                     </template> -->
+
                             </v-data-table>
 
+                            <!-- <v-toolbar-title>
+                                Total: {{ valorTotalCompromissosNaCompetencia }}
+                                <v-divider class="mx-4" inset vertical></v-divider>
+                                Em aberto: {{ valorCompromissosEmAbertoNaCompetencia }}
 
+                            </v-toolbar-title> -->
 
 
 
