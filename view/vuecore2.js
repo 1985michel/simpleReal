@@ -592,6 +592,32 @@ const vm = new Vue({
 
     methods: {
 
+        getVencimentoColor(vencimento) {
+
+            const [hoje, esseMes, esseAno] = getDataAtualFormatada().split('/');
+            const amanha = parseInt(hoje) + 1;
+            const depoisDeAmanha = parseInt(hoje) + 2;
+            const amanhaMaisTres = parseInt(hoje) + 3;
+
+
+            const [vencDia, vencMes, vencAno] = vencimento.split('/');
+
+            if (vencAno == esseAno && vencMes == esseMes) {
+                if (vencDia < hoje) return 'red';
+                if (vencDia == hoje) return 'deep-orange darken-3';
+                if (
+                    vencDia == amanha ||
+                    vencDia == depoisDeAmanha ||
+                    vencDia == amanhaMaisTres
+                ) return 'yellow darken-2';
+                return 'white';
+            }
+
+            return 'white';
+
+
+        },
+
         updateCarteiras() {
 
             this.carteiras = [];
