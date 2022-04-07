@@ -982,6 +982,36 @@ const vm = new Vue({
             this.valorTotalNaCarteira = fromNumberToReal(this.valorTotalNaCarteira)
 
         },
+        calcularTotalNaCarteiraRealBTCDolar() {
+
+            //this.valorTotalNaCarteira = { real: 0, bitcoin: 0, dolar: 0 };
+
+
+
+            let r = 0;
+            let d = 0;
+            let bit = parseFloat(0.00000000).toFixed(8);
+
+            for (let index = 0; index < this.contas.length; index++) {
+                const c = this.contas[index];
+
+                if (this.filtroPorCarteira(c.carteira)) {
+                    if (c.saldo.includes('R$')) {
+                        //this.valorTotalNaCarteira['R$'] += fromRealtoNumber(c.saldo);}
+                        r += fromRealtoNumber(c.saldo);
+                    }
+                    if (c.saldo.includes('BTC')) {
+                        bit = parseFloat(bit) + parseFloat(fromBTCtoNumber(c.saldo));
+                    }
+                    if (c.saldo.includes('U$')) {
+                        d += fromDolartoNumber(c.saldo);
+                    }
+                }
+            }
+
+            this.valorTotalNaCarteira = { real: fromNumberToReal(r), bitcoin: bit, dolar: fromNumberToDolar(d) };
+
+        },
 
         filtroPorCarteira(value) {
 
@@ -1532,7 +1562,8 @@ const vm = new Vue({
             //daí atualizamos os dados estatísticos;
             this.getResultados();
             this.updateCarteiras();
-            this.calcularTotalNaCarteira();
+            //this.calcularTotalNaCarteira();
+            this.calcularTotalNaCarteiraRealBTCDolar();
             this.calcularCompromissosNaCompetencia();
         }
 

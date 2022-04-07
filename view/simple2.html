@@ -425,14 +425,18 @@
                                             <h3>Selecione uma Carteira:</h3>
                                             <!-- label="Carteira:" -->
                                             <v-select :items="carteiras" v-model="porcarteira" item-text="item"
-                                                item-value="item" solo @change="calcularTotalNaCarteira()">
+                                                item-value="item" solo @change="calcularTotalNaCarteiraRealBTCDolar()">
                                             </v-select>
 
                                             <!-- <p class="display-1">Total: {{ valorTotalCompromissosNaCompetencia }}</p> -->
                                         </td>
                                         <td colspan="4">
-                                            <h3 class="text-left font-weight-medium">Total: {{ valorTotalNaCarteira }}
-                                            </h3>
+                                            <h3 class="text-left font-weight-medium">Total em Reais: {{
+                                                valorTotalNaCarteira.real}}</h3>
+                                            <h3 class="text-left font-weight-medium">Total em Dólares: {{
+                                                valorTotalNaCarteira.dolar }}</h3>
+                                            <h3 class="text-left font-weight-medium">Total em Bitcoins: {{
+                                                valorTotalNaCarteira.bitcoin }}</h3>
                                         </td>
                                     </tr>
                                 </template>
