@@ -134,7 +134,7 @@ const vm = new Vue({
             carteira: '',
         },
         expandContas: false,
-        porcarteira: '',
+        porcarteira: -1,
 
 
 
