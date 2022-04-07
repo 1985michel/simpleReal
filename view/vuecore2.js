@@ -265,7 +265,7 @@ const vm = new Vue({
 
         /* compromissosDoMes */
 
-        pormes: '',
+        pormes: '-1',
         pormesrecebimentos: '',
         searchCompromissosDoMes: '',
         dialogCompromissosDoMes: false,
@@ -588,6 +588,7 @@ const vm = new Vue({
         this.updateCarteiras();
         this.getResultados();
         this.gerarCompetênciaAnoAtual();
+
     },
 
     methods: {
@@ -1336,6 +1337,7 @@ const vm = new Vue({
         //compromissos
         calcularCompromissosNaCompetencia() {
 
+
             this.valorTotalCompromissosNaCompetencia = 0;
             this.valorCompromissosEmAbertoNaCompetencia = 0;
 
@@ -1523,6 +1525,7 @@ const vm = new Vue({
             //daí atualizamos os dados estatísticos;
             this.getResultados();
             this.updateCarteiras();
+            this.calcularCompromissosNaCompetencia();
         }
 
 
