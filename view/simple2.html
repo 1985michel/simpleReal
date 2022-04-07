@@ -271,9 +271,8 @@
 
 
 
-
-                            <v-data-table :headers="headersContas" :items="contas" sort-by="nome" class="elevation-1"
-                                v-show="expandContas" :single-expand="singleExpandContas"
+                            <v-data-table :headers="headersContas" :items="contas" sort-by="logo" class="elevation-1"
+                                v-show="expandContas" item-key="id" :single-expand="singleExpandContas"
                                 :expanded.sync="expandedContas" item-key="id" show-expand :search="searchContas"
                                 :custom-filter="filterEntidades">
                                 <template v-slot:top>

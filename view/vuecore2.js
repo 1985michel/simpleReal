@@ -1568,6 +1568,48 @@ const vm = new Vue({
             //this.calcularTotalNaCarteira();
             this.calcularTotalNaCarteiraRealBTCDolar();
             this.calcularCompromissosNaCompetencia();
+            this.setIdsGlobaisParaMaiorUtilizado();
+        },
+
+        setIdsGlobaisParaMaiorUtilizado() {
+
+            for (let index = 0; index < this.contas.length; index++) {
+                const c = this.contas[index];
+
+                if (c.id >= idContaGlobal) {
+                    idContaGlobal = parseInt(c.id) + 1;
+                }
+
+                for (let j = 0; j < c.moneyTimeFlow.length; j++) {
+                    const mt = c.moneyTimeFlow[j];
+                    if (mt.id >= idMoneyTimeGlobal) idMoneyTimeGlobal = parseInt(mt.id) + 1;
+                    if (mt.momento.id >= idMomentoGlobal) idMomentoGlobal = parseInt(mt.momento.id) + 1;
+                }
+            }
+
+            for (let index = 0; index < this.compromissos.length; index++) {
+                const c = this.compromissos[index];
+                if (c.id >= idCompromissoPaiGlobal) {
+                    idCompromissoPaiGlobal = parseInt(c.id) + 1;
+                }
+            }
+
+            for (let index = 0; index < this.compromissosDoMes.length; index++) {
+                const c = this.compromissosDoMes[index];
+                if (c.id >= idCompromissoFilhoGlobal) {
+                    idCompromissoFilhoGlobal = parseInt(c.id) + 1;
+                }
+            }
+
+            for (let index = 0; index < this.recebimentos.length; index++) {
+                const r = this.recebimentos[index];
+                if (r.id >= idRecebimentoGlobal) {
+                    idRecebimentoGlobal = parseInt(r.id) + 1;
+                }
+            }
+
+
+
         }
 
 
