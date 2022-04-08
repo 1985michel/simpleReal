@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <textarea id="txtarea2" placeholder="drag and drop your .txt file"></textarea>
+
+    <script>
+        function dropfile(file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                txtarea2.value = e.target.result;
+            };
+            reader.readAsText(file, "UTF-8");
+        }
+
+        txtarea2.ondrop = function (e) {
+            e.preventDefault();
+            var file = e.dataTransfer.files[0];
+            dropfile(file);
+        };
+    </script>
+
+</body>
+
+</html>

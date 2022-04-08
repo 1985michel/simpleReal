@@ -12,6 +12,8 @@ function arrayToString(arr) {
     return stringada;
 }
 
+
+
 function ativaStringfyInOut(contas, compromissos, compromissosDoMes, recebimentos) {
 
     //se a caixa de texto estiver vazia
@@ -28,15 +30,41 @@ function ativaStringfyInOut(contas, compromissos, compromissosDoMes, recebimento
 
 }
 
-function getStringfyIn() {
+
+function ativaDropIn() {
+
+    this.dropValue = txtareabackup.value;
+
+    if (confirm("Introduzir dados?")) {
+        getStringfyInDrop(dropValue);
+        vm.injetaFromJson();
+    }
+
+
+}
+
+function getStringfyInDrop(dropValue) {
     //pega os dados de entrada
 
-    processaEntradaDeTodosOsDados(document.querySelector("#txtarea2").value);
+    //processaEntradaDeTodosOsDados(document.querySelector("#txtareabackup").value);
+    processaEntradaDeTodosOsDados(dropValue);
 
 
 
     //limpa a caixa
-    document.getElementById("txtarea2").value = ""
+    document.getElementById("txtareabackup").value = ""
+
+}
+
+function getStringfyIn() {
+    //pega os dados de entrada
+
+    processaEntradaDeTodosOsDados(document.querySelector("#txtareabackup").value);
+
+
+
+    //limpa a caixa
+    document.getElementById("txtareabackup").value = ""
 
 }
 

@@ -39,6 +39,9 @@ const vm = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     data: vm => ({
+
+        file: '',
+        dropValue: '',
         /* alignments: [
             'start',
             'center',
@@ -544,7 +547,10 @@ const vm = new Vue({
 
 
 
-
+        dropValue(novo, antigo) {
+            alert('Ativou drop value');
+            ativaDropIn(novo, this.injetaFromJson);
+        },
 
 
 
@@ -595,7 +601,9 @@ const vm = new Vue({
         },
 
 
-
+        conteudo() {
+            ativaDropIn();
+        },
 
 
 
@@ -1653,7 +1661,87 @@ const vm = new Vue({
             a.setAttribute('href', url) // Set "a" element link
             a.setAttribute('download', filename) // Set download filename
             a.click() // Start downloading
-        }
+        },
+
+        /* metodos de drop do txt */
+        dropfile(file, injetaFromJson) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                //txtarea2.value = e.target.result;
+                txtareabackup.value = e.target.result;
+
+
+            };
+            reader.readAsText(file, "UTF-8");
+
+            //o método abaixo é chamado quando o reader termina, permitindo a execução de outros métodos
+            reader.onloadend = function (e) {
+                //alert(`Ativou! tamanho: ${txtareabackup.value.length}`);
+                ativaDropIn();
+            }
+
+
+        },
+
+        droped(event) {
+            event.preventDefault();
+            let file = event.dataTransfer.files[0];
+            this.dropfile(file, this.injetaFromJson);
+
+        },
+
+
+
+
+
+
+
+
+
+
+        /* uploadFile() {
+            this.datafile = this.$refs.file.files[0];
+        },
+        submitFile() {
+            const formData = new FormData();
+            formData.append('file', this.datafile);
+            const headers = { 'Content-Type': 'multipart/form-data' };
+            axios.post('https://httpbin.org/post', formData, { headers }).then((res) => {
+                res.data.files; // binary representation of the file
+                res.status; // HTTP status
+            });
+        } */
+        /* submitFile() {
+            
+                   // Initialize the form data
+                
+            let formData = new FormData();
+
+            
+                //Add the form data we need to submit
+            
+            formData.append('file', this.file);
+
+            
+             // Make the request to the POST /single-file URL
+            
+            axios.post('/single-file',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            ).then(function () {
+                console.log('SUCCESS!!');
+            })
+                .catch(function () {
+                    console.log('FAILURE!!');
+                });
+        },
+        handleFileUpload(event) {
+            this.file = event.target.files[0];
+        }, */
 
 
 
