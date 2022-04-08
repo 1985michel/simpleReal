@@ -14,7 +14,7 @@ function arrayToString(arr) {
 
 
 
-function ativaStringfyInOut(contas, compromissos, compromissosDoMes, recebimentos) {
+/* function ativaStringfyInOut(contas, compromissos, compromissosDoMes, recebimentos) {
 
     //se a caixa de texto estiver vazia
     if (document.querySelector("#txtarea2").value == "") {
@@ -28,6 +28,14 @@ function ativaStringfyInOut(contas, compromissos, compromissosDoMes, recebimento
         }
     }
 
+} */
+function prepararBackup(contas, compromissos, compromissosDoMes, recebimentos) {
+
+    document.querySelector("#txtareabackup").value == ""
+
+    if (confirm("Download Backup?")) {
+        getStringfyOut(contas, compromissos, compromissosDoMes, recebimentos);
+    }
 }
 
 
@@ -71,10 +79,10 @@ function getStringfyIn() {
 function getStringfyOut(contas, compromissos, compromissosDoMes, recebimentos) {
 
     //limpa a caixa
-    document.getElementById("txtarea2").value = ""
+    //document.getElementById("txtarea2").value = ""
 
     //gera os dados de saída
-    document.getElementById("txtarea2").value = stringfyAll(contas, compromissos, compromissosDoMes, recebimentos);
+    document.getElementById("txtareabackup").value = stringfyAll(contas, compromissos, compromissosDoMes, recebimentos);
 }
 
 

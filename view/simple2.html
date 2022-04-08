@@ -117,25 +117,28 @@
 
                                         </v-card>
 
-                                        <v-card style="margin-top: 10px;" class="pa-4" outlined>
-                                            <textarea id="txtarea2" v-show="true"
-                                                class="form-control col-10 form-control btn-dark" rows="10"
-                                                @drop="droped"></textarea>
+                                        <v-card class="pa-4" outlined outlined style="margin-top: 10px;">
+                                            <div class="d-flex">
+                                                <v-spacer></v-spacer>
+                                                <h4 class="title d-flex align-center justify-center"
+                                                    @click="downloadBackup" style="width: 100%;">
+                                                    Download Backup
+                                                    <v-icon>
+                                                        mdi-chevron-down
 
-                                            <button class="" @click="extracao">Stringfy</button>
-                                            <button class="" @click="injetaFromJson">Injetar</button>
-                                            <button class="" @click="downloadBackup">Backup</button>
-                                            <div>
-                                                <!-- <label>File
-                                                    <input type="file" @change="handleFileUpload( $event )" />
-                                                </label>
-                                                <br>
-                                                <button v-on:click="submitFile()">Submit</button> -->
-                                                <!-- <input type="file" @change="uploadFile" ref="file">
-                                                <button @click="submitFile">Upload!</button> -->
+                                                    </v-icon>
+                                                </h4>
+                                                <v-spacer></v-spacer>
+                                                <!-- <v-btn class="mx-2" outlined small fab color="blue-grey darken-4"
+                                                    @click="showAdicionarConta = !showAdicionarConta">
+                                                    <v-icon>mdi-plus</v-icon>
+                                                </v-btn> -->
+
                                             </div>
 
                                         </v-card>
+
+
 
 
 

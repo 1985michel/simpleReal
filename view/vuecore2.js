@@ -1648,8 +1648,8 @@ const vm = new Vue({
 
         downloadBackup() {
 
-            ativaStringfyInOut(this.contas, this.compromissos, this.compromissosDoMes, this.recebimentos);
-            const content = document.getElementById("txtarea2").value;
+            prepararBackup(this.contas, this.compromissos, this.compromissosDoMes, this.recebimentos);
+            const content = document.getElementById("txtareabackup").value;
             //const content = (stringfyAll(contas, compromissos, compromissosDoMes, recebimentos)).toString();
             const mimeType = 'text/plain';
             const filename = 'backup.txt';
