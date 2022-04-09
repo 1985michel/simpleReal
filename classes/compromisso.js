@@ -170,6 +170,9 @@ class CompromissoPai {
 
         //vou fazer o seguinte: vou correr a time line e vou excluir os compromisso futuros, deixando somente os passados.
 
+        //dias depois percebi que se edito compromissos futuros que já foram pagos desmarca o "ispago" e ainda edita o valor já pago
+        //compromissos já pagos não devem ser alterados também.
+
         const tamanhoOriginal = this.timeLine.length;
 
         for (let index = 0; index < tamanhoOriginal; index++) {
@@ -184,8 +187,12 @@ class CompromissoPai {
             const venc = this.timeLine[index].vencimento;
             const comparaDatas = isDataABeforDataB(hoje, venc);
 
-            if (comparaDatas != false) {
+            //&& !this.timeLine[index].ispago
+            if (comparaDatas != false && !this.timeLine[index].ispago) {
                 //se entrou é pq ou é data futura ou hoje,
+                //e não foi pago, pq não alteramos compromissos já pagos. 
+
+                /* this.timeLine[index].descricao = `${this.timeLine[index].descricao} [houve edição do compromisso recorrente após o pagamento desta parcela.]`; */
 
                 this.timeLine.splice(index, 1);
                 index--;//volta o indice uma casa               
@@ -194,10 +201,30 @@ class CompromissoPai {
         }
 
         for (let index = 0; index < newComps.length; index++) {
-            const cp = newComps[index];
-            this.timeLine.push(cp);
+            const nc = newComps[index];
+
+            this.timeLine.push(nc);
+
+            /* let mesmoCiclo = false;
+
+            for (let f = 0; f < this.timeLine.length; f++) {
+                const ac = this.timeLine[f];
+
+                if (this.recorrencia == 30 && ac.vencimento[2, 10] == nc.vencimento[2, 10]) {
+                    alert(`Mesmo ciclo: ${ac.vencimento[2, 10]} e ${nc.vencimento[2, 10]}`)
+                    mesmoCiclo = true;
+                }
+
+
+            } */
+
+            /*  if (!mesmoCiclo) this.timeLine.push(nc); */
+
         }
+
     }
+
+
 }
 
 

@@ -1210,14 +1210,20 @@ const vm = new Vue({
 
 
                 //vamos remover dos compromissos aqueles que foram retirados da time line do objeto pai
+                //desde que não tenham sido pagos!
                 for (let index = 0; index < this.compromissosDoMes.length; index++) {
                     const c = this.compromissosDoMes[index];
 
+                    //verifica se há o atributo idCompromissoPai no objeto em questão
                     if ('idCompromissoPai' in c) {
+                        //verifica se é aquele pai
                         if (c.idCompromissoPai == cp.id) {
-                            if (!cp.timeLine.includes(c)) {
+                            //verifica se na timeline do pai conta aquele compromisso (ou seja), se não foi retirado
+                            if (!cp.timeLine.includes(c) && !c.ispago) {
                                 this.compromissosDoMes.splice(index, 1);
                                 index--;//já que tirou um objeto, volta o indice
+                            } if (c.ispago) {
+                                c.descricao = `${c.descricao}   [Atenção! Houve edição do compromisso recorrente após o pagamento desta parcela. Verifique possível duplicidade neste ciclo.]`;
                             }
                         }
                     }

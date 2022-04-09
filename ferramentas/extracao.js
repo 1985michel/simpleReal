@@ -78,13 +78,57 @@ function getStringfyIn() {
 
 function getStringfyOut(contas, compromissos, compromissosDoMes, recebimentos) {
 
+    alert(`Chegaram no getStringfyOut ${compromissosDoMes.length}`);
+    let temPai = 0;
+    let semPai = 0;
+    for (let index = 0; index < compromissosDoMes.length; index++) {
+        const c = compromissosDoMes[index];
+        if ('idCompromissoPai' in c) {
+            temPai++;
+        } else {
+            semPai++;
+        }
+    }
+
+    alert(`Tem pai: ${temPai}     Sem pai: ${semPai}`)
+
     //limpa a caixa
     //document.getElementById("txtarea2").value = ""
+    geraIdCompromissoPai(compromissos, compromissosDoMes);
 
     //gera os dados de saída
     document.getElementById("txtareabackup").value = stringfyAll(contas, compromissos, compromissosDoMes, recebimentos);
 }
 
+function geraIdCompromissoPai(compromissos, compromissosDoMes) {
+
+    for (let index = 0; index < compromissosDoMes.length; index++) {
+        const cf = compromissosDoMes[index];
+
+        for (let f = 0; f < compromissos.length; f++) {
+            const cp = compromissos[f];
+
+            if (cp.descricao == cf.descricao) {
+                cf.idCompromissoPai = cp.id;
+            }
+
+        }
+
+    }
+
+    let temPai = 0;
+    let semPai = 0;
+    for (let index = 0; index < compromissosDoMes.length; index++) {
+        const cm = compromissosDoMes[index];
+        if ('idCompromissoPai' in cm) {
+            temPai++;
+        } else {
+            semPai++;
+        }
+    }
+
+    alert(`Tem pai: ${temPai}     Sem pai: ${semPai}`)
+}
 
 function stringfyAll(contas, compromissos, compromissosDoMes, recebimentos) {
 
@@ -204,12 +248,32 @@ function getObjectCompromissoDoMes(el) {
 
     /* descricao, valor, vencimento*/
 
-    const comp = new CompromissoAvulso(el.descricao, el.valor, el.vencimento, el.isfaturadonocartao);
-    comp.id = el.id;
-    comp.ispago = el.ispago;
+
+    if ('idCompromissoPai' in el) {
+
+        //constructor(descricao, valor, vencimentoInicial, recorrencia, qtdParcelas, isfaturadonocartao) {
+        const compPai = new CompromissoPai(el.descricao, el.valor, el.vencimento, 0, 0, el.isfaturadonocartao);
+        //compPai.qtdParcelasFuturas = el.qtdParcelasFuturas;
+        compPai.id = el.idCompromissoPai;
+
+        const compFilho = new CompromissoFilho(compPai, el.vencimento);
+        compFilho.id = el.id;
+        compFilho.ispago = el.ispago;
 
 
-    compromissosDoMesArray.push(comp);
+        compromissosDoMesArray.push(compFilho);
+
+    } else {
+
+        const comp = new CompromissoAvulso(el.descricao, el.valor, el.vencimento, el.isfaturadonocartao);
+        comp.id = el.id;
+        comp.ispago = el.ispago;
+
+
+        compromissosDoMesArray.push(comp);
+    }
+
+
 
     //console.log(`Compromissos do Mes: ${compromissosDoMesArray.length}`);
 
