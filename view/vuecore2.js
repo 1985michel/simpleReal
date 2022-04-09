@@ -1420,9 +1420,26 @@ const vm = new Vue({
                 if (this.filtroPorMes(c.vencimento)) {
                     this.valorTotalCompromissosNaCompetencia += fromRealtoNumber(c.valor);
 
+                    //se for faturado no cartão não precisa somar pois já vai estar o valor negativo na conta cartão
                     if (!c.ispago) {
                         this.valorCompromissosEmAbertoNaCompetencia += fromRealtoNumber(c.valor);
                     }
+                    /* 
+                    A ideia original era que se for faturado no cartão não precisava somar no total da dívida.
+                    O problema é que se for faturado no cartão e não tiver pago, o compromisso não está sendo contado nem na dívida do cartão nem em compromissos em aberto, gerando uma falsa ideia de capital disponível.
+
+                    Quadro:
+
+                    Pago?    Faturado no Cartão?    Somar na Dívida?
+                    não      não                    sim
+                    sim      não                    não
+                    não      sim                    sim
+                    sim      sim                    não
+                    
+                    Portando não importa se é ou não faturado no cartão. Se não estiver pago tem que somar na dívida.
+                    Por conta disso percebo que a propriedade de conta "isFaturadoNoCartao" (lowcase por causa do prop do Vue) não tem utilidade no momento. Não vou excluí-la ainda. Mas é uma séria candidata à exclusão. 
+                    */
+
                 }
 
             }
