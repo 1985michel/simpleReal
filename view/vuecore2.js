@@ -1,6 +1,7 @@
 
 
 
+
 //variaveis globais apenas para uso com extracao e injecao de DB.
 let contasArray = [];
 let compromissosArray = [];
@@ -235,7 +236,7 @@ const vm = new Vue({
         defaultItemCompromissos: {
             descricao: '',
             valor: 0,
-            vencimentoInicial: 0,
+            vencimentoInicial: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             recorrencia: 0,
             qtdParcelas: 0,
             qtdParcelasFuturas: 0,
@@ -306,7 +307,7 @@ const vm = new Vue({
         defaultItemCompromissosDoMes: {
             descricao: '',
             valor: 0,
-            vencimento: 0,
+            vencimento: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             ispago: false,
             isfaturadonocartao: false,
         },
@@ -557,10 +558,10 @@ const vm = new Vue({
 
         //CONTAS
         dialogContas(val) {
-            val || this.close()
+            val || this.closeContas()
         },
         dialogDeleteContas(val) {
-            val || this.closeDelete()
+            val || this.closeDeleteContas()
         },
 
 
@@ -569,10 +570,10 @@ const vm = new Vue({
 
         //MONEY TIME
         dialogMoneyTime(val) {
-            val || this.close()
+            val || this.closeMoneyTime()
         },
         dialogDeleteMoneyTime(val) {
-            val || this.closeDelete()
+            val || this.closeDeleteMoneyTime()
         },
 
 
@@ -582,10 +583,11 @@ const vm = new Vue({
 
         //COMPROMISSOS
         dialogCompromissos(val) {
-            val || this.close()
+            val || this.closeCompromissos()
+
         },
         dialogDeleteCompromissos(val) {
-            val || this.closeDelete()
+            val || this.closeDeleteCompromissos()
         },
 
 
@@ -594,10 +596,10 @@ const vm = new Vue({
 
         //COMPROMISSOS DO MES
         dialogCompromissosDoMes(val) {
-            val || this.close()
+            val || this.closeCompromissosDoMes()
         },
         dialogDeleteCompromissosDoMes(val) {
-            val || this.closeDelete()
+            val || this.closeDeleteCompromissosDoMes()
         },
 
 
@@ -609,10 +611,10 @@ const vm = new Vue({
 
         //Recebimentos
         dialogRecebimentos(val) {
-            val || this.close()
+            val || this.closeRecebimentos()
         },
         dialogDeleteRecebimentos(val) {
-            val || this.closeDelete()
+            val || this.closeDeleteRecebimentos()
         },
 
     },
@@ -625,6 +627,10 @@ const vm = new Vue({
     },
 
     methods: {
+
+        setAtualDate() {
+            this.date = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
+        },
 
         getVencimentoColor(vencimento) {
 
@@ -1156,8 +1162,11 @@ const vm = new Vue({
 
         //COMPROMISSOS RECORRENTES
         editItemCompromissos(item) {
+            // editItemCompromissos() só é chamado mara edição, nãos sendo chamado na criação
             this.editedIndexCompromissos = this.compromissos.indexOf(item)
             this.editedItemCompromissos = Object.assign({}, item)
+            //setando o date global que está sendo usado
+            this.date = parseToDate(this.editedItemCompromissos.vencimentoInicial)
             this.dialogCompromissos = true
         },
 
