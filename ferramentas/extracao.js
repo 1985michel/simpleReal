@@ -8,7 +8,7 @@ let compromissosDoMesArray = []; */
 function arrayToString(arr) {
 
     let stringada = JSON.stringify(arr);
-    console.log(stringada);
+    //console.log(stringada);
     return stringada;
 }
 
@@ -103,7 +103,7 @@ function stringfyAll(contas, compromissos, compromissosDoMes, recebimentos) {
 
     txt += '}';
 
-    console.log(`Saída: ${txt}`);
+    //console.log(`Saída: ${txt}`);
 
     return txt;
 }
@@ -120,7 +120,7 @@ function processaEntradaDeTodosOsDados(entrada) {
     toRecebimentos(obj.recebimentos)
 
 
-    console.log(`Temos: ${contasArray.length} contas;   ${compromissosArray.length} compromissos; ${compromissosDoMesArray.length} compromissos do mes.`);
+    //console.log(`Temos: ${contasArray.length} contas;   ${compromissosArray.length} compromissos; ${compromissosDoMesArray.length} compromissos do mes.`);
 
 
 
@@ -211,7 +211,7 @@ function getObjectCompromissoDoMes(el) {
 
     compromissosDoMesArray.push(comp);
 
-    console.log(`Compromissos do Mes: ${compromissosDoMesArray.length}`);
+    //console.log(`Compromissos do Mes: ${compromissosDoMesArray.length}`);
 
 }
 

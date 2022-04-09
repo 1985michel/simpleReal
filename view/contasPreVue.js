@@ -7,7 +7,7 @@ function getContasTratadas() {
 
     gerarVariaveisDeApresentacaoParaConta(preContas);
 
-    console.log(preContas);
+    //console.log(preContas);
 
     return preContas;
 

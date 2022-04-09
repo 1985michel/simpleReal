@@ -102,7 +102,7 @@ function addDias(data, days) {
 
 function addMeses(data, meses) {
 
-    console.log(`Em addMeses recebemos ${data}`);
+    //console.log(`Em addMeses recebemos ${data}`);
 
     const [day, month, year] = data.split('/')
 
@@ -126,6 +126,6 @@ function addMeses(data, meses) {
     //result = `${result.}/${result.getMonth()}/${result.getFullYear()}`;
     result = formataData((new Date(result - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10));
 
-    console.log(`Em addMeses estamos retornando ${result}`);
+    //console.log(`Em addMeses estamos retornando ${result}`);
     return result;
 }

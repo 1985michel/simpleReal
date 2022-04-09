@@ -892,18 +892,18 @@ const vm = new Vue({
             conta.moneyTimeFlow.forEach(mt => {
                 if (valorAnterior == '') {
                     valorAnterior = mt.saldo;
-                    console.log(`Primeiro setamos o valorAnterior para ${valorAnterior}`);
+                    //console.log(`Primeiro setamos o valorAnterior para ${valorAnterior}`);
                 } else if (fromRealtoNumber(valorAnterior) > fromRealtoNumber(mt.saldo)) {
-                    console.log(`Como ${fromRealtoNumber(valorAnterior)} > ${fromRealtoNumber(mt.saldo)} : RED`);
+                    //console.log(`Como ${fromRealtoNumber(valorAnterior)} > ${fromRealtoNumber(mt.saldo)} : RED`);
                     valorAnterior = mt.saldo;
                     mt.cor = 'red';
                 } else if (fromRealtoNumber(valorAnterior) < fromRealtoNumber(mt.saldo)) {
                     valorAnterior = mt.saldo;
                     mt.cor = 'green';
-                    console.log(`Como ${fromRealtoNumber(valorAnterior)} < ${fromRealtoNumber(mt.saldo)} : GREEN`);
+                    //console.log(`Como ${fromRealtoNumber(valorAnterior)} < ${fromRealtoNumber(mt.saldo)} : GREEN`);
                 } else if (fromRealtoNumber(valorAnterior) == fromRealtoNumber(mt.saldo)) {
                     valorAnterior = mt.saldo;
-                    console.log(`Como ${fromRealtoNumber(valorAnterior)} == ${fromRealtoNumber(mt.saldo)} : BLUE`);
+                    // console.log(`Como ${fromRealtoNumber(valorAnterior)} == ${fromRealtoNumber(mt.saldo)} : BLUE`);
                     mt.cor = 'blue';
                 }
 
@@ -1377,11 +1377,11 @@ const vm = new Vue({
 
             if (anoP == anoV) {
                 if (mesP == mesV) {
-                    console.log(`Retornando TRUE em: ${value} sob filtro ${this.pormes}`);
+                    //console.log(`Retornando TRUE em: ${value} sob filtro ${this.pormes}`);
                     return true;
                 }
             }
-            console.log(`Retornando FALSE em: ${value} sob filtro ${this.pormes}`);
+            // console.log(`Retornando FALSE em: ${value} sob filtro ${this.pormes}`);
             return false
 
         },

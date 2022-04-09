@@ -42,7 +42,7 @@ class CompromissoPai {
 
         const comparandoPrimeiroVencimentoComADataAtual = isDataABeforDataB(getDataAtualFormatada(), this.vencimentoInicial);
 
-        console.log(`A COMPARACAO COM A DATA ATUAL DEU ${comparandoPrimeiroVencimentoComADataAtual}`);
+        //console.log(`A COMPARACAO COM A DATA ATUAL DEU ${comparandoPrimeiroVencimentoComADataAtual}`);
 
 
         /* if (comparandoPrimeiroVencimentoComADataAtual != false) {
@@ -78,17 +78,17 @@ class CompromissoPai {
             for (let index = 1; index < this.qtdParcelas; index++) {
 
                 if (index == 1) {
-                    console.log(`Parcela 1: ${this.vencimentoInicial}`);
+                    //console.log(`Parcela 1: ${this.vencimentoInicial}`);
                     if (comparandoPrimeiroVencimentoComADataAtual != false) {
                         //se entrou, as datas são iguais ou a primeira parcela vence no futuro, vou contar todas as parcelas
                         this.datasFuturas.push(this.vencimentoInicial);
                         qtdPacFut++;
                     }
                     proxima = addDias(this.vencimentoInicial, this.recorrencia);
-                    console.log(`Parcela ${index + 1}: ${proxima}`);
+                    //console.log(`Parcela ${index + 1}: ${proxima}`);
                 } else {
                     proxima = addDias(proxima, this.recorrencia);
-                    console.log(`Parcela ${index + 1}: ${proxima}`);
+                    // console.log(`Parcela ${index + 1}: ${proxima}`);
                 }
                 //console.log(`A data ${proxima} vamos acrescentar ${this.recorrencia} dias.`);
 
@@ -107,17 +107,17 @@ class CompromissoPai {
             for (let index = 1; index < this.qtdParcelas; index++) {
 
                 if (index == 1) {
-                    console.log(`Parcela 1: ${this.vencimentoInicial}`);
+                    //console.log(`Parcela 1: ${this.vencimentoInicial}`);
                     if (comparandoPrimeiroVencimentoComADataAtual != false) {
                         //se entrou, as datas são iguais ou a primeira parcela vence no futuro, vou contar todas as parcelas
                         this.datasFuturas.push(this.vencimentoInicial);
                         qtdPacFut++;
                     }
                     proxima = addMeses(this.vencimentoInicial, 1);
-                    console.log(`Parcela ${index + 1}: ${proxima}`);
+                    //console.log(`Parcela ${index + 1}: ${proxima}`);
                 } else {
                     proxima = addMeses(proxima, 1);
-                    console.log(`Parcela ${index + 1}: ${proxima}`);
+                    // console.log(`Parcela ${index + 1}: ${proxima}`);
                 }
                 //console.log(`A data ${proxima} vamos acrescentar ${this.recorrencia} dias.`);
 
@@ -133,10 +133,10 @@ class CompromissoPai {
                 }
             }
         } else {
-            console.log(`Nao entramos, a recorrencia analisada foi ${this.recorrencia}`);
+            //console.log(`Nao entramos, a recorrencia analisada foi ${this.recorrencia}`);
         }
 
-        console.log(`Ainda faltam: ${qtdPacFut}`);
+        //console.log(`Ainda faltam: ${qtdPacFut}`);
 
         this.qtdParcelasFuturas = qtdPacFut;
 

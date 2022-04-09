@@ -52,7 +52,7 @@ function testGetContas() {
         minhasContas.push(novaConta);
     });
 
-    console.log(minhasContas);
+    //console.log(minhasContas);
 
     return minhasContas;
 
