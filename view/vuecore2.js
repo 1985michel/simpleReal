@@ -1333,7 +1333,12 @@ const vm = new Vue({
         saveCompromissosDoMes() {
 
             if (this.editedIndexCompromissosDoMes > -1) {
-                Object.assign(this.compromissosDoMes[this.editedIndexCompromissosDoMes], this.editedItemCompromissosDoMes)
+                Object.assign(this.compromissosDoMes[this.editedIndexCompromissosDoMes], this.editedItemCompromissosDoMes);
+
+                /* 
+                Quando um compromisso do mês é editado o valor total de compromissos e de compromissos em aberto (apresentados abaix do tabela) pode ficar errado, sendo, portanto, necessário atualizar o valor.
+                */
+                this.calcularCompromissosNaCompetencia();
             } else {
                 const novoComp = new CompromissoAvulso(this.editedItemCompromissosDoMes.descricao, this.editedItemCompromissosDoMes.valor, this.editedItemCompromissosDoMes.vencimento, this.editedItemCompromissosDoMes.isfaturadonocartao);
 
