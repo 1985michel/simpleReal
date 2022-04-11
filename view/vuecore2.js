@@ -41,6 +41,8 @@ const vm = new Vue({
     vuetify: new Vuetify(),
     data: vm => ({
 
+        realcompromissorec: '',
+
         file: '',
         dropValue: '',
         /* alignments: [
@@ -226,7 +228,7 @@ const vm = new Vue({
         editedIndexCompromissos: -1,
         editedItemCompromissos: {
             descricao: '',
-            valor: 0,
+            valor: '0,00',
             vencimentoInicial: 0,
             recorrencia: 0,
             qtdParcelas: 0,
@@ -235,7 +237,7 @@ const vm = new Vue({
         },
         defaultItemCompromissos: {
             descricao: '',
-            valor: 0,
+            valor: '0,00',
             vencimentoInicial: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             recorrencia: 0,
             qtdParcelas: 0,
@@ -624,9 +626,17 @@ const vm = new Vue({
         this.getResultados(); */
         this.gerarCompetênciaAnoAtual();
 
-    },
 
+    },
+    mounted() {
+
+    },
     methods: {
+
+        mascaraRealCompromissos() {
+            $('#valorRealCompromissos').mask('000.000.000.000.000,00', { reverse: true });
+            this.editedItemCompromissos.valor = valorRealCompromissos.value;
+        },
 
         setAtualDate() {
             this.date = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
@@ -705,22 +715,22 @@ const vm = new Vue({
 
 
         /* adcionarConta() {
-    
+     
             const novaConta = new Conta(this.nomeContaAdd, this.carteiraContaAdd);
-    
+     
             novaConta.opcoesDeExibicao = {};
             novaConta.opcoesDeExibicao.showHistory = false;
             novaConta.opcoesDeExibicao.showDetalhes = false;
-    
+     
             novaConta.logo = this.logoConfirmadoContaAdd;
             this.contas.unshift(novaConta);
-    
+     
             //limpando os campos de adição de nova conta
             this.cleanAdcionarContaFields();
-    
+     
             //atualizando as carteiras pois pode ter sido criada uma nova
             //this.updateCarteiras();
-    
+     
         }, */
 
         /* cleanAdcionarContaFields() {
@@ -728,10 +738,10 @@ const vm = new Vue({
             this.logoContaAdd = { nome: 'Banco do Brasil', img: '../imgs/logo-bb.png' };
             this.logoConfirmadoContaAdd = '../imgs/branco.png';
             this.carteiraContaAdd = '';
-    
+     
             this.showAdicionarConta = false;
         },
-    
+     
         novoSaldo(contaId) {
             this.dialogTitle = "Novo Saldo";
             this.editedCountIndex = contaId;
@@ -739,43 +749,43 @@ const vm = new Vue({
             //console.log(this.editItem.hora);
             this.dialog = true;
         },
-    
+     
         editItem(contaId, id) {
             this.dialogTitle = "Editar ";
-    
+     
             //this.editedIndex = this.contas.indexOf(item)
             //this.editedItem = Object.assign({}, item)
-    
+     
             this.editedCountIndex = contaId;
             this.editedIndex = id;
-    
+     
             const ct = this.getContaById(this.editedCountIndex);
             const mt = ct.getMoneyTimeById(id)
-    
+     
             this.editMt = mt;
-    
+     
             //alimentando o formulário
             this.saldo = mt.saldo;
             this.hora = mt.momento.hora;
             this.date = this.parseDate(mt.momento.data);
-    
+     
             this.dialog = true
         },
-    
+     
         deleteItem(contaId, id) {
             this.dialogTitle = "Delete";
             //this.editedIndex = this.getContaById(contaId).moneyTimeFlow.indexOf(item)
             //this.editedItem = Object.assign({}, item)
             // console.log("Queremos deletar o mt de id: " + id);
             //this.getContaById(contaId).deleteMoneyTimeById(this.editItem.id); 
-    
+     
             this.editedCountIndex = contaId;
-    
-    
+     
+     
             //console.log(`Vamos trabalhar o id: ${id}`);
             this.editedIndex = id;
             //console.log(`Vamos trabalhar o id: ${this.editedIndex}`);
-    
+     
             //console.log("Queremos delete o mt de id: " + this.editItem.id);
             this.dialogDelete = true
         }, */
@@ -783,15 +793,15 @@ const vm = new Vue({
         /* deleteItemConfirm() {
             //this.contas.splice(this.editedIndex, 1)
             this.getContaById(this.editedCountIndex).deleteMoneyTimeById(this.editedIndex);
-    
+     
             //const conta = this.getContaById(this.editedCountIndex);
-    
+     
             //console.log(`Queremos deletar a conta de id ${this.editedCountIndex} cujo nome é ${conta.nome}`);
             //console.log(`Queremos deletar a mt de id ${this.editedIndex} cujo valor é ${this.editedIndex.saldo}`);
-    
+     
             this.closeDelete()
         },
-    
+     
          */
 
         /* close() {
@@ -801,7 +811,7 @@ const vm = new Vue({
                 this.editedIndex = -1
             })
         },
-    
+     
         closeDelete() {
             this.dialogDelete = false
             this.$nextTick(() => {
@@ -813,32 +823,32 @@ const vm = new Vue({
         /* save() {
             if (this.editedIndex > -1) {
                 //Object.assign(this.contas[this.editedIndex], this.editedItem)
-    
-    
+     
+     
                 this.editMt.saldo = this.saldo;
                 this.editMt.momento.data = this.formatDate(this.date);
                 this.editMt.momento.hora = this.hora
-    
-    
+     
+     
                 this.reprocessaDadosDaConta(this.getContaById(this.editedCountIndex));
-    
+     
             } else {
                 //const saldo = this.editedItem.saldo;
                 // const data = this.editedItem.data; 
                 const data = this.formatDate(this.date);
                 //const hora = this.editedItem.hora;
                 console.log(`Saldo: ${this.saldo} Data: ${data} Hora: ${this.hora}`);
-    
+     
                 const momento = new Momento(data, this.hora);
                 const moneyTime = new MoneyTime(this.editedCountIndex, this.saldo, momento);
-    
+     
                 //this.contas[this.editedCountIndex - 1].addMoneyTime(moneyTime);
-    
+     
                 const cont = this.getContaById(this.editedCountIndex);
                 cont.addMoneyTime(moneyTime);
-    
+     
                 //cont.cLPrint();
-    
+     
                 this.reprocessaDadosDaConta(this.getContaById(this.editedCountIndex));
                 this.cleanNewSaldoModal();
             }
@@ -1268,32 +1278,32 @@ const vm = new Vue({
         /* getCompromissosDoMesPorIdDeCompromissoRecorrente(id) {
             for (let index = 0; compromissosDoMes < array.length; index++) {
                 const objCompM = compromissosDoMes[index];
-    
+     
                 if (objCompM[index].idRecorrente == id) {
                     return compromissosDoMes[index]
                 }
             }
         },
-    
+     
         getCompromissosDoMesPorIdDeCompromissoAvulso(id) {
-    
+     
             for (let index = 0; compromissosDoMes < array.length; index++) {
                 const objCompM = compromissosDoMes[index];
-    
+     
                 if (objCompM[index].idRecorrente == -1) {
-    
+     
                     const timeLineAvulsos = objCompM[index].timeLine;
-    
+     
                     for (let index2 = 0; index2 < timeLineAvulsos.length; index2++) {
                         const compAvulso = timeLineAvulsos[index2];
-    
+     
                         if (compAvulso.id == id) {
                             return timeLineAvulsos[index2];
                         }
-    
+     
                     }
-    
-    
+     
+     
                 }
             }
         }, */
@@ -1447,9 +1457,9 @@ const vm = new Vue({
                     /* 
                     A ideia original era que se for faturado no cartão não precisava somar no total da dívida.
                     O problema é que se for faturado no cartão e não tiver pago, o compromisso não está sendo contado nem na dívida do cartão nem em compromissos em aberto, gerando uma falsa ideia de capital disponível.
-
+    
                     Quadro:
-
+    
                     Pago?    Faturado no Cartão?    Somar na Dívida?
                     não      não                    sim
                     sim      não                    não
@@ -1753,12 +1763,12 @@ const vm = new Vue({
                    // Initialize the form data
                 
             let formData = new FormData();
-
+    
             
                 //Add the form data we need to submit
             
             formData.append('file', this.file);
-
+    
             
              // Make the request to the POST /single-file URL
             
@@ -1782,5 +1792,8 @@ const vm = new Vue({
 
 
 
-    }
+    },
+
+
+
 })

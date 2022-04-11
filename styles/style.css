@@ -99,6 +99,25 @@ h6 {
   text-transform: uppercase;
 }
 
+.inputReal {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  line-height: 20px;
+  padding: 8px 0;
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+  background-color: transparent;
+  border-style: none;
+  font: inherit;
+  border-radius: 0;
+  font-size: 18px;
+  letter-spacing: normal;
+  max-width: 100%;
+  text-align: left;
+}
+
 #app {
   display: flex;
   flex-direction: column;

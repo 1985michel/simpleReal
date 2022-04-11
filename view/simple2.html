@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
     <!-- //Jquery <<< eu que coloquei -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
-    <!-- axios -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -634,12 +634,22 @@
                                                                     label="Descrição">
                                                                 </v-text-field>
                                                             </v-col>
-                                                            <v-col cols="6" sm="6" md="6">
-                                                                <v-text-field v-model="editedItemCompromissos.valor"
-                                                                    label="Valor">
-                                                                </v-text-field>
+                                                            <v-col cols="12" sm="12" md="12">
+                                                                <!-- <v-text-field v-model="editedItemCompromissos.valor"
+                                                                    label="Valor" placeholder="0,00" class="real"
+                                                                    v-on:keyup="mascaraReal" type="text">
+                                                                </v-text-field> -->
+                                                                <div>
+                                                                    <label for="valorRealCompromissos">Valor:</label>
+                                                                    R$<input type="text" class="real inputReal"
+                                                                        id="valorRealCompromissos"
+                                                                        v-on:keyup="mascaraRealCompromissos"
+                                                                        v-model="editedItemCompromissos.valor">
+                                                                </div>
+
+
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="12" sm="12" md="12">
                                                                 <!-- <v-text-field
                                                                     v-model="editedItemCompromissos.vencimentoInicial"
                                                                     label="Vencimento Inicial"></v-text-field> -->
