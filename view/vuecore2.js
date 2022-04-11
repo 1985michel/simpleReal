@@ -100,6 +100,7 @@ const vm = new Vue({
         dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         menu1: false,
         menu2: false,
+        menumt: false,
 
         //variaveis de hora
         hora: '',
@@ -638,6 +639,11 @@ const vm = new Vue({
             this.editedItemCompromissos.valor = valorRealCompromissos.value;
         },
 
+        mascaraRealMoneyTime() {
+            $('#valorRealMoneyTime').mask('000.000.000.000.000,00', { reverse: true });
+            this.editedItemMoneyTime.saldo = valorRealMoneyTime.value;
+        },
+
         setAtualDate() {
             this.date = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
         },
@@ -1092,6 +1098,8 @@ const vm = new Vue({
             this.editedIndexMoneyTime = this.getContaById(item.contaId).moneyTimeFlow.indexOf(item)
             this.editedItemMoneyTime = Object.assign({}, item)
 
+            this.date = parseToDate(this.editedItemMoneyTime.momento.data)
+
             this.dialogMoneyTime = true
         },
 
@@ -1126,7 +1134,7 @@ const vm = new Vue({
 
         saveMoneyTime() {
 
-            /* this.editedItemContas.vencimentoInicial = this.formatDate(this.date); */
+            this.editedItemMoneyTime.momento.data = this.formatDate(this.date);
 
             if (this.editedIndexMoneyTime > -1) {
 

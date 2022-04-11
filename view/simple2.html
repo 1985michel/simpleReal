@@ -478,29 +478,63 @@
                                                             <v-btn color="" outlined class="mb-2" v-bind="attrs"
                                                                 v-on="on"
                                                                 @click="idDaContaDonaDosMoneyTimesDaTabela = item.id;
-                                                                defaultItemMoneyTime.momento.hora = getHoraAtual(); defaultItemMoneyTime.momento.data = this.getDataAtualFormatada()">
+                                                                defaultItemMoneyTime.momento.hora = getHoraAtual(); setAtualDate()">
                                                                 Novo Saldo
                                                             </v-btn>
                                                         </template>
                                                         <v-card>
                                                             <v-card-title>
-                                                                <span class="text-h5">{{ formTitleMoneyTime }}</span>
+                                                                <span class=" text-h5">{{ formTitleMoneyTime }}</span>
                                                             </v-card-title>
 
                                                             <v-card-text>
                                                                 <v-container>
                                                                     <v-row>
                                                                         <v-col cols="12" sm="12" md="12">
-                                                                            <v-text-field
+                                                                            <!-- <v-text-field
                                                                                 v-model="editedItemMoneyTime.saldo"
                                                                                 label="Saldo">
-                                                                            </v-text-field>
+                                                                            </v-text-field> -->
+                                                                            <v-row>
+                                                                                <!-- <label
+                                                                                    for="valorRealMoneyTime">Valor:</label> -->
+                                                                                <div style="width: fit-content"
+                                                                                    class="real inputReal">R$</div>
+                                                                                <div style="width: 94%"><input
+                                                                                        type="text"
+                                                                                        class="real inputReal"
+                                                                                        id="valorRealMoneyTime"
+                                                                                        v-on:keyup="mascaraRealMoneyTime"
+                                                                                        v-model="editedItemMoneyTime.saldo">
+                                                                                </div>
+
+                                                                            </v-row>
                                                                         </v-col>
                                                                         <v-col cols="6" sm="6" md="6">
-                                                                            <v-text-field
+                                                                            <!-- <v-text-field
                                                                                 v-model="editedItemMoneyTime.momento.data"
                                                                                 label="Data">
-                                                                            </v-text-field>
+                                                                            </v-text-field> -->
+                                                                            <v-menu ref="menumt" v-model="menumt"
+                                                                                :close-on-content-click="false"
+                                                                                transition="scale-transition" offset-y
+                                                                                max-width="290px" min-width="auto">
+                                                                                <template
+                                                                                    v-slot:activator="{ on, attrs }">
+                                                                                    <v-text-field
+                                                                                        v-model="dateFormatted"
+                                                                                        label="Vencimento:"
+                                                                                        hint="DD/MM/YYYY format"
+                                                                                        persistent-hint
+                                                                                        prepend-icon="mdi-calendar"
+                                                                                        v-bind="attrs" v-on="on"
+                                                                                        readonly>
+                                                                                    </v-text-field>
+                                                                                </template>
+                                                                                <v-date-picker v-model="date" no-title
+                                                                                    @input="menumt = false">
+                                                                                </v-date-picker>
+                                                                            </v-menu>
                                                                         </v-col>
                                                                         <v-col cols="6" sm="6" md="6">
                                                                             <v-text-field
@@ -639,13 +673,26 @@
                                                                     label="Valor" placeholder="0,00" class="real"
                                                                     v-on:keyup="mascaraReal" type="text">
                                                                 </v-text-field> -->
-                                                                <div>
+                                                                <!-- <div>
                                                                     <label for="valorRealCompromissos">Valor:</label>
                                                                     R$<input type="text" class="real inputReal"
                                                                         id="valorRealCompromissos"
                                                                         v-on:keyup="mascaraRealCompromissos"
                                                                         v-model="editedItemCompromissos.valor">
-                                                                </div>
+                                                                </div> -->
+                                                                <v-row>
+                                                                    <!-- <label
+                                                                        for="valorRealMoneyTime">Valor:</label> -->
+                                                                    <div style="width: fit-content"
+                                                                        class="real inputReal">R$</div>
+                                                                    <div style="width: 94%">
+                                                                        <input type="text" class="real inputReal"
+                                                                            id="valorRealCompromissos"
+                                                                            v-on:keyup="mascaraRealCompromissos"
+                                                                            v-model="editedItemCompromissos.valor">
+                                                                    </div>
+
+                                                                </v-row>
 
 
                                                             </v-col>
@@ -661,7 +708,7 @@
                                                                         <v-text-field v-model="dateFormatted"
                                                                             label="Vencimento:" hint="DD/MM/YYYY format"
                                                                             persistent-hint prepend-icon="mdi-calendar"
-                                                                            v-bind="attrs" v-on="on">
+                                                                            v-bind="attrs" v-on="on" readonly>
                                                                         </v-text-field>
                                                                     </template>
                                                                     <v-date-picker v-model="date" no-title
