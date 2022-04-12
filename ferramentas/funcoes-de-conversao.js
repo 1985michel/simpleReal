@@ -81,6 +81,15 @@ function fromNumberToReal(valor) {
     return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
 
+function fromNumberToRealNoRS(valor) {
+    /* let aux = `${valor}`;
+
+    aux = aux.replaceAll('.', ',');
+    return `${valor < 0 ? '-' : ''} R$ ` */
+    const formatted = valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+    return formatted.replaceAll('R$', '').trim();
+}
+
 function fromNumberToDolar(valor) {
 
     return 'U' + valor.toLocaleString("en-US", { style: "currency", currency: "USD" });
