@@ -101,9 +101,10 @@ function fromNumberToBTC(valor) {
 
     aux = aux.replaceAll('.', ',');
     return `${valor < 0 ? '-' : ''} R$ ` */
-    alert(`Total BTC antes da conversao final: ${valor}`);
+    //alert(`Total BTC antes da conversao final: ${valor}`);
     //let emDolar = valor.toLocaleString("en-US", { style: "currency", currency: "USD" });
     /* emDolar = emDolar.replace('$', 'BTC');
     emDolar = emDolar.replace(',', ''); */
-    return valor.replaceAll(',', '.');
+    const v = valor.replaceAll(',', '.');
+    return 'BTC ' + v;
 }
