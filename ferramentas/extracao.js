@@ -78,7 +78,7 @@ function getStringfyIn() {
 
 function getStringfyOut(contas, compromissos, compromissosDoMes, recebimentos) {
 
-    alert(`Chegaram no getStringfyOut ${compromissosDoMes.length}`);
+    //alert(`Chegaram no getStringfyOut ${compromissosDoMes.length}`);
     let temPai = 0;
     let semPai = 0;
     for (let index = 0; index < compromissosDoMes.length; index++) {
@@ -90,7 +90,7 @@ function getStringfyOut(contas, compromissos, compromissosDoMes, recebimentos) {
         }
     }
 
-    alert(`Tem pai: ${temPai}     Sem pai: ${semPai}`)
+    //alert(`Tem pai: ${temPai}     Sem pai: ${semPai}`)
 
     //limpa a caixa
     //document.getElementById("txtarea2").value = ""
@@ -221,6 +221,7 @@ function getObjectConta(el) {
     }
 
     conta.saldo = el.saldo;
+    conta.moeda = el.moeda;
     conta.opcoesDeExibicao = {};
     conta.opcoesDeExibicao.showHistory = false;
     conta.opcoesDeExibicao.showDetalhes = false;

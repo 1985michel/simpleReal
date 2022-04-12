@@ -64,6 +64,7 @@ const vm = new Vue({
         carteiras: [],
         valorTotalNaCarteira: 'R$ 0,00',
         valorTotalDeRecebimentosNaCompetencia: 'R$ 0,00',
+        moedas: [],
 
         dialogUpDateSaldo: false,
         /* dialogDelete: false, */
@@ -135,11 +136,13 @@ const vm = new Vue({
             logo: '',
             nome: '',
             carteira: '',
+            moeda: '',
         },
         defaultItemContas: {
             logo: '../imgs/branco.png',
             nome: '',
             carteira: '',
+            moeda: '',
         },
         expandContas: false,
         porcarteira: -1,
@@ -437,19 +440,21 @@ const vm = new Vue({
                     align: 'center',
                     sortable: false,
                     value: 'logo',
+                    width: "10%",
                 },
-                { text: 'Nome Conta', value: 'nome', align: 'center' },
-                { text: 'Saldo', value: 'saldo', align: 'center' },
+                { text: 'Nome Conta', value: 'nome', align: 'center', width: "30%", },
+                { text: 'Moeda', value: 'moeda', align: 'center', width: "10%", },
+                { text: 'Saldo', value: 'saldo', align: 'center', width: "10%", },
                 {
-                    text: 'Carteira', value: 'carteira', align: 'center', filter: value => {
+                    text: 'Carteira', value: 'carteira', align: 'center', width: "20%", filter: value => {
                         if (!this.porcarteira) return true
 
                         //return value < parseInt(this.pormes)
                         return this.filtroPorCarteira(value);
                     },
                 },
-                { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
-                { text: 'Histórico', value: 'data-table-expand' },
+                { text: 'Actions', value: 'actions', sortable: false, align: 'center', width: "10%", },
+                { text: 'Histórico', value: 'data-table-expand', align: 'center', width: "10%", },
 
             ]
         },
@@ -708,8 +713,6 @@ const vm = new Vue({
 
         updateCarteiras() {
 
-
-
             this.carteiras = [];
 
             this.carteiras.push('Todas');
@@ -724,6 +727,14 @@ const vm = new Vue({
             this.porcarteira = this.carteiras[0];
 
         },
+
+        updateMoedas() {
+            this.moedas = [];
+            this.moedas.push({ nome: 'Real', simbolo: 'R$' });
+            this.moedas.push({ nome: 'Dólar', simbolo: 'U$' });
+            this.moedas.push({ nome: 'Bitcoin', simbolo: 'BTC' });
+        },
+
 
         //O CLOSE E O CLOSE DELETE ABAIXO SÃO GENÉRICOS E USADOS POR TODAS AS TABELAS
         close() {
@@ -1035,13 +1046,15 @@ const vm = new Vue({
                 }
             } else {
 
+                alert(`Moeda: ${this.editedItemContas.moeda}`)
+
                 //recebo o logo que foi confirmado
                 this.editedItemContas.logo = this.logoConfirmadoContaAdd;
 
                 //reinicio o logo confirmado
                 this.logoConfirmadoContaAdd = '../imgs/branco.png';
 
-                const novaConta = new Conta(this.editedItemContas.nome, this.editedItemContas.carteira, this.editedItemContas.logo);
+                const novaConta = new Conta(this.editedItemContas.nome, this.editedItemContas.carteira, this.editedItemContas.logo, this.editedItemContas.moeda);
 
                 this.contas.push(novaConta);
 
@@ -1696,6 +1709,7 @@ const vm = new Vue({
             //daí atualizamos os dados estatísticos;
             this.getResultados();
             this.updateCarteiras();
+            this.updateMoedas()
             //this.calcularTotalNaCarteira();
             this.calcularTotalNaCarteiraRealBTCDolar();
             this.calcularCompromissosNaCompetencia();

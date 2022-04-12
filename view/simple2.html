@@ -326,7 +326,7 @@
                                                                     label="Carteira">
                                                                 </v-text-field>
                                                             </v-col>
-                                                            <v-col cols="12" sm="6" md="4">
+                                                            <v-col cols="3" sm="3" md="3">
                                                                 <v-btn class="mx-2" outlined fab
                                                                     color="blue-grey darken-4" v-model="logoContaAdd"
                                                                     @click="dialogLogo = true">
@@ -335,6 +335,20 @@
                                                                     </v-avatar>
                                                                 </v-btn>
                                                             </v-col>
+                                                            <v-col cols="3" sm="3" md="3">
+                                                                <h3 @click="updateMoedas">Moeda:</h3>
+
+                                                                <v-select :items="moedas"
+                                                                    v-model="editedItemContas.moeda" item-text="simbolo"
+                                                                    item-value="simbolo" solo
+                                                                    style="width: fit-content; max-width: fit-content;">
+                                                                </v-select>
+                                                            </v-col>
+
+
+
+
+
 
                                                         </v-row>
                                                     </v-container>
@@ -508,6 +522,7 @@
                                                                                         v-model="editedItemMoneyTime.saldo">
                                                                                 </div>
                                                                                 <!-- v-on:keyup.numpadSubtract="mascaraSubtract" -->
+
                                                                             </v-row>
                                                                         </v-col>
                                                                         <v-col cols="6" sm="6" md="6">

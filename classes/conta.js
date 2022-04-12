@@ -3,7 +3,7 @@
 let idContaGlobal = 0;
 
 class Conta {
-    constructor(nome, carteira, logo) {
+    constructor(nome, carteira, logo, moeda) {
 
         this.id = ++idContaGlobal;
 
@@ -11,10 +11,24 @@ class Conta {
         this.carteira = carteira;//A priore carteira será apenas uma string
         this.logo = logo;
         this.moneyTimeFlow = [];
-        this.saldo = 'R$ 0,00';//a conta não tem saldo quando é criada. Ele é setado dinamicamente.
+        this.moeda = moeda;
+        this.saldo = this.setSaldoInicial(moeda);
 
-        //ID
+
+
+
+
+
+
+
     }
+
+    setSaldoInicial(moeda) {
+        if (moeda == 'R$') return 'R$ 0,00'
+        if (moeda == 'U$') return 'U$ 0.00'
+        if (moeda == 'BTC') return 'BTC 0.0'
+    }
+
 
     cLPrint() {
         console.log(`id: ${this.id}`);
