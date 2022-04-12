@@ -64,7 +64,9 @@ const vm = new Vue({
         carteiras: [],
         valorTotalNaCarteira: 'R$ 0,00',
         valorTotalDeRecebimentosNaCompetencia: 'R$ 0,00',
-
+        moedas: [],
+        moedaAtiva: '',
+        mascaraAtiva: '',
 
         dialogUpDateSaldo: false,
         /* dialogDelete: false, */
@@ -93,16 +95,6 @@ const vm = new Vue({
         logoConfirmadoContaAdd: '../imgs/branco.png',
         dialogLogo: false,
         logos: getLogos(),
-
-
-        moedas: [
-            { nome: 'Real', simbolo: 'R$', mascara: '000.000.000.000.000,00' },
-            { nome: 'Dolar', simbolo: 'U$', mascara: '000,000,000,000,000.00' },
-            { nome: 'Euro', simbolo: '€', mascara: '000.000.000.000.000,00' },
-            { nome: 'Bitcoin', simbolo: 'BTC', mascara: '0.00000000' },
-        ],
-
-
 
 
 
@@ -194,11 +186,6 @@ const vm = new Vue({
                 data: this.getDataAtualFormatada(),
                 hora: getHoraAtual(),
                 id: '',
-            },
-            moeda: {
-                nome: '',
-                simbolo: '',
-                mascara: '',
             }
         },
         defaultItemMoneyTime: {
@@ -209,11 +196,6 @@ const vm = new Vue({
                 data: '',
                 hora: getHoraAtual(),
                 id: '',
-            },
-            moeda: {
-                nome: '',
-                simbolo: '',
-                mascara: '',
             }
         },
         expandMoneyTime: false,
@@ -463,7 +445,7 @@ const vm = new Vue({
                     width: "10%",
                 },
                 { text: 'Nome Conta', value: 'nome', align: 'center', width: "30%", },
-                { text: 'Moeda', value: 'moeda.simbolo', align: 'center', width: "10%", },
+                { text: 'Moeda', value: 'moeda', align: 'center', width: "10%", },
                 { text: 'Saldo', value: 'saldo', align: 'center', width: "10%", },
                 {
                     text: 'Carteira', value: 'carteira', align: 'center', width: "20%", filter: value => {
@@ -659,6 +641,23 @@ const vm = new Vue({
 
     },
     methods: {
+        getMoedaDestaConta(conta) {
+            //console.log(`id da conta: ${id}`);
+            //const conta = this.getContaById(conta.id);
+            //console.log(`A conta encontrada foi de nome: ${conta.nome}`);
+            this.moedaAtiva = conta.moeda;
+            console.log(`Moeda ativa: ${this.moedaAtiva} da conta ${conta.nome}/ id:${conta.id} }`);
+            this.getMascaraAtiva();
+            return conta.moeda;
+        },
+
+        getMascaraAtiva() {
+            $('#valorRealMoneyTime').unmask()
+            if (this.moedaAtiva == 'R$') this.mascaraAtiva = '000.000.000.000.000,00';
+            if (this.moedaAtiva == 'U$') this.mascaraAtiva = '000,000,000,000,000.00';
+            if (this.moedaAtiva == 'BTC') this.mascaraAtiva = '0.00000000';
+
+        },
 
         mascaraRealCompromissos() {
             $('#valorRealCompromissos').mask('000.000.000.000.000,00', {
@@ -697,6 +696,147 @@ const vm = new Vue({
             $('#valorRealMoneyTime').mask('000.000.000.000.000,00', { reverse: true }); */
             //this.editedItemMoneyTime.saldo = (isPositivo ? valorRealMoneyTime.value.replaceAll('-', '') + valorRealMoneyTime.value;
         },
+
+        /* mascaraDinamicaRealMoneyTime(event) {
+            if (event.key == '-' && valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                //console.log(`Event key: ${event.key}`);
+                if (this.editedItemMoneyTime.saldo[0] == '-' || this.editedItemMoneyTime.saldo[0] == '-') {
+                    //console.log(`POSITIVAR`);
+                    this.editedItemMoneyTime.saldo = valorRealMoneyTime.value.replaceAll('-', '');
+                } else {
+                    //console.log(`NEGATIVAR`);
+                    this.editedItemMoneyTime.saldo = '-' + valorRealMoneyTime.value
+                }
+            } else if (valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                //console.log(`Event key: ${event.key}`);
+                //const isPositivo = valorRealMoneyTime.value >= 0
+                //$('#valorRealMoneyTime').unmask(); 
+                $('#valorRealMoneyTime').mask('000.000.000.000.000,00', { reverse: true });
+                this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+            }
+        }, */
+
+        /* mascaraDinamicaDolarMoneyTime(event) {
+            if (event.key == '-' && valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                //console.log(`Event key: ${event.key}`);
+                if (this.editedItemMoneyTime.saldo[0] == '-' || this.editedItemMoneyTime.saldo[0] == '-') {
+                    //console.log(`POSITIVAR`);
+                    this.editedItemMoneyTime.saldo = valorRealMoneyTime.value.replaceAll('-', '');
+                } else {
+                    //console.log(`NEGATIVAR`);
+                    this.editedItemMoneyTime.saldo = '-' + valorRealMoneyTime.value
+                }
+            } else if (valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                //console.log(`Event key: ${event.key}`);
+                //const isPositivo = valorRealMoneyTime.value >= 0
+                //$('#valorRealMoneyTime').unmask();
+                $('#valorRealMoneyTime').mask('000,000,000,000,000.00', { reverse: true });
+                this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+            }
+        }, */
+
+        /* mascaraDinamicaBTCMoneyTime(event) {
+            $('#valorRealMoneyTime').mask('0.00000000', { reverse: true });
+            this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+        }, */
+
+        mascaraDinamicaMoneyTime2(event) {
+
+            //const moedaDestaConta = this.getMoedaDestaConta(this.idDaContaDonaDosMoneyTimesDaTabela);
+
+            if (this.moedaAtiva == 'R$') {
+                if (event.key == '-' && valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    if (this.editedItemMoneyTime.saldo[0] == '-' || this.editedItemMoneyTime.saldo[0] == '-') {
+                        //console.log(`POSITIVAR`);
+                        this.editedItemMoneyTime.saldo = valorRealMoneyTime.value.replaceAll('-', '');
+                    } else {
+                        //console.log(`NEGATIVAR`);
+                        this.editedItemMoneyTime.saldo = '-' + valorRealMoneyTime.value
+                    }
+                } else if (valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    //const isPositivo = valorRealMoneyTime.value >= 0
+                    /* $('#valorRealMoneyTime').unmask(); */
+                    $('#valorRealMoneyTime').mask('000.000.000.000.000,00', { reverse: true });
+                    this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+                }
+            } else if (this.moedaAtiva == 'U$') {
+                if (event.key == '-' && valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    if (this.editedItemMoneyTime.saldo[0] == '-' || this.editedItemMoneyTime.saldo[0] == '-') {
+                        //console.log(`POSITIVAR`);
+                        this.editedItemMoneyTime.saldo = valorRealMoneyTime.value.replaceAll('-', '');
+                    } else {
+                        //console.log(`NEGATIVAR`);
+                        this.editedItemMoneyTime.saldo = '-' + valorRealMoneyTime.value
+                    }
+                } else if (valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    //const isPositivo = valorRealMoneyTime.value >= 0
+                    $('#valorRealMoneyTime').unmask();
+                    $('#valorRealMoneyTime').mask('000,000,000,000,000.00', { reverse: true });
+                    this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+                }
+
+            } else if (this.moedaAtiva == 'BTC') {
+                $('#valorRealMoneyTime').unmask();
+                $('#valorRealMoneyTime').mask('0.00000000', { reverse: true });
+                this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+            }
+
+
+
+        },
+        /* ascaraDinamicaMoneyTime(event) {
+
+            const moedaDestaConta = this.getMoedaDestaConta(this.idDaContaDonaDosMoneyTimesDaTabela);
+
+            if (moedaDestaConta == 'R$') {
+                if (event.key == '-' && valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    if (this.editedItemMoneyTime.saldo[0] == '-' || this.editedItemMoneyTime.saldo[0] == '-') {
+                        //console.log(`POSITIVAR`);
+                        this.editedItemMoneyTime.saldo = valorRealMoneyTime.value.replaceAll('-', '');
+                    } else {
+                        //console.log(`NEGATIVAR`);
+                        this.editedItemMoneyTime.saldo = '-' + valorRealMoneyTime.value
+                    }
+                } else if (valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    //const isPositivo = valorRealMoneyTime.value >= 0
+                    // $('#valorRealMoneyTime').unmask(); 
+                    $('#valorRealMoneyTime').mask('000.000.000.000.000,00', { reverse: true });
+                    this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+                }
+            } else if (moedaDestaConta == 'U$') {
+                if (event.key == '-' && valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    if (this.editedItemMoneyTime.saldo[0] == '-' || this.editedItemMoneyTime.saldo[0] == '-') {
+                        //console.log(`POSITIVAR`);
+                        this.editedItemMoneyTime.saldo = valorRealMoneyTime.value.replaceAll('-', '');
+                    } else {
+                        //console.log(`NEGATIVAR`);
+                        this.editedItemMoneyTime.saldo = '-' + valorRealMoneyTime.value
+                    }
+                } else if (valorRealMoneyTime.value != '' && valorRealMoneyTime.value != null) {
+                    //console.log(`Event key: ${event.key}`);
+                    //const isPositivo = valorRealMoneyTime.value >= 0
+                    $('#valorRealMoneyTime').unmask();
+                    $('#valorRealMoneyTime').mask('000,000,000,000,000.00', { reverse: true });
+                    this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+                }
+
+            } else if (moedaDestaConta == 'BTC') {
+                $('#valorRealMoneyTime').unmask();
+                $('#valorRealMoneyTime').mask('0.00000000', { reverse: true });
+                this.editedItemMoneyTime.saldo = valorRealMoneyTime.value
+            }
+
+
+
+        }, */
+
 
 
 
@@ -748,12 +888,12 @@ const vm = new Vue({
 
         },
 
-        /* updateMoedas() {
+        updateMoedas() {
             this.moedas = [];
             this.moedas.push({ nome: 'Real', simbolo: 'R$' });
             this.moedas.push({ nome: 'Dólar', simbolo: 'U$' });
             this.moedas.push({ nome: 'Bitcoin', simbolo: 'BTC' });
-        }, */
+        },
 
 
         //O CLOSE E O CLOSE DELETE ABAIXO SÃO GENÉRICOS E USADOS POR TODAS AS TABELAS
@@ -1066,7 +1206,7 @@ const vm = new Vue({
                 }
             } else {
 
-                //alert(`Moeda: ${this.editedItemContas.moeda}`)
+                alert(`Moeda: ${this.editedItemContas.moeda}`)
 
                 //recebo o logo que foi confirmado
                 this.editedItemContas.logo = this.logoConfirmadoContaAdd;
@@ -1152,14 +1292,6 @@ const vm = new Vue({
 
 
 
-        setFormularioPersolanizadoParaAConta(id) {
-
-            const ct = this.getContaById(id);
-            this.editedItemMoneyTime.moeda = ct.moeda;
-
-        },
-
-
 
 
 
@@ -1168,14 +1300,21 @@ const vm = new Vue({
         //MONEY TIME
         editItemMoneyTime(item) {
             //alert(`item: ${item.momento.data}`)
-            const conta = this.getContaById(item.contaId);
-            this.editedIndexMoneyTime = conta.moneyTimeFlow.indexOf(item)
+
             this.editedItemMoneyTime = Object.assign({}, item)
 
-            this.editedItemMoneyTime.moeda = conta.moeda
+            const conta = this.getContaById(item.contaId);
+            this.editedIndexMoneyTime = conta.moneyTimeFlow.indexOf(item)
 
             //vamos retirar o R$ antes de apresentar para edição
-            this.editedItemMoneyTime.saldo = fromNumberToRealNoRS(this.editedItemMoneyTime.saldo);
+            if (conta.moeda == 'R$') {
+                this.editedItemMoneyTime.saldo = fromNumberToRealNoRS(this.editedItemMoneyTime.saldo);
+            } else if (conta.moeda == 'U$') {
+                this.editedItemMoneyTime.saldo = fromNumberToDolarNoUS(this.editedItemMoneyTime.saldo);
+            } else if (conta.moeda == 'BTC') {
+                this.editedItemMoneyTime.saldo = fromNumberToBTCNoBTC(this.editedItemMoneyTime.saldo);
+            }
+
 
             this.date = parseToDate(this.editedItemMoneyTime.momento.data)
 
@@ -1215,12 +1354,20 @@ const vm = new Vue({
 
             this.editedItemMoneyTime.momento.data = this.formatDate(this.date);
 
+
             if (this.editedIndexMoneyTime > -1) {
 
                 //abaixo ele pega o que foi editado e coloca na posição orignal do array contas
                 const conta = this.getContaById(this.editedItemMoneyTime.contaId);
 
-                this.editedItemMoneyTime.saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+
+                if (conta.moeda == 'R$') {
+                    this.editedItemMoneyTime.saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+                } else if (conta.moeda == 'U$') {
+                    this.editedItemMoneyTime.saldo = fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo));
+                } else if (conta.moeda == 'BTC') {
+                    this.editedItemMoneyTime.saldo = fromNumberToBTC(fromBTCtoNumber(this.editedItemMoneyTime.saldo));
+                }
 
 
                 Object.assign(conta.moneyTimeFlow[this.editedIndexMoneyTime], this.editedItemMoneyTime);
@@ -1229,13 +1376,29 @@ const vm = new Vue({
             } else {
 
                 //o idDaContaDonaDosMoneyTimesDaTabela eu seto lá no botão que abre o modal para o registro de novo saldo
-                this.editedItemMoneyTime.contaId = this.idDaContaDonaDosMoneyTimesDaTabela;
+                this.editedItemMoneyTime.contaId = this.editedItemMoneyTime.contaId;
+
+                console.log(`Chegou no save: ${this.editedItemMoneyTime.saldo}`);
+
+                const conta = this.getContaById(this.idDaContaDonaDosMoneyTimesDaTabela);
+
+                if (conta.moeda == 'R$') {
+                    this.editedItemMoneyTime.saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+                } else if (conta.moeda == 'U$') {
+
+                    console.log(`to number: ${fromDolartoNumber(this.editedItemMoneyTime.saldo)}`);
+                    console.log(`to dolar: ${fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo))}`);
+                    this.editedItemMoneyTime.saldo = fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo));
+                } else if (conta.moeda == 'BTC') {
+                    this.editedItemMoneyTime.saldo = fromNumberToBTC(fromBTCtoNumber(this.editedItemMoneyTime.saldo));
+                }
 
                 const momento = new Momento(this.editedItemMoneyTime.momento.data, this.editedItemMoneyTime.momento.hora);
 
-                const novoMoneyTime = new MoneyTime(this.editedItemMoneyTime.contaId, fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo)), momento);
+                //const novoMoneyTime = new MoneyTime(this.editedItemMoneyTime.contaId, fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo)), momento);
+                const novoMoneyTime = new MoneyTime(this.editedItemMoneyTime.contaId, this.editedItemMoneyTime.saldo, momento);
 
-                const conta = this.getContaById(this.idDaContaDonaDosMoneyTimesDaTabela);
+
 
                 //idDaContaDonaDosMoneyTimesDaTabela
                 //this.getContaById(this.editedItemMoneyTime.contaId).moneyTimeFlow.unshift(novoMoneyTime);
@@ -1740,7 +1903,7 @@ const vm = new Vue({
             //daí atualizamos os dados estatísticos;
             this.getResultados();
             this.updateCarteiras();
-            //this.updateMoedas()
+            this.updateMoedas()
             //this.calcularTotalNaCarteira();
             this.calcularTotalNaCarteiraRealBTCDolar();
             this.calcularCompromissosNaCompetencia();
