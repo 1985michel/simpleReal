@@ -101,6 +101,7 @@ const vm = new Vue({
         menu1: false,
         menu2: false,
         menumt: false,
+        menurecebimentos: false,
 
         //variaveis de hora
         hora: '',
@@ -380,7 +381,7 @@ const vm = new Vue({
             descricao: '',
             isrendapassiva: false,
             ativoResponsavel: 0,
-            valor: 0,
+            valor: '',
             contaDeRecebimento: 0,
             dataRecebimento: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         },
@@ -388,7 +389,7 @@ const vm = new Vue({
             descricao: '',
             isrendapassiva: false,
             ativoResponsavel: 0,
-            valor: 0,
+            valor: '',
             contaDeRecebimento: 0,
             dataRecebimento: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         },
@@ -637,6 +638,11 @@ const vm = new Vue({
         mascaraRealCompromissos() {
             $('#valorRealCompromissos').mask('000.000.000.000.000,00', { reverse: true });
             this.editedItemCompromissos.valor = valorRealCompromissos.value;
+        },
+
+        mascaraRealRecebimentos() {
+            $('#valorRealRecebimentos').mask('000.000.000.000.000,00', { reverse: true });
+            this.editedItemRecebimentos.valor = valorRealRecebimentos.value;
         },
 
         mascaraRealMoneyTime() {
@@ -1517,6 +1523,9 @@ const vm = new Vue({
         editItemRecebimentos(item) {
             this.editedIndexRecebimentos = this.recebimentos.indexOf(item)
             this.editedItemRecebimentos = Object.assign({}, item)
+
+            this.date = parseToDate(this.editedItemRecebimentos.dataRecebimento)
+
             this.dialogRecebimentos = true
         },
 
@@ -1549,6 +1558,7 @@ const vm = new Vue({
 
         saveRecebimentos() {
             this.editedItemRecebimentos.dataRecebimento = this.formatDate(this.date);
+
             if (this.editedIndexRecebimentos > -1) {
                 Object.assign(this.recebimentos[this.editedIndexRecebimentos], this.editedItemRecebimentos)
             } else {

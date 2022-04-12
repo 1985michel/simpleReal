@@ -117,6 +117,14 @@ h6 {
   text-align: left;
 }
 
+::-webkit-input-placeholder {
+  text-align: left;
+}
+
+:-moz-placeholder {
+  text-align: left;
+}
+
 #app {
   display: flex;
   flex-direction: column;

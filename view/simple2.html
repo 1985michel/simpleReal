@@ -1038,7 +1038,8 @@
                                         <v-spacer></v-spacer>
                                         <v-dialog v-model="dialogRecebimentos" max-width="500px">
                                             <template v-slot:activator="{ on, attrs }">
-                                                <v-btn color="" outlined class="mb-2" v-bind="attrs" v-on="on">
+                                                <v-btn color="" outlined class="mb-2" v-bind="attrs" v-on="on"
+                                                    @click="setAtualDate">
                                                     Novo Recebimento
                                                 </v-btn>
                                             </template>
@@ -1079,9 +1080,23 @@
                                                                     label="Ativo Responsável"></v-text-field>
                                                             </v-col>
                                                             <v-col cols="6" sm="6" md="6">
-                                                                <v-text-field v-model="editedItemRecebimentos.valor"
+                                                                <v-row>
+                                                                    <!-- <label
+                                                                        for="valorRealMoneyTime">Valor:</label> -->
+                                                                    <div style="width: fit-content"
+                                                                        class="real inputReal">R$</div>
+                                                                    <div style="width: 80%">
+                                                                        <input type="text" class="real inputReal"
+                                                                            id="valorRealRecebimentos"
+                                                                            v-on:keyup="mascaraRealRecebimentos"
+                                                                            v-model="editedItemRecebimentos.valor"
+                                                                            placeholder="0,00">
+                                                                    </div>
+
+                                                                </v-row>
+                                                                <!-- <v-text-field v-model="editedItemRecebimentos.valor"
                                                                     label="Valor">
-                                                                </v-text-field>
+                                                                </v-text-field> -->
                                                             </v-col>
                                                             <v-col cols="6" sm="6" md="6">
                                                                 <!-- <v-text-field
@@ -1096,7 +1111,8 @@
                                                             <v-col cols="12" sm="12" md="12">
 
 
-                                                                <v-menu ref="menu1" v-model="menu1"
+                                                                <v-menu ref="menurecebimentos"
+                                                                    v-model="menurecebimentos"
                                                                     :close-on-content-click="false"
                                                                     transition="scale-transition" offset-y
                                                                     max-width="290px" min-width="auto">
@@ -1104,11 +1120,11 @@
                                                                         <v-text-field v-model="dateFormatted"
                                                                             label="Date" hint="DD/MM/YYYY format"
                                                                             persistent-hint prepend-icon="mdi-calendar"
-                                                                            v-bind="attrs" v-on="on">
+                                                                            v-bind="attrs" v-on="on" readonly>
                                                                         </v-text-field>
                                                                     </template>
                                                                     <v-date-picker v-model="date" no-title
-                                                                        @input="menu1 = false">
+                                                                        @input="menurecebimentos = false">
                                                                     </v-date-picker>
                                                                 </v-menu>
 
