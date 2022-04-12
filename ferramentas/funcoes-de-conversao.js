@@ -33,21 +33,21 @@ function fromRealtoNumber(valor) {
 function fromDolartoNumber(valor) {
 
     /* let aux = valor.slice(3,); */
-    //console.log(`valor original: ${valor}`);
+    console.log(`valor original: ${valor}`);
     let aux = valor.replaceAll('U$', '');
 
-    //console.log(`apos retirar o R$: ${aux}`);
+    console.log(`apos retirar o U$: ${aux}`);
 
     aux = aux.replaceAll(',', '');
-    aux = aux.replaceAll('.', ',');
+    //aux = aux.replaceAll('.', ',');
 
-    //console.log(`trocando pontos e virgulas: ${aux}`);
+    console.log(`trocando tirando a virgula: ${aux}`);
 
     aux = aux.replaceAll(' ', '');
 
-    //console.log(`apos retirar os espacos em branco: ${aux}`);
+    console.log(`apos retirar os espacos em branco: ${aux}`);
 
-    return parseFloat(aux.trim());
+    return parseFloat(aux);
 }
 
 function fromBTCtoNumber(valor) {
@@ -92,7 +92,8 @@ function fromNumberToRealNoRS(valor) {
 
 function fromNumberToDolar(valor) {
 
-    return 'U' + valor.toLocaleString("en-US", { style: "currency", currency: "USD" });
+    const v = valor.toLocaleString("en-US", { style: "currency", currency: "USD" });
+    return v.replaceAll('$', 'U$ ');
 }
 
 function fromNumberToBTC(valor) {

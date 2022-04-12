@@ -1220,7 +1220,14 @@ const vm = new Vue({
                 //abaixo ele pega o que foi editado e coloca na posição orignal do array contas
                 const conta = this.getContaById(this.editedItemMoneyTime.contaId);
 
-                this.editedItemMoneyTime.saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+                console.log(`Saldo que chegou para salvar: ${this.editedItemMoneyTime.saldo}`);
+                console.log(`DEPOIS DO DOLAR TO NUMBER: ${fromDolartoNumber(this.editedItemMoneyTime.saldo)}`);
+                console.log(`DEPOIS DO NUMBERT TO DOLAR: ${fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo))}`);
+
+
+                if (this.editedItemMoneyTime.moeda.simbolo == 'R$') this.editedItemMoneyTime.saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+                if (this.editedItemMoneyTime.moeda.simbolo == 'U$') this.editedItemMoneyTime.saldo = fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo));
+                if (this.editedItemMoneyTime.moeda.simbolo == 'BTC') this.editedItemMoneyTime.saldo = fromNumberToBTC(fromBTCtoNumber(this.editedItemMoneyTime.saldo));
 
 
                 Object.assign(conta.moneyTimeFlow[this.editedIndexMoneyTime], this.editedItemMoneyTime);
@@ -1233,7 +1240,19 @@ const vm = new Vue({
 
                 const momento = new Momento(this.editedItemMoneyTime.momento.data, this.editedItemMoneyTime.momento.hora);
 
-                const novoMoneyTime = new MoneyTime(this.editedItemMoneyTime.contaId, fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo)), momento);
+
+                console.log(`Saldo que chegou para salvar: ${this.editedItemMoneyTime.saldo}`);
+                console.log(`DEPOIS DO DOLAR TO NUMBER: ${fromDolartoNumber(this.editedItemMoneyTime.saldo)}`);
+                console.log(`DEPOIS DO NUMBERT TO DOLAR: ${fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo))}`);
+
+
+                let saldo = 0;
+                if (this.editedItemMoneyTime.moeda.simbolo == 'R$') saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+                if (this.editedItemMoneyTime.moeda.simbolo == 'U$') saldo = fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo));
+                if (this.editedItemMoneyTime.moeda.simbolo == 'BTC') saldo = fromNumberToBTC(fromBTCtoNumber(this.editedItemMoneyTime.saldo));
+
+
+                const novoMoneyTime = new MoneyTime(this.editedItemMoneyTime.contaId, saldo, momento);
 
                 const conta = this.getContaById(this.idDaContaDonaDosMoneyTimesDaTabela);
 
