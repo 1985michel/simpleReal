@@ -1255,26 +1255,26 @@
                                     <template v-slot:default>
                                         <thead>
                                             <tr>
-                                                <th class="text-center">
+                                                <th class="text-center font-weight-medium subtitle-1">
                                                     Carteira
                                                 </th>
-                                                <th class="text-center">
+                                                <th class="text-center font-weight-medium subtitle-1">
                                                     Reais (R$)
                                                 </th>
-                                                <th class="text-center">
+                                                <th class="text-center font-weight-medium subtitle-1">
                                                     Dolar (U$)
                                                 </th>
-                                                <th class="text-center">
+                                                <th class="text-center font-weight-medium subtitle-1">
                                                     Bitcoin (BTC)
                                                 </th>
-                                                <th class="text-center">
+                                                <th class="text-center font-weight-medium subtitle-1">
                                                     Total
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="item in getResumoCarteiras" :key="item.name">
-                                                <td class="text-center">{{ item.nome }}</td>
+                                                <td class="text-center font-weight-medium">{{ item.nome }}</td>
                                                 <td class="text-center">{{ item.saldo.real }}</td>
                                                 <td class="text-center">{{ item.saldo.dolar }}</td>
                                                 <td class="text-center">{{ item.saldo.bitcoin }}</td>

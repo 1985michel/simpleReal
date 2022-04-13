@@ -489,7 +489,7 @@ const vm = new Vue({
                 for (let j = 0; j < this.resumoCarteiras.length; j++) {
                     const carteira = this.resumoCarteiras[j];
 
-                    if (conta.carteira == carteira.nome) {
+                    if (conta.carteira == carteira.nome || carteira.nome == 'Todas') {
 
                         if (conta.moeda.simbolo == 'R$') {
                             carteira.saldo.real = fromNumberToReal(fromRealtoNumber(carteira.saldo.real) + fromRealtoNumber(conta.saldo));
