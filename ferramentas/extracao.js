@@ -127,7 +127,7 @@ function geraIdCompromissoPai(compromissos, compromissosDoMes) {
         }
     }
 
-    alert(`Tem pai: ${temPai}     Sem pai: ${semPai}`)
+    //alert(`Tem pai: ${temPai}     Sem pai: ${semPai}`)
 }
 
 function stringfyAll(contas, compromissos, compromissosDoMes, recebimentos) {
