@@ -1251,6 +1251,38 @@
                             <!-- //dados estatísticos -->
                             <v-card>
 
+                                <v-simple-table dense>
+                                    <template v-slot:default>
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">
+                                                    Carteira
+                                                </th>
+                                                <th class="text-center">
+                                                    Reais (R$)
+                                                </th>
+                                                <th class="text-center">
+                                                    Dolar (U$)
+                                                </th>
+                                                <th class="text-center">
+                                                    Bitcoin (BTC)
+                                                </th>
+                                                <th class="text-center">
+                                                    Total
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in getResumoCarteiras" :key="item.name">
+                                                <td class="text-center">{{ item.nome }}</td>
+                                                <td class="text-center">{{ item.saldo.real }}</td>
+                                                <td class="text-center">{{ item.saldo.dolar }}</td>
+                                                <td class="text-center">{{ item.saldo.bitcoin }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </template>
+                                </v-simple-table>
+
 
 
 

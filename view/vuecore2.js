@@ -62,6 +62,16 @@ const vm = new Vue({
         valorTotalCompromissosNaCompetencia: 'R$ 0,00',
         valorCompromissosEmAbertoNaCompetencia: 'R$ 0,00',
         carteiras: [],
+        resumoCarteiras: {
+            nome: '',
+            saldo: '',
+            moeda: {
+                nome: '',
+                simbolo: '',
+                mascara: '',
+            }
+        },
+
         valorTotalNaCarteira: 'R$ 0,00',
         valorTotalDeRecebimentosNaCompetencia: 'R$ 0,00',
 
@@ -444,6 +454,62 @@ const vm = new Vue({
         }, */
 
 
+        getResumoCarteiras() {
+            this.resumoCarteiras = []
+
+            //uma carteira pode ter várias moedas
+            for (let i = 0; i < this.carteiras.length; i++) {
+                const c = this.carteiras[i];
+
+                this.resumoCarteiras.push({
+                    nome: this.carteiras[i],
+                    saldo: {
+                        real: 'R$ 0,00',
+                        dolar: 'U$ 0.00',
+                        bitcoin: 'BTC 0.00000000',
+                    }
+                })
+
+            }
+
+            console.log(`vuecore linha 475: Temos ${this.resumoCarteiras.length} resumos de carteiras.`);
+
+            for (let i = 0; i < this.resumoCarteiras.length; i++) {
+                const c = this.resumoCarteiras[i];
+
+                console.log(`Nome: ${c.nome}`);
+
+            }
+
+            console.log(`Quantas contas temos? ${this.contas.length}`);
+
+            for (let i = 0; i < this.contas.length; i++) {
+                const conta = this.contas[i];
+
+                for (let j = 0; j < this.resumoCarteiras.length; j++) {
+                    const carteira = this.resumoCarteiras[j];
+
+                    if (conta.carteira == carteira.nome) {
+
+                        if (conta.moeda.simbolo == 'R$') {
+                            carteira.saldo.real = fromNumberToReal(fromRealtoNumber(carteira.saldo.real) + fromRealtoNumber(conta.saldo));
+                        }
+                        if (conta.moeda.simbolo == 'U$') {
+                            /* const vCarteira = fromDolartoNumber(carteira.saldo.dolar);
+                            const vConta = fromDolartoNumber(conta.saldo); */
+                            carteira.saldo.dolar = fromNumberToDolar(fromDolartoNumber(carteira.saldo.dolar) + fromDolartoNumber(conta.saldo));
+                        }
+                        if (conta.moeda.simbolo == 'BTC') {
+                            carteira.saldo.bitcoin = fromNumberToBTC(
+                                parseFloat(fromBTCtoNumber(carteira.saldo.bitcoin)) + parseFloat(fromBTCtoNumber(conta.saldo))
+                            );
+                        }
+                    }
+                }
+            }
+
+            return this.resumoCarteiras;
+        },
 
 
 

@@ -26,11 +26,26 @@ function fromRealtoNumber(valor) {
     aux = aux.replaceAll(' ', '');
 
     //console.log(`apos retirar os espacos em branco: ${aux}`);
+    const isNegativo = valor.includes('-');
 
-    return parseFloat(aux.trim());
+    aux = aux.replaceAll('-', '');
+
+    /* if (valor.includes('860')) {
+        alert(`Conta do Cartao: ${aux}`);
+    } */
+
+    if (isNegativo) {
+        aux = parseFloat(aux) * -1;
+    } else {
+        aux = parseFloat(aux);
+    }
+
+    return aux;
 }
 
 function fromDolartoNumber(valor) {
+
+    if (valor == null) alert(`Valor recebendo null linha 35 - funcoesDeConversao - ${valor}`);
 
     /* let aux = valor.slice(3,); */
     console.log(`valor original: ${valor}`);
@@ -70,7 +85,7 @@ function fromBTCtoNumber(valor) {
 
 
 
-    return parseFloat(aux.trim()).toFixed(8);
+    return parseFloat(aux).toFixed(8);
 }
 
 function fromNumberToReal(valor) {
@@ -105,6 +120,9 @@ function fromNumberToBTC(valor) {
     //let emDolar = valor.toLocaleString("en-US", { style: "currency", currency: "USD" });
     /* emDolar = emDolar.replace('$', 'BTC');
     emDolar = emDolar.replace(',', ''); */
-    const v = valor.replaceAll(',', '.');
+
+
+
+    let v = `${valor}`.replaceAll(',', '.');
     return 'BTC ' + v;
 }
