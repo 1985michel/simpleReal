@@ -12,7 +12,7 @@ class Conta {
         this.logo = logo;
         this.moneyTimeFlow = [];
         this.moeda = moeda;
-        this.saldo = this.setSaldoInicial(moeda);
+        this.saldo = this.setSaldoInicial(moeda.simbolo);
 
 
 

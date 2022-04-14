@@ -156,13 +156,23 @@ const vm = new Vue({
             logo: '',
             nome: '',
             carteira: '',
-            moeda: '',
+            moeda: {
+                nome: '',
+                simbolo: '',
+                mascara: '',
+            },
+
+
         },
         defaultItemContas: {
             logo: '../imgs/branco.png',
             nome: '',
             carteira: '',
-            moeda: '',
+            moeda: {
+                nome: '',
+                simbolo: '',
+                mascara: '',
+            }
         },
         expandContas: false,
         porcarteira: -1,
@@ -1144,9 +1154,16 @@ const vm = new Vue({
 
                 this.contas.push(novaConta);
 
-                if (!this.carteiras.includes(novaConta.carteira)) {
+                this.updateCarteiras();
+                //this.updateMoedas()
+                //this.calcularTotalNaCarteira();
+                this.calcularTotalNaCarteiraRealBTCDolar();
+                this.calcularCompromissosNaCompetencia();
+                this.setIdsGlobaisParaMaiorUtilizado();
+
+                /* if (!this.carteiras.includes(novaConta.carteira)) {
                     this.updateCarteiras();
-                }
+                } */
             }
             this.closeContas()
         },

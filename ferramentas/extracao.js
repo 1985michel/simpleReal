@@ -201,7 +201,7 @@ function toCompromissosDoMes(compromissosDoMes) {
 
 function getObjectConta(el) {
 
-    const conta = new Conta(el.nome, el.carteira, el.logo)
+    const conta = new Conta(el.nome, el.carteira, el.logo, el.moeda)
 
     conta.id = el.id;
 
