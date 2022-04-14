@@ -502,7 +502,7 @@ const vm = new Vue({
                     if (conta.carteira == carteira.nome || carteira.nome == 'Todas') {
 
                         if (conta.moeda.simbolo == 'R$') {
-                            carteira.saldo.real = fromNumberToReal(fromRealtoNumber(carteira.saldo.real) + fromRealtoNumber(conta.saldo));
+                            carteira.saldo.real = addReais(carteira.saldo.real, conta.saldo);
                         }
                         if (conta.moeda.simbolo == 'U$') {
                             /* const vCarteira = fromDolartoNumber(carteira.saldo.dolar);
@@ -1046,17 +1046,17 @@ const vm = new Vue({
                 if (valorAnterior == '') {
                     valorAnterior = mt.saldo;
                     //console.log(`Primeiro setamos o valorAnterior para ${valorAnterior}`);
-                } else if (fromRealtoNumber(valorAnterior) > fromRealtoNumber(mt.saldo)) {
-                    //console.log(`Como ${fromRealtoNumber(valorAnterior)} > ${fromRealtoNumber(mt.saldo)} : RED`);
+                } else if (fromStringReaisToNumber(valorAnterior) > fromStringReaisToNumber(mt.saldo)) {
+                    //console.log(`Como ${fromStringReaisToNumber(valorAnterior)} > ${fromStringReaisToNumber(mt.saldo)} : RED`);
                     valorAnterior = mt.saldo;
                     mt.cor = 'red';
-                } else if (fromRealtoNumber(valorAnterior) < fromRealtoNumber(mt.saldo)) {
+                } else if (fromStringReaisToNumber(valorAnterior) < fromStringReaisToNumber(mt.saldo)) {
                     valorAnterior = mt.saldo;
                     mt.cor = 'green';
-                    //console.log(`Como ${fromRealtoNumber(valorAnterior)} < ${fromRealtoNumber(mt.saldo)} : GREEN`);
-                } else if (fromRealtoNumber(valorAnterior) == fromRealtoNumber(mt.saldo)) {
+                    //console.log(`Como ${fromStringReaisToNumber(valorAnterior)} < ${fromStringReaisToNumber(mt.saldo)} : GREEN`);
+                } else if (fromStringReaisToNumber(valorAnterior) == fromStringReaisToNumber(mt.saldo)) {
                     valorAnterior = mt.saldo;
-                    // console.log(`Como ${fromRealtoNumber(valorAnterior)} == ${fromRealtoNumber(mt.saldo)} : BLUE`);
+                    // console.log(`Como ${fromStringReaisToNumber(valorAnterior)} == ${fromStringReaisToNumber(mt.saldo)} : BLUE`);
                     mt.cor = 'blue';
                 }
 
@@ -1175,12 +1175,12 @@ const vm = new Vue({
 
                 if (this.filtroPorCarteira(c.carteira)) {
                     if (c.saldo.includes('R$')) {
-                        this.valorTotalNaCarteira += fromRealtoNumber(c.saldo);
+                        this.valorTotalNaCarteira += fromStringReaisToNumber(c.saldo);
                     }
                 }
             }
 
-            this.valorTotalNaCarteira = fromNumberToReal(this.valorTotalNaCarteira)
+            this.valorTotalNaCarteira = setReaisFormat(this.valorTotalNaCarteira)
 
         },
         calcularTotalNaCarteiraRealBTCDolar() {
@@ -1198,8 +1198,8 @@ const vm = new Vue({
 
                 if (this.filtroPorCarteira(c.carteira)) {
                     if (c.saldo.includes('R$')) {
-                        //this.valorTotalNaCarteira['R$'] += fromRealtoNumber(c.saldo);}
-                        r += fromRealtoNumber(c.saldo);
+                        //this.valorTotalNaCarteira['R$'] += fromStringReaisToNumber(c.saldo);}
+                        r = addReais(r, c.saldo)
                     }
                     if (c.saldo.includes('BTC')) {
                         bit = addBitcoin(bit, c.saldo);
@@ -1210,7 +1210,7 @@ const vm = new Vue({
                 }
             }
 
-            this.valorTotalNaCarteira = { real: fromNumberToReal(r), bitcoin: bit, dolar: fromNumberToDolar(d) };
+            this.valorTotalNaCarteira = { real: r, bitcoin: bit, dolar: fromNumberToDolar(d) };
 
         },
 
@@ -1256,7 +1256,7 @@ const vm = new Vue({
             this.editedItemMoneyTime.moeda = conta.moeda
 
             //vamos retirar o R$ antes de apresentar para edição
-            this.editedItemMoneyTime.saldo = fromNumberToRealNoRS(this.editedItemMoneyTime.saldo);
+            this.editedItemMoneyTime.saldo = setReaisFormatNoRS(this.editedItemMoneyTime.saldo);
 
             this.date = parseToDate(this.editedItemMoneyTime.momento.data)
 
@@ -1306,7 +1306,7 @@ const vm = new Vue({
                 console.log(`DEPOIS DO NUMBERT TO DOLAR: ${fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo))}`);
 
 
-                if (this.editedItemMoneyTime.moeda.simbolo == 'R$') this.editedItemMoneyTime.saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+                if (this.editedItemMoneyTime.moeda.simbolo == 'R$') this.editedItemMoneyTime.saldo = setReaisFormat(fromStringReaisToNumber(this.editedItemMoneyTime.saldo));
                 if (this.editedItemMoneyTime.moeda.simbolo == 'U$') this.editedItemMoneyTime.saldo = fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo));
                 if (this.editedItemMoneyTime.moeda.simbolo == 'BTC') this.editedItemMoneyTime.saldo = fromNumberToBTC(fromBTCtoNumber(this.editedItemMoneyTime.saldo));
 
@@ -1328,7 +1328,8 @@ const vm = new Vue({
 
 
                 let saldo = 0;
-                if (this.editedItemMoneyTime.moeda.simbolo == 'R$') saldo = fromNumberToReal(fromRealtoNumber(this.editedItemMoneyTime.saldo));
+                if (this.editedItemMoneyTime.moeda.simbolo == 'R$') saldo = setReaisFormat(fromStringReaisToNumber(this.editedItemMoneyTime.saldo));
+                /* if (this.editedItemMoneyTime.moeda.simbolo == 'R$') saldo = setReaisFormat(fromStringReaisToNumber(this.editedItemMoneyTime.saldo)); */
                 if (this.editedItemMoneyTime.moeda.simbolo == 'U$') saldo = fromNumberToDolar(fromDolartoNumber(this.editedItemMoneyTime.saldo));
                 if (this.editedItemMoneyTime.moeda.simbolo == 'BTC') saldo = fromNumberToBTC(fromBTCtoNumber(this.editedItemMoneyTime.saldo));
 
@@ -1639,11 +1640,12 @@ const vm = new Vue({
                 const c = this.compromissosDoMes[index];
 
                 if (this.filtroPorMes(c.vencimento)) {
-                    this.valorTotalCompromissosNaCompetencia += fromRealtoNumber(c.valor);
+                    this.valorTotalCompromissosNaCompetencia = addReais(this.valorTotalCompromissosNaCompetencia, c.valor);
+                    ;
 
                     //se for faturado no cartão não precisa somar pois já vai estar o valor negativo na conta cartão
                     if (!c.ispago) {
-                        this.valorCompromissosEmAbertoNaCompetencia += fromRealtoNumber(c.valor);
+                        this.valorCompromissosEmAbertoNaCompetencia = addReais(this.valorCompromissosEmAbertoNaCompetencia, c.valor);
                     }
                     /* 
                     A ideia original era que se for faturado no cartão não precisava somar no total da dívida.
@@ -1665,8 +1667,8 @@ const vm = new Vue({
 
             }
 
-            this.valorTotalCompromissosNaCompetencia = fromNumberToReal(this.valorTotalCompromissosNaCompetencia)
-            this.valorCompromissosEmAbertoNaCompetencia = fromNumberToReal(this.valorCompromissosEmAbertoNaCompetencia)
+            //this.valorTotalCompromissosNaCompetencia = setReaisFormat(this.valorTotalCompromissosNaCompetencia)
+            //this.valorCompromissosEmAbertoNaCompetencia = setReaisFormat(this.valorCompromissosEmAbertoNaCompetencia)
 
 
         },
@@ -1755,12 +1757,12 @@ const vm = new Vue({
                 const r = this.recebimentos[index];
 
                 if (this.filtroPorMesRecebimentos(r.dataRecebimento)) {
-                    this.valorTotalDeRecebimentosNaCompetencia += fromRealtoNumber(r.valor);
+                    this.valorTotalDeRecebimentosNaCompetencia += fromStringReaisToNumber(r.valor);
                 }
 
             }
 
-            this.valorTotalDeRecebimentosNaCompetencia = fromNumberToReal(this.valorTotalDeRecebimentosNaCompetencia)
+            this.valorTotalDeRecebimentosNaCompetencia = setReaisFormat(this.valorTotalDeRecebimentosNaCompetencia)
 
 
         },
@@ -1798,7 +1800,7 @@ const vm = new Vue({
             for (let index = 0; index < this.contas.length; index++) {
                 const c = this.contas[index];
 
-                const valorNumerico = fromRealtoNumber(c.saldo)
+                const valorNumerico = fromStringReaisToNumber(c.saldo)
 
                 if (valorNumerico > 0) {
                     totalPositivo += valorNumerico;
@@ -1810,9 +1812,9 @@ const vm = new Vue({
 
             }
 
-            this.resultados.valorEmCaixa = fromNumberToReal(totalPositivo);
-            this.resultados.dividasTotais = fromNumberToReal(totalNegativo);
-            this.resultados.patrimonioReal = fromNumberToReal(totalNegativo + totalPositivo);
+            this.resultados.valorEmCaixa = setReaisFormat(totalPositivo);
+            this.resultados.dividasTotais = setReaisFormat(totalNegativo);
+            this.resultados.patrimonioReal = setReaisFormat(totalNegativo + totalPositivo);
         },
 
 

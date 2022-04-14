@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>Test Suite</title>
 <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.18.1.css">
 
@@ -8,8 +8,57 @@
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.18.1.js"></script>
 
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <!-- //Jquery <<< eu que coloquei -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <!-- funções ferramentais -->
+    <script src="../ferramentas/funcoes-de-ordenacao.js"></script>
+    <script src="../ferramentas/funcoes-de-conversao.js"></script>
+    <script src="../ferramentas/funcoes-de-data.js"></script>
+
+    <!-- teste -->
+    <script src="../dados-testes/teste-conta.js"></script>
+    <script src="../dados-testes/teste-compromisso.js"></script>
+    <script src="../dados-testes/teste-compromisso-do-mes.js"></script>
+    <script src="../dados-testes/teste-recebimentos.js"></script>
+
+    <!-- classes -->
+
+    <script src="../classes/momento.js"></script>
+    <script src="../classes/moneytime.js"></script>
+    <script src="../classes/conta.js"></script>
+    <script src="../classes/compromisso.js"></script>
+    <script src="../classes/recebimento.js"></script>
+
+    <!-- tratamento pre Vue -->
+    <script src="contasPreVue.js"></script>
+    <script src="../ferramentas/extracao.js"></script>
+
+
+
+
+    <script src="vuecore2.js"></script>
+
+
+
+
+
 
     <script>
+
+        //Bitcoins
+
         function addBitcoin(a, b) {
             a = cleanBitcoinFormat(`${a}`);
             b = cleanBitcoinFormat(`${b}`);
@@ -69,6 +118,85 @@
             });
         });
 
+        //Reais
+
+        function addReais(a, b) {
+            return setReaisFormat((fromStringReaisToNumber(a) + fromStringReaisToNumber(b)).toFixed(2));
+        }
+
+        /* function fromStringReaisToNumber(a) {
+            return parseFloat(cleanReaisFormat(a).replaceAll('.', '').replaceAll(',', '.').replaceAll(' ', ''));
+        } */
+        function fromStringReaisToNumber(a) {
+            const isNegativo = `${a}`.includes('-');
+            let result = cleanReaisFormat(a).replaceAll('.', '').replaceAll(',', '.').replaceAll('-', '');
+            result = parseFloat(result);
+            if (isNegativo) result = result * -1;
+            return result
+        }
+
+        function cleanReaisFormat(a) {
+            return `${a}`.replaceAll(' ', '').replaceAll('R$', '');
+        }
+
+        function setReaisFormat(a) {
+            return parseFloat(a).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+        }
+
+        QUnit.module('addReais', function () {
+            QUnit.test('Add Reais', function (assert) {
+                //o .replace(/[^ -~]/g, ' ') é pq o navegador está criando um tipo especial de espaço !+ ' '
+                assert.equal(addReais('0,01', '0,01').replace(/[^ -~]/g, ' '), 'R$ 0,02');
+                assert.equal(addReais('0,02', '0,02').replace(/[^ -~]/g, ' '), 'R$ 0,04');
+                assert.equal(addReais('1,01', '1,01').replace(/[^ -~]/g, ' '), 'R$ 2,02');
+                assert.equal(addReais('100,01', '200,01').replace(/[^ -~]/g, ' '), 'R$ 300,02');
+                assert.equal(addReais('-0,01', '0,01').replace(/[^ -~]/g, ' '), 'R$ 0,00');
+                assert.equal(addReais('-100,01', '-200,01').replace(/[^ -~]/g, ' '), '-R$ 300,02');
+                assert.equal(addReais('R$ 0,01', 'R$ 0,01').replace(/[^ -~]/g, ' '), 'R$ 0,02');
+                assert.equal(addReais('R$ 0,01', 'R$ 0,01').replace(/[^ -~]/g, ' '), 'R$ 0,02');
+                assert.equal(addReais('R$ 0,02', 'R$ 0,02').replace(/[^ -~]/g, ' '), 'R$ 0,04');
+                assert.equal(addReais('R$ 1,01', 'R$1,01').replace(/[^ -~]/g, ' '), 'R$ 2,02');
+                assert.equal(addReais('R$ 100,01', 'R$200,01').replace(/[^ -~]/g, ' '), 'R$ 300,02');
+                assert.equal(addReais('-R$ 0,01', 'R$ -0,01').replace(/[^ -~]/g, ' '), '-R$ 0,02');
+                assert.equal(addReais('-R$ 100,01', '-R$ 200,01').replace(/[^ -~]/g, ' '), '-R$ 300,02');
+                assert.equal(addReais('-R$ 1.287.000,12', '-R$ 1.287.000,12').replace(/[^ -~]/g, ' '), '-R$ 2.574.000,24');
+                assert.equal(addReais('R$ 1,50', '-R$ 1,50').replace(/[^ -~]/g, ' '), 'R$ 0,00');
+            });
+        });
+
+        QUnit.module('fromStringReaisToNumberReais', function () {
+            QUnit.test('Reais: from String to number', function (assert) {
+                assert.equal(fromStringReaisToNumber('0,01'), 0.01);
+                assert.equal(fromStringReaisToNumber('5.103,00'), 5103.0);
+                assert.equal(fromStringReaisToNumber('1,01'), 1.01);
+                assert.equal(fromStringReaisToNumber('1.287.000,12'), 1287000.12);
+                assert.equal(fromStringReaisToNumber('-0,01'), -0.01);
+                assert.equal(fromStringReaisToNumber('-1.287.000,12'), -1287000.12);
+                assert.equal(fromStringReaisToNumber('- R$ 1,00'), -1);
+                assert.equal(fromStringReaisToNumber('- R$ 1,50'), -1.5);
+            });
+        });
+
+        QUnit.module('Clean Reais Format', function () {
+            QUnit.test('Reais: clean format', function (assert) {
+                assert.equal(cleanReaisFormat('R$ 0,01'), '0,01');
+                assert.equal(cleanReaisFormat('-R$ 0,01'), '-0,01');
+                assert.equal(cleanReaisFormat('R$ 1.125.202,01'), '1.125.202,01');
+                assert.equal(cleanReaisFormat('-R$ 1.125.202,01'), '-1.125.202,01');
+                assert.equal(cleanReaisFormat('R$ - 1.125.202,01'), '-1.125.202,01');
+            });
+        });
+
+        //ToLocalString não funciona aqui no QUnit, não sei porque. Então não tem como estar ele aqui.
+
+        QUnit.module('Set Reais Format', function () {
+            QUnit.test('Reais: set format', function (assert) {
+                assert.equal(setReaisFormat('-125.50').replace(/[^ -~]/g, ' '), "-R$ 125,50");
+            });
+        });
+
+
 
     </script>
+
 </body>

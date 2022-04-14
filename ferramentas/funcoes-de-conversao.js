@@ -27,30 +27,43 @@ function setBitcoinFormat(a) {
     return `BTC ${cleanBitcoinFormat(a)}`;
 }
 
-function fromRealtoNumber(valor) {
 
-    /* let aux = valor.slice(3,); */
-    //console.log(`valor original: ${valor}`);
+//Reais
+
+function addReais(a, b) {
+    return setReaisFormat((fromStringReaisToNumber(a) + fromStringReaisToNumber(b)).toFixed(2));
+}
+
+function fromStringReaisToNumber(a) {
+    const isNegativo = `${a}`.includes('-');
+    let result = cleanReaisFormat(a).replaceAll('.', '').replaceAll(',', '.').replaceAll('-', '');
+    result = parseFloat(result);
+    if (isNegativo) result = result * -1;
+    return result
+}
+
+function cleanReaisFormat(a) {
+    return `${a}`.replaceAll(' ', '').replaceAll('R$', '');
+}
+
+function setReaisFormat(a) {
+    return parseFloat(a).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+}
+
+function setReaisFormatNoRS(valor) {
+    const formatted = valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+    return formatted.replaceAll('R$', '').trim();
+}
+
+/* function fromRealtoNumber(valor) {
+
     let aux = valor.replaceAll('R$', '');
-
-    //console.log(`apos retirar o R$: ${aux}`);
-
     aux = aux.replaceAll('.', '');
     aux = aux.replaceAll(',', '.');
-
-    //console.log(`trocando pontos e virgulas: ${aux}`);
-
     aux = aux.replaceAll(' ', '');
 
-    //console.log(`apos retirar os espacos em branco: ${aux}`);
     const isNegativo = valor.includes('-');
-
     aux = aux.replaceAll('-', '');
-
-    /* if (valor.includes('860')) {
-        alert(`Conta do Cartao: ${aux}`);
-    } */
-
     if (isNegativo) {
         aux = parseFloat(aux) * -1;
     } else {
@@ -58,7 +71,7 @@ function fromRealtoNumber(valor) {
     }
 
     return aux;
-}
+} */
 
 function fromDolartoNumber(valor) {
 
@@ -82,22 +95,16 @@ function fromDolartoNumber(valor) {
     return parseFloat(aux);
 }
 
-function fromNumberToReal(valor) {
-    /* let aux = `${valor}`;
-
-    aux = aux.replaceAll('.', ',');
-    return `${valor < 0 ? '-' : ''} R$ ` */
+/* function fromNumberToReal(valor) {
+    
     return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
 
 function fromNumberToRealNoRS(valor) {
-    /* let aux = `${valor}`;
-
-    aux = aux.replaceAll('.', ',');
-    return `${valor < 0 ? '-' : ''} R$ ` */
+    
     const formatted = valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
     return formatted.replaceAll('R$', '').trim();
-}
+} */
 
 function fromNumberToDolar(valor) {
 
