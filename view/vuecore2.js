@@ -482,7 +482,7 @@ const vm = new Vue({
 
             }
 
-            console.log(`vuecore linha 475: Temos ${this.resumoCarteiras.length} resumos de carteiras.`);
+            //console.log(`vuecore linha 475: Temos ${this.resumoCarteiras.length} resumos de carteiras.`);
 
             for (let i = 0; i < this.resumoCarteiras.length; i++) {
                 const c = this.resumoCarteiras[i];
@@ -491,7 +491,7 @@ const vm = new Vue({
 
             }
 
-            console.log(`Quantas contas temos? ${this.contas.length}`);
+            //console.log(`Quantas contas temos? ${this.contas.length}`);
 
             for (let i = 0; i < this.contas.length; i++) {
                 const conta = this.contas[i];
@@ -510,9 +510,7 @@ const vm = new Vue({
                             carteira.saldo.dolar = fromNumberToDolar(fromDolartoNumber(carteira.saldo.dolar) + fromDolartoNumber(conta.saldo));
                         }
                         if (conta.moeda.simbolo == 'BTC') {
-                            carteira.saldo.bitcoin = fromNumberToBTC(
-                                parseFloat(fromBTCtoNumber(carteira.saldo.bitcoin)) + parseFloat(fromBTCtoNumber(conta.saldo))
-                            );
+                            carteira.saldo.bitcoin = addBitcoin(carteira.saldo.bitcoin, conta.saldo);
                         }
                     }
                 }
@@ -1204,7 +1202,7 @@ const vm = new Vue({
                         r += fromRealtoNumber(c.saldo);
                     }
                     if (c.saldo.includes('BTC')) {
-                        bit = parseFloat(bit) + parseFloat(fromBTCtoNumber(c.saldo));
+                        bit = addBitcoin(bit, c.saldo);
                     }
                     if (c.saldo.includes('U$')) {
                         d += fromDolartoNumber(c.saldo);

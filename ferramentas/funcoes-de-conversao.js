@@ -9,6 +9,23 @@
     return parseFloat(aux);
 } */
 
+function addBitcoin(a, b) {
+    a = cleanBitcoinFormat(`${a}`);
+    b = cleanBitcoinFormat(`${b}`);
+    return setBitcoinFormat((fromStringBitcoinToNumberBitcoin(a) + fromStringBitcoinToNumberBitcoin(b)).toFixed(8));
+}
+
+function fromStringBitcoinToNumberBitcoin(bitIn) {
+    return parseFloat(parseFloat(bitIn).toFixed(8));
+}
+
+function cleanBitcoinFormat(a) {
+    return a.replace('BTC', '').replaceAll(' ', '').replaceAll(',', '.');
+}
+
+function setBitcoinFormat(a) {
+    return `BTC ${cleanBitcoinFormat(a)}`;
+}
 
 function fromRealtoNumber(valor) {
 
@@ -65,29 +82,6 @@ function fromDolartoNumber(valor) {
     return parseFloat(aux);
 }
 
-function fromBTCtoNumber(valor) {
-
-
-    /* let aux = valor.slice(3,); */
-    //console.log(`valor original: ${valor}`);
-    let aux = valor.replaceAll('BTC', '');
-
-    //console.log(`apos retirar o R$: ${aux}`);
-
-    //aux = aux.replaceAll('.', ',');
-    //aux = aux.replaceAll(',', '.');
-
-    //console.log(`trocando pontos e virgulas: ${aux}`);
-
-    aux = aux.replaceAll(' ', '');
-
-    //console.log(`apos retirar os espacos em branco: ${aux}`);
-
-
-
-    return parseFloat(aux).toFixed(8);
-}
-
 function fromNumberToReal(valor) {
     /* let aux = `${valor}`;
 
@@ -111,18 +105,3 @@ function fromNumberToDolar(valor) {
     return v.replaceAll('$', 'U$ ');
 }
 
-function fromNumberToBTC(valor) {
-    /* let aux = `${valor}`;
-
-    aux = aux.replaceAll('.', ',');
-    return `${valor < 0 ? '-' : ''} R$ ` */
-    //alert(`Total BTC antes da conversao final: ${valor}`);
-    //let emDolar = valor.toLocaleString("en-US", { style: "currency", currency: "USD" });
-    /* emDolar = emDolar.replace('$', 'BTC');
-    emDolar = emDolar.replace(',', ''); */
-
-
-
-    let v = `${valor}`.replaceAll(',', '.');
-    return 'BTC ' + v;
-}

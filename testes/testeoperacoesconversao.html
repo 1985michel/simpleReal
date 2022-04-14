@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Test Suite</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.18.1.css">
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.18.1.js"></script>
+
+
+    <script>
+        function addBitcoin(a, b) {
+            a = cleanBitcoinFormat(`${a}`);
+            b = cleanBitcoinFormat(`${b}`);
+            return setBitcoinFormat((fromStringBitcoinToNumberBitcoin(a) + fromStringBitcoinToNumberBitcoin(b)).toFixed(8));
+        }
+
+        function fromStringBitcoinToNumberBitcoin(bitIn) {
+            return parseFloat(parseFloat(bitIn).toFixed(8));
+        }
+
+        function cleanBitcoinFormat(a) {
+            return a.replace('BTC', '').replaceAll(' ', '').replaceAll(',', '.');
+        }
+
+        function setBitcoinFormat(a) {
+            return `BTC ${cleanBitcoinFormat(a)}`;
+        }
+
+        QUnit.module('Bitcoin: from String to Number 8 decimals', function () {
+            QUnit.test('Convert Bitcoin', function (assert) {
+                assert.equal(fromStringBitcoinToNumberBitcoin('0.00000001'), 0.00000001);
+                assert.equal(fromStringBitcoinToNumberBitcoin('0.00000002'), 0.00000002);
+                assert.equal(fromStringBitcoinToNumberBitcoin('0.12345678'), 0.12345678);
+                assert.equal(fromStringBitcoinToNumberBitcoin('1.12345678'), 1.12345678);
+            });
+        });
+
+        QUnit.module('addBitcoin', function () {
+            QUnit.test('add Bitcoin', function (assert) {
+                assert.equal(addBitcoin('0.00000001', '0.00000001'), 'BTC 0.00000002');
+                assert.equal(addBitcoin('0.00000001', '0.00000002'), 'BTC 0.00000003');
+                assert.equal(addBitcoin('0.00000002', '0.00000002'), 'BTC 0.00000004');
+                assert.equal(addBitcoin('0.00000001', '0.12345678'), 'BTC 0.12345679');
+                assert.equal(addBitcoin('1.12345678', '0.00000001'), 'BTC 1.12345679');
+                assert.equal(addBitcoin('BTC 0.00000001', 'BTC 0.00000002'), 'BTC 0.00000003');
+                assert.equal(addBitcoin('BTC 0.00000002', 'BTC 0.00000002'), 'BTC 0.00000004');
+                assert.equal(addBitcoin('BTC 0.00000001', ' 0.12345678'), 'BTC 0.12345679');
+                assert.equal(addBitcoin('BTC 1.12345678', 'BTC 0.00000001'), 'BTC 1.12345679');
+            });
+        });
+
+        QUnit.module('Clean Bitcoin Format', function () {
+            QUnit.test('Clean Bitcoin Format', function (assert) {
+                assert.equal(cleanBitcoinFormat('BTC 0.00000001'), '0.00000001');
+                assert.equal(cleanBitcoinFormat(' BTC  0.00000001 '), '0.00000001');
+                assert.equal(cleanBitcoinFormat('0.00000001 '), '0.00000001');
+                assert.equal(cleanBitcoinFormat('0.00000001'), '0.00000001');
+            });
+        });
+
+        QUnit.module('Set Bitcoin Format', function () {
+            QUnit.test('Set Bitcoin Format', function (assert) {
+                assert.equal(setBitcoinFormat('0.00000001'), 'BTC 0.00000001');
+                assert.equal(setBitcoinFormat(' BTC  0.00000001 '), 'BTC 0.00000001');
+                assert.equal(setBitcoinFormat('0,00000001 '), 'BTC 0.00000001');
+                assert.equal(setBitcoinFormat('BTC 0,00000001'), 'BTC 0.00000001');
+            });
+        });
+
+
+    </script>
+</body>
